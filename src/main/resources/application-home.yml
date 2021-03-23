@@ -1,0 +1,13 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/oa_2021?characterEncoding=UTF8
+    username: root
+    password: weijiang
+  thymeleaf:
+    mode: HTML5
+    encoding: UTF-8
+    cache: false
+    suffix: .html
+server:
+  port: 8081
