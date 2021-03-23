@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sifunit.lanwei.mapper.GoodsMapper">
+    <resultMap id="BaseResultMap" type="com.sifunit.lanwei.domain.Goods">
+        <constructor>
+            <idArg column="good_id" javaType="java.lang.Long" jdbcType="BIGINT" />
+            <arg column="good_images" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="good_num" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="good_name" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="good_size" javaType="java.lang.String" jdbcType="CHAR" />
+            <arg column="good_inner_ring" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="good_desc" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="create_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+        </constructor>
+    </resultMap>
+    <sql id="Base_Column_List">
+        good_id, good_images, good_num, good_name, good_size, good_inner_ring, good_desc,
+    create_time
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from goods
+        where good_id = #{goodId,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from goods
+        where good_id = #{goodId,jdbcType=BIGINT}
+    </delete>
+    <insert id="insert" parameterType="com.sifunit.lanwei.domain.Goods">
+        insert into goods (good_id, good_images, good_num,
+                           good_name, good_size, good_inner_ring,
+                           good_desc, create_time)
+        values (#{goodId,jdbcType=BIGINT}, #{goodImages,jdbcType=VARCHAR}, #{goodNum,jdbcType=VARCHAR},
+                #{goodName,jdbcType=VARCHAR}, #{goodSize,jdbcType=CHAR}, #{goodInnerRing,jdbcType=VARCHAR},
+                #{goodDesc,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP})
+    </insert>
+    <insert id="insertSelective" parameterType="com.sifunit.lanwei.domain.Goods">
+        insert into goods
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="goodId != null">
+                good_id,
+            </if>
+            <if test="goodImages != null">
+                good_images,
+            </if>
+            <if test="goodNum != null">
+                good_num,
+            </if>
+            <if test="goodName != null">
+                good_name,
+            </if>
+            <if test="goodSize != null">
+                good_size,
+            </if>
+            <if test="goodInnerRing != null">
+                good_inner_ring,
+            </if>
+            <if test="goodDesc != null">
+                good_desc,
+            </if>
+
+                create_time,
+
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="goodId != null">
+                #{goodId,jdbcType=BIGINT},
+            </if>
+            <if test="goodImages != null">
+                #{goodImages,jdbcType=VARCHAR},
+            </if>
+            <if test="goodNum != null">
+                #{goodNum,jdbcType=VARCHAR},
+            </if>
+            <if test="goodName != null">
+                #{goodName,jdbcType=VARCHAR},
+            </if>
+            <if test="goodSize != null">
+                #{goodSize,jdbcType=CHAR},
+            </if>
+            <if test="goodInnerRing != null">
+                #{goodInnerRing,jdbcType=VARCHAR},
+            </if>
+            <if test="goodDesc != null">
+                #{goodDesc,jdbcType=VARCHAR},
+            </if>
+            now()
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.sifunit.lanwei.domain.Goods">
+        update goods
+        <set>
+            <if test="goodImages != null">
+                good_images = #{goodImages,jdbcType=VARCHAR},
+            </if>
+            <if test="goodNum != null">
+                good_num = #{goodNum,jdbcType=VARCHAR},
+            </if>
+            <if test="goodName != null">
+                good_name = #{goodName,jdbcType=VARCHAR},
+            </if>
+            <if test="goodSize != null">
+                good_size = #{goodSize,jdbcType=CHAR},
+            </if>
+            <if test="goodInnerRing != null">
+                good_inner_ring = #{goodInnerRing,jdbcType=VARCHAR},
+            </if>
+            <if test="goodDesc != null">
+                good_desc = #{goodDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where good_id = #{goodId,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.sifunit.lanwei.domain.Goods">
+        update goods
+        set good_images = #{goodImages,jdbcType=VARCHAR},
+            good_num = #{goodNum,jdbcType=VARCHAR},
+            good_name = #{goodName,jdbcType=VARCHAR},
+            good_size = #{goodSize,jdbcType=CHAR},
+            good_inner_ring = #{goodInnerRing,jdbcType=VARCHAR},
+            good_desc = #{goodDesc,jdbcType=VARCHAR},
+            create_time = #{createTime,jdbcType=TIMESTAMP}
+        where good_id = #{goodId,jdbcType=BIGINT}
+    </update>
+    <select id="list" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from goods order by good_id desc
+    </select>
+</mapper>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sifunit.lanwei.mapper.PermMapper">
+  <resultMap id="BaseResultMap" type="com.sifunit.lanwei.domain.Perm">
+    <constructor>
+      <idArg column="perm_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="perm_url" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="perm_description" javaType="java.lang.String" jdbcType="VARCHAR" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    perm_id, perm_url, perm_description
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from perm
+    where perm_id = #{permId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from perm
+    where perm_id = #{permId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.sifunit.lanwei.domain.Perm">
+    insert into perm (perm_id, perm_url, perm_description
+      )
+    values (#{permId,jdbcType=INTEGER}, #{permUrl,jdbcType=VARCHAR}, #{permDescription,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.sifunit.lanwei.domain.Perm">
+    insert into perm
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="permId != null">
+        perm_id,
+      </if>
+      <if test="permUrl != null">
+        perm_url,
+      </if>
+      <if test="permDescription != null">
+        perm_description,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="permId != null">
+        #{permId,jdbcType=INTEGER},
+      </if>
+      <if test="permUrl != null">
+        #{permUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="permDescription != null">
+        #{permDescription,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sifunit.lanwei.domain.Perm">
+    update perm
+    <set>
+      <if test="permUrl != null">
+        perm_url = #{permUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="permDescription != null">
+        perm_description = #{permDescription,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where perm_id = #{permId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sifunit.lanwei.domain.Perm">
+    update perm
+    set perm_url = #{permUrl,jdbcType=VARCHAR},
+      perm_description = #{permDescription,jdbcType=VARCHAR}
+    where perm_id = #{permId,jdbcType=INTEGER}
+  </update>
+  <select id="getPermList" resultType="com.sifunit.lanwei.domain.Perm">
+    SELECT p.* FROM perm AS p
+                      INNER JOIN role_perm AS rp ON p.perm_id = rp.perm_id
+                      INNER JOIN user_role AS ur ON ur.role_id = rp.role_id
+    WHERE ur.user_id=#{userId}
+    GROUP BY p.id ORDER BY p.id ASC;
+  </select>
+</mapper>
