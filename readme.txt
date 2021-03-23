@@ -6,4 +6,6 @@ git cloe xxxxx.git
 cd lanwei
 git branch -a
 git checkout xxxx
+git add .
+git commit -m ''
 git pull
