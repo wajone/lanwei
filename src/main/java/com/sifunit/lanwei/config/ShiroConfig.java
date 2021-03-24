@@ -32,15 +32,18 @@ public class ShiroConfig {
         /**
          * 允许匿名访问静态资源
          */
-        filterMap.put("/image/**", "anon");
+        filterMap.put("/images/**", "anon");
         filterMap.put("/css/**", "anon");
         filterMap.put("/js/**", "anon");
+        filterMap.put("/lib/**", "anon");
+        filterMap.put("/fonts/**", "anon");
         filterMap.put("/plugin/**", "anon");
         /**
          * 允许匿名访问登录页面和登录操作
          */
         filterMap.put("/login", "anon");
         filterMap.put("/loginAuth", "anon");
+        filterMap.put("/captcha", "anon");
         /**
          * 其它所有请求需要登录认证后才能访问
          */
@@ -64,24 +67,12 @@ public class ShiroConfig {
 
     //创建realm对象
     @Bean
-    public UserRealm userRealm(@Qualifier("hashedCredentialsMatcher") HashedCredentialsMatcher matcher) {
+    public UserRealm userRealm() {
         UserRealm userRealm = new UserRealm();
-        userRealm.setCredentialsMatcher(matcher);
+
         return new UserRealm();
     }
 
-    @Bean("hashedCredentialsMatcher")
-    public HashedCredentialsMatcher hashedCredentialsMatcher() {
-
-        HashedCredentialsMatcher credentialsMatcher = new HashedCredentialsMatcher();
-        // 散列算法（加密）
-        credentialsMatcher.setHashAlgorithmName("MD5");
-        // 散列次数（加密次数）
-        credentialsMatcher.setHashIterations(1);
-        // storedCredentialsHexEncoded 默认是true，此时用的是密码加密用的是Hex编码；false时用Base64编码
-        credentialsMatcher.setStoredCredentialsHexEncoded(true);
-        return credentialsMatcher;
-    }
 
     @Bean
     public ShiroDialect getShiroDialect() {

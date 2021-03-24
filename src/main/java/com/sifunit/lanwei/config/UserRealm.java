@@ -38,10 +38,12 @@ public class UserRealm extends AuthorizingRealm {
             List<String> perms = new LinkedList<>();
             for (Role role : roleService.getRoleList(user.getUserId())) {
                 roles.add(role.getRoleName());
+                System.out.println(role.getRoleName());
             }
 
             for (Perm perm : permService.getPermList(user.getUserId())) {
                 perms.add(perm.getPermUrl());
+                System.out.println(perm.getPermUrl());
             }
 
             simpleAuthorizationInfo.addRoles(roles);
@@ -49,7 +51,7 @@ public class UserRealm extends AuthorizingRealm {
             return simpleAuthorizationInfo;
         }
         subject.getSession().setAttribute("loginuser", user);
-        //simpleAuthorizationInfo.addStringPermission("/*");
+
         return null;
     }
 
@@ -60,7 +62,7 @@ public class UserRealm extends AuthorizingRealm {
         //链接数据库查询用户
         System.out.println(userToken.getUsername());
         User user = userService.selectByUsername(userToken.getUsername());
-        System.out.println(user);
+        System.out.println(user.getPassword());
         if (user == null) {
             return null;
         }
