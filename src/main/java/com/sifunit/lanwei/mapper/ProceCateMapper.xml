@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sifunit.lanwei.mapper.ProceCateMapper">
+  <resultMap id="BaseResultMap" type="com.sifunit.lanwei.domain.ProceCate">
+    <constructor>
+      <idArg column="proce_cate_id" javaType="java.lang.Long" jdbcType="BIGINT" />
+      <arg column="proce_cate_name" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="parent_proce_cate_id" javaType="java.lang.Long" jdbcType="BIGINT" />
+      <arg column="proce_cate_desc" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="flag" javaType="java.lang.Boolean" jdbcType="BIT" />
+      <arg column="create_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="update_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    proce_cate_id, proce_cate_name, parent_proce_cate_id, proce_cate_desc, flag, create_time, 
+    update_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from proce_cate
+    where proce_cate_id = #{proceCateId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from proce_cate
+    where proce_cate_id = #{proceCateId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.sifunit.lanwei.domain.ProceCate">
+    insert into proce_cate (proce_cate_id, proce_cate_name, parent_proce_cate_id, 
+      proce_cate_desc, flag, create_time, 
+      update_time)
+    values (#{proceCateId,jdbcType=BIGINT}, #{proceCateName,jdbcType=VARCHAR}, #{parentProceCateId,jdbcType=BIGINT}, 
+      #{proceCateDesc,jdbcType=VARCHAR}, #{flag,jdbcType=BIT}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sifunit.lanwei.domain.ProceCate">
+    insert into proce_cate
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="proceCateId != null">
+        proce_cate_id,
+      </if>
+      <if test="proceCateName != null">
+        proce_cate_name,
+      </if>
+      <if test="parentProceCateId != null">
+        parent_proce_cate_id,
+      </if>
+      <if test="proceCateDesc != null">
+        proce_cate_desc,
+      </if>
+      <if test="flag != null">
+        flag,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="proceCateId != null">
+        #{proceCateId,jdbcType=BIGINT},
+      </if>
+      <if test="proceCateName != null">
+        #{proceCateName,jdbcType=VARCHAR},
+      </if>
+      <if test="parentProceCateId != null">
+        #{parentProceCateId,jdbcType=BIGINT},
+      </if>
+      <if test="proceCateDesc != null">
+        #{proceCateDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="flag != null">
+        #{flag,jdbcType=BIT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sifunit.lanwei.domain.ProceCate">
+    update proce_cate
+    <set>
+      <if test="proceCateName != null">
+        proce_cate_name = #{proceCateName,jdbcType=VARCHAR},
+      </if>
+      <if test="parentProceCateId != null">
+        parent_proce_cate_id = #{parentProceCateId,jdbcType=BIGINT},
+      </if>
+      <if test="proceCateDesc != null">
+        proce_cate_desc = #{proceCateDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="flag != null">
+        flag = #{flag,jdbcType=BIT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where proce_cate_id = #{proceCateId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sifunit.lanwei.domain.ProceCate">
+    update proce_cate
+    set proce_cate_name = #{proceCateName,jdbcType=VARCHAR},
+      parent_proce_cate_id = #{parentProceCateId,jdbcType=BIGINT},
+      proce_cate_desc = #{proceCateDesc,jdbcType=VARCHAR},
+      flag = #{flag,jdbcType=BIT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where proce_cate_id = #{proceCateId,jdbcType=BIGINT}
+  </update>
+  <select id="list" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from proce_cate
+  </select>
+</mapper>
