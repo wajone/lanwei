@@ -50,7 +50,6 @@ public class UserRealm extends AuthorizingRealm {
             simpleAuthorizationInfo.addStringPermissions(perms);
             return simpleAuthorizationInfo;
         }
-        subject.getSession().setAttribute("loginuser", user);
 
         return null;
     }

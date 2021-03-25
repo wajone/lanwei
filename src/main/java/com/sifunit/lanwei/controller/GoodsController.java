@@ -34,7 +34,6 @@ public class GoodsController {
                               @RequestParam("goodInnerRing") String goodInnerRing,
                               @RequestParam("goodDesc") String goodDesc) throws IOException {
         SysResult sysResult = new SysResult(false);
-        System.out.println("hee");
         String uploadPath = "E:/upload/";
         Goods goods = new Goods();
         StringBuffer imagesUrl = new StringBuffer();

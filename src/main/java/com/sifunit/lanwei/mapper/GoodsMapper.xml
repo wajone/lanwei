@@ -126,7 +126,7 @@
             create_time = #{createTime,jdbcType=TIMESTAMP}
         where good_id = #{goodId,jdbcType=BIGINT}
     </update>
-    <select id="list" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    <select id="list" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List" />
         from goods order by good_id desc

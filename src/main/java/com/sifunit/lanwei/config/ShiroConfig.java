@@ -47,6 +47,7 @@ public class ShiroConfig {
         /**
          * 其它所有请求需要登录认证后才能访问
          */
+        //filterMap.put("/**", "authc");
         filterMap.put("/**", "authc");
 
 

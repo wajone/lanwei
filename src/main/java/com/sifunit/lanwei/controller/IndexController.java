@@ -52,12 +52,11 @@ public class IndexController {
     @RequestMapping("/loginAuth")
     @ResponseBody
     public SysResult loginAuth(String username, String password, boolean rememberMe, Model model, HttpServletRequest request) {
-        System.out.println(password + "/" + username + rememberMe);
+
         SysResult sysResult = new SysResult(false);
         String captchaId = (String)
                 request.getSession().getAttribute(Constants.KAPTCHA_SESSION_KEY);
         String parameter = request.getParameter("veritycode");
-        System.out.println("Session  vrifyCode "+captchaId+" form veritycode "+parameter);
         if (!captchaId.equals(parameter)) {
             sysResult.setData("验证码错误！");
             return sysResult;

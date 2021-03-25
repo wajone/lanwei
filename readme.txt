@@ -9,3 +9,34 @@ git checkout xxxx
 git add .
 git commit -m ''
 git pull
+
+解决了验证码问题
+
+工序：
+    下料
+        裁高发泡
+        切金属条
+        手剪加修边
+
+    拼缝
+        普通拼缝
+        三角针
+        高架车
+        剪海绵
+        双针车
+
+    高频
+        高频-盘套
+        高频-BB胶
+
+    套圈
+        单层套圈
+        双层套圈
+    包圈
+        折边包圈
+    验收
+    包装
+        普通包装
+        打箱
+
+$(":text").val("Hello World");jquery设置value值
