@@ -5,7 +5,7 @@
     <constructor>
       <idArg column="proce_cate_id" javaType="java.lang.Long" jdbcType="BIGINT" />
       <arg column="proce_cate_name" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="parent_proce_cate_id" javaType="java.lang.Long" jdbcType="BIGINT" />
+      <arg column="parent_cate_id" javaType="java.lang.Long" jdbcType="BIGINT" />
       <arg column="proce_cate_desc" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="flag" javaType="java.lang.Boolean" jdbcType="BIT" />
       <arg column="create_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
@@ -13,7 +13,7 @@
     </constructor>
   </resultMap>
   <sql id="Base_Column_List">
-    proce_cate_id, proce_cate_name, parent_proce_cate_id, proce_cate_desc, flag, create_time, 
+    proce_cate_id, proce_cate_name, parent_cate_id, proce_cate_desc, flag, create_time, 
     update_time
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
@@ -27,10 +27,10 @@
     where proce_cate_id = #{proceCateId,jdbcType=BIGINT}
   </delete>
   <insert id="insert" parameterType="com.sifunit.lanwei.domain.ProceCate">
-    insert into proce_cate (proce_cate_id, proce_cate_name, parent_proce_cate_id, 
+    insert into proce_cate (proce_cate_id, proce_cate_name, parent_cate_id, 
       proce_cate_desc, flag, create_time, 
       update_time)
-    values (#{proceCateId,jdbcType=BIGINT}, #{proceCateName,jdbcType=VARCHAR}, #{parentProceCateId,jdbcType=BIGINT}, 
+    values (#{proceCateId,jdbcType=BIGINT}, #{proceCateName,jdbcType=VARCHAR}, #{parentCateId,jdbcType=BIGINT}, 
       #{proceCateDesc,jdbcType=VARCHAR}, #{flag,jdbcType=BIT}, #{createTime,jdbcType=TIMESTAMP}, 
       #{updateTime,jdbcType=TIMESTAMP})
   </insert>
@@ -43,8 +43,8 @@
       <if test="proceCateName != null">
         proce_cate_name,
       </if>
-      <if test="parentProceCateId != null">
-        parent_proce_cate_id,
+      <if test="parentCateId != null">
+        parent_cate_id,
       </if>
       <if test="proceCateDesc != null">
         proce_cate_desc,
@@ -66,8 +66,8 @@
       <if test="proceCateName != null">
         #{proceCateName,jdbcType=VARCHAR},
       </if>
-      <if test="parentProceCateId != null">
-        #{parentProceCateId,jdbcType=BIGINT},
+      <if test="parentCateId != null">
+        #{parentCateId,jdbcType=BIGINT},
       </if>
       <if test="proceCateDesc != null">
         #{proceCateDesc,jdbcType=VARCHAR},
@@ -89,8 +89,8 @@
       <if test="proceCateName != null">
         proce_cate_name = #{proceCateName,jdbcType=VARCHAR},
       </if>
-      <if test="parentProceCateId != null">
-        parent_proce_cate_id = #{parentProceCateId,jdbcType=BIGINT},
+      <if test="parentCateId != null">
+        parent_cate_id = #{parentCateId,jdbcType=BIGINT},
       </if>
       <if test="proceCateDesc != null">
         proce_cate_desc = #{proceCateDesc,jdbcType=VARCHAR},
@@ -110,7 +110,7 @@
   <update id="updateByPrimaryKey" parameterType="com.sifunit.lanwei.domain.ProceCate">
     update proce_cate
     set proce_cate_name = #{proceCateName,jdbcType=VARCHAR},
-      parent_proce_cate_id = #{parentProceCateId,jdbcType=BIGINT},
+      parent_cate_id = #{parentCateId,jdbcType=BIGINT},
       proce_cate_desc = #{proceCateDesc,jdbcType=VARCHAR},
       flag = #{flag,jdbcType=BIT},
       create_time = #{createTime,jdbcType=TIMESTAMP},

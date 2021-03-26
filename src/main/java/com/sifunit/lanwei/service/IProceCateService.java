@@ -6,5 +6,5 @@ import com.sifunit.lanwei.domain.ProceCate;
 import org.springframework.ui.Model;
 
 public interface IProceCateService extends IBaseService<ProceCate> {
-    PageInfo<ProceCate> getPageInfo(Page page, Model model);
+    PageInfo<ProceCate> getPage(Page page, Model model);
 }

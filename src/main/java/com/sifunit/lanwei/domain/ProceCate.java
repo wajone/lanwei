@@ -7,7 +7,7 @@ public class ProceCate {
 
     private String proceCateName;
 
-    private Long parentProceCateId;
+    private Long parentCateId;
 
     private String proceCateDesc;
 
@@ -17,10 +17,10 @@ public class ProceCate {
 
     private Date updateTime;
 
-    public ProceCate(Long proceCateId, String proceCateName, Long parentProceCateId, String proceCateDesc, Boolean flag, Date createTime, Date updateTime) {
+    public ProceCate(Long proceCateId, String proceCateName, Long parentCateId, String proceCateDesc, Boolean flag, Date createTime, Date updateTime) {
         this.proceCateId = proceCateId;
         this.proceCateName = proceCateName;
-        this.parentProceCateId = parentProceCateId;
+        this.parentCateId = parentCateId;
         this.proceCateDesc = proceCateDesc;
         this.flag = flag;
         this.createTime = createTime;
@@ -47,12 +47,12 @@ public class ProceCate {
         this.proceCateName = proceCateName == null ? null : proceCateName.trim();
     }
 
-    public Long getParentProceCateId() {
-        return parentProceCateId;
+    public Long getParentCateId() {
+        return parentCateId;
     }
 
-    public void setParentProceCateId(Long parentProceCateId) {
-        this.parentProceCateId = parentProceCateId;
+    public void setParentCateId(Long parentCateId) {
+        this.parentCateId = parentCateId;
     }
 
     public String getProceCateDesc() {

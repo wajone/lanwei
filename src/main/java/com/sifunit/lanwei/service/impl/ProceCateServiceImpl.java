@@ -15,20 +15,19 @@ import java.util.List;
 
 @Service
 public class ProceCateServiceImpl extends BaseServiceImpl<ProceCate> implements IProceCateService {
-
     @Autowired
     ProceCateMapper proceCateMapper;
-
     @Override
     public IBaseMapper<ProceCate> getMapper() {
         return proceCateMapper;
     }
 
     @Override
-    public PageInfo<ProceCate> getPageInfo(Page page, Model model) {
+    public PageInfo<ProceCate> getPage(Page page, Model model) {
         PageHelper.startPage(page.getCurrentPage(), page.getPageSize());
         List<ProceCate> list = proceCateMapper.list();
         PageInfo<ProceCate> pageInfo = new PageInfo<>(list);
-        return  pageInfo;
+        System.out.println(page.getPageSize());
+        return pageInfo;
     }
 }

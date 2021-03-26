@@ -9,5 +9,4 @@ import java.util.List;
 public interface ProceCateMapper extends IBaseMapper<ProceCate> {
 
     List<ProceCate> list();
-
 }

@@ -23,11 +23,11 @@
             <div class="layui-row">
                 <form class="layui-form" id="deptform">
                   <div class="layui-form-item">
-                      <label for="deptName" class="layui-form-label">
+                      <label for="proceCateName" class="layui-form-label">
                           <span class="x-red">*</span>分类名称
                       </label>
                       <div class="layui-input-inline">
-                          <input type="text" id="deptname" name="deptName" required="" lay-verify="required"
+                          <input type="text" id="proceCateName" name="proceCateName" required="" lay-verify="required"
                           autocomplete="off" class="layui-input">
                       </div>
                       <div class="layui-form-mid layui-word-aux">
@@ -132,7 +132,7 @@
                     console.log(JSON.stringify(data.field));
                     $.ajax({
                         data: $("#deptform").serialize(),
-                        url: "sysDept/add",
+                        url: "proceCate/add",
                         type: 'POST',
                         success: function (res) {
                             if (res.result) {
