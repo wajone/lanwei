@@ -48,4 +48,27 @@ public class ProceCateController {
     public String toAdd() {
         return "proceCate/proceCate_add";
     }
+
+    @GetMapping("toUpdate")
+    public String toUpdate(Long proceCateId, Model model) {
+        ProceCate proceCate = proceCateService.selectByPrimaryKey(proceCateId);
+        System.out.println(proceCate);
+        model.addAttribute("proceCate", proceCate);
+        return "proceCate/proceCate_update";
+    }
+
+    @RequestMapping("update")
+    @ResponseBody
+    public SysResult update(ProceCate proceCate) {
+        System.out.println(proceCate);
+        SysResult sysResult = new SysResult(false);
+        int count = proceCateService.updateByPrimaryKeySelective(proceCate);
+        if (count > 0) {
+            sysResult.setResult(true);
+            sysResult.setData("修改成功!");
+        } else {
+            sysResult.setData("修改失败!");
+        }
+        return sysResult;
+    }
 }

@@ -6,5 +6,5 @@ import com.sifunit.lanwei.domain.Procedure;
 import org.springframework.ui.Model;
 
 public interface IProcedureService extends IBaseService<Procedure> {
-    PageInfo getPageInfo(Page page, Model model);
+    PageInfo getPage(Page page, Model model);
 }

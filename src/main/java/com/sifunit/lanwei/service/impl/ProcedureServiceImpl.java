@@ -24,7 +24,7 @@ public class ProcedureServiceImpl extends BaseServiceImpl<Procedure> implements 
     }
 
     @Override
-    public PageInfo getPageInfo(Page page, Model model) {
+    public PageInfo getPage(Page page, Model model) {
         PageHelper.startPage(page.getCurrentPage(), page.getPageSize());
         List<Procedure> list = procedureMapper.list();
         PageInfo<Procedure> pageInfo = new PageInfo<>(list);

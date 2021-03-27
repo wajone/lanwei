@@ -57,8 +57,8 @@
                                   <th style="min-width: auto">
                                     <input type="checkbox" name="" lay-skin="primary">
                                   </th>
-                                  <th>工序名称</th>
                                   <th>工序编码</th>
+                                  <th>工序名称</th>
                                   <th>所属分类</th>
                                   <th>工序描述</th>
                                   <th>创建时间</th>
@@ -70,8 +70,8 @@
                                   <td>
                                     <input type="checkbox" name="ids" th:value="${proce.proceId}" lay-skin="primary">
                                   </td>
-                                  <td><img th:src="${proce.proceName}" alt=""></td>
                                   <td th:text="${proce.proceNo}"></td>
+                                    <td th:text="${proce.proceName}"></td>
                                   <td th:text="${proce.proceCateId}"></td>
                                   <td th:text="${gproce.proceDesc}"></td>
                                   <td th:text="${#dates.format(proce.createTime,'yyyy-MM-dd')}">创建时间</td>

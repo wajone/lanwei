@@ -86,6 +86,7 @@ public class SysDeptController {
     @ResponseBody
     public List<LayuiTree> list() {
         List<LayuiTree> list = sysDeptService.list();
+        System.out.println(list);
         return list;
     }
 

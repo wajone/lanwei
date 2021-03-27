@@ -78,21 +78,22 @@
         </form>
     </div>
 </div>
-<div id="deptParent" style="display: none; padding: 15px;">
-    <div id="parentTree"></div>
+<div id="proceCate" style="display: none; padding: 15px;">
+    <div id="proceCateTree"></div>
 </div>
 <script src="js/jquery.min.js"></script>
 <script>
 
     $(document).ready(function() {
-        generateProceNo()
+        var proceNo =  generateProceNo();
+        $("#proceNo").val(proceNo);
     })
 
     function generateProceNo() {
         var date=new Date();
         dateStr=dateToString(date);
         proceNo = "GX" + dateStr + Math.ceil(Math.random()*100);
-        $("#proceNo").val(proceNo);
+        return proceNo;
     }
 
     function dateToString(now){
@@ -114,22 +115,22 @@
     function selectCate() {
         //弹窗
         layer.open({
-            title: '部门列表',
+            title: '工序分类',
             type: 1,
-            content: $('#deptParent'),
+            content: $('#proceCate'),
             area: ['400px', '300px'],
             btn: '确定'
         });
         //异步加载部门列表
         $.ajax({
-            url: 'sysDept/list',
+            url: 'cate/getProceCateTree',
             success: function (data){
                 console.log(data);
                 layui.use('tree', function () {
                     var tree = layui.tree;
                     //渲染
                     var inst1 = tree.render({
-                        elem: '#parentTree'  //绑定元素
+                        elem: '#proceCateTree'  //绑定元素
                         ,data: data
                         ,click: function (obj) {
                             console.log(obj.data)
