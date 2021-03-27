@@ -11,6 +11,8 @@ public class Procedure {
 
     private Long proceCateId;
 
+    private String proceCateName;
+
     private String proceDesc;
 
     private Boolean flag;
@@ -19,11 +21,12 @@ public class Procedure {
 
     private Date updateTime;
 
-    public Procedure(Long proceId, String proceNo, String proceName, Long proceCateId, String proceDesc, Boolean flag, Date createTime, Date updateTime) {
+    public Procedure(Long proceId, String proceNo, String proceName, Long proceCateId, String proceCateName, String proceDesc, Boolean flag, Date createTime, Date updateTime) {
         this.proceId = proceId;
         this.proceNo = proceNo;
         this.proceName = proceName;
         this.proceCateId = proceCateId;
+        this.proceCateName = proceCateName;
         this.proceDesc = proceDesc;
         this.flag = flag;
         this.createTime = createTime;
@@ -60,6 +63,14 @@ public class Procedure {
 
     public Long getProceCateId() {
         return proceCateId;
+    }
+
+    public String getProceCateName() {
+        return proceCateName;
+    }
+
+    public void setProceCateName(String proceCateName) {
+        this.proceCateName = proceCateName;
     }
 
     public void setProceCateId(Long proceCateId) {

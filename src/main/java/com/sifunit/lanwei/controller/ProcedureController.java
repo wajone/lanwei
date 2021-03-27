@@ -44,4 +44,10 @@ public class ProcedureController {
     public String toAdd() {
         return "procedure/proce_add";
     }
+
+    @GetMapping("delById")
+    public SysResult delById(Long id) {
+        SysResult sysResult = procedureService.delById(id);
+        return sysResult;
+    }
 }

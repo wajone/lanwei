@@ -55,7 +55,7 @@
                               <thead>
                                 <tr>
                                   <th style="min-width: auto">
-                                    <input type="checkbox" name="" lay-skin="primary">
+                                    <input type="checkbox" id="checkall" onclick="allcheck(this)" name="" lay-skin="primary">
                                   </th>
                                   <th>工序编码</th>
                                   <th>工序名称</th>
@@ -68,14 +68,14 @@
                               <tbody>
                                 <tr th:each="proce : ${pageInfo.list}">
                                   <td>
-                                    <input type="checkbox" name="ids" th:value="${proce.proceId}" lay-skin="primary">
+                                    <input type="checkbox" name="ids" class="delbox" onclick="changebox(this)" th:value="${proce.proceId}" lay-skin="primary">
                                   </td>
                                   <td th:text="${proce.proceNo}"></td>
-                                    <td th:text="${proce.proceName}"></td>
-                                  <td th:text="${proce.proceCateId}"></td>
-                                  <td th:text="${gproce.proceDesc}"></td>
+                                  <td th:text="${proce.proceName}"></td>
+                                  <td th:text="${proce.proceCateName}"></td>
+                                  <td th:text="${proce.proceDesc}"></td>
                                   <td th:text="${#dates.format(proce.createTime,'yyyy-MM-dd')}">创建时间</td>
-                                  <td th:text="${#dates.format(good.updateTime,'yyyy-MM-dd')}">更新时间</td>
+                                  <td th:text="${#dates.format(proce.updateTime,'yyyy-MM-dd')}">更新时间</td>
                                   <td class="td-manage">
                                     <a title="编辑"  th:onclick="xadmin.open('编辑','proce/toUpdate?proceId=[[${proce.proceId}]]')" href="javascript:;">
                                       <i class="layui-icon">&#xe642;</i>
@@ -113,6 +113,25 @@
         });
       });
 
+      /*多选和不选*/
+      function allcheck(obj) {
+          if(obj.checked){
+              $('.delbox').prop('checked',true);
+          }else{
+              $('.delbox').prop('checked',false);
+          }
+      }
+
+      function changebox(obj) {
+          if (obj.checked) {
+              if ($(".delbox:checked").length == $(".delbox").length) {
+                  $('#checkall').prop('checked',true);
+              }
+          } else {
+              $('#checkall').prop('checked',false);
+          }
+      }
+
        /*用户-停用*/
       function member_stop(obj,id){
           layer.confirm('确认要停用吗？',function(index){
@@ -142,7 +161,7 @@
           layer.confirm('确认要删除吗？',function(index){
               //发异步删除数据
               $.ajax({
-                  url: 'goods/goodDel',
+                  url: 'proce/delById',
                   data: id,
                   success: function(res){
                       if (res.result) {
@@ -198,7 +217,7 @@
 
                 //首次不执行
                 if(!first){
-                    location.href = "goods/page?currentPage="+obj.curr+"&pageSize="+obj.limit
+                    location.href = "proce/page?currentPage="+obj.curr+"&pageSize="+obj.limit
                 }
             }
             });

@@ -3,6 +3,7 @@ package com.sifunit.lanwei.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.sifunit.lanwei.common.Page;
+import com.sifunit.lanwei.common.SysResult;
 import com.sifunit.lanwei.domain.Procedure;
 import com.sifunit.lanwei.mapper.IBaseMapper;
 import com.sifunit.lanwei.mapper.ProcedureMapper;
@@ -29,5 +30,10 @@ public class ProcedureServiceImpl extends BaseServiceImpl<Procedure> implements 
         List<Procedure> list = procedureMapper.list();
         PageInfo<Procedure> pageInfo = new PageInfo<>(list);
         return pageInfo;
+    }
+
+    @Override
+    public SysResult delById(Long id) {
+        return null;
     }
 }
