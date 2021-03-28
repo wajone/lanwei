@@ -35,14 +35,14 @@
                       </div>
                   </div>
                   <div class="layui-form-item">
-                      <label for="deptParentName" class="layui-form-label">
+                      <label for="parentCateName" class="layui-form-label">
                           <span class="x-red">*</span>上级分类
                       </label>
                       <div class="layui-input-inline">
-                          <input type="text" id="deptParentName" name="deptParentName" required="" lay-verify="required"
-                          autocomplete="off" class="layui-input" readonly="true" value="总工序">
-                          <input type="hidden" name="deptParentId" id="proceCateParentId" value="0" >
-                          <input type="button" class="layui-btn layui-btn-primary" value="选择上级工序" onclick="selectParent();">
+                          <input type="text" id="parentCateName" name="parentCateName" required="" lay-verify="required"
+                          autocomplete="off" class="layui-input" readonly="true" value="工序">
+                          <input type="hidden" name="parentCateId" id="parentCateId" value="1" >
+                          <input type="button" class="layui-btn layui-btn-primary" value="选择上级工序" onclick="selectCate();">
                       </div>
                       <div class="layui-form-mid layui-word-aux">
                           <span class="x-red">*</span>请输入工序的上一级
@@ -66,41 +66,39 @@
               </form>
             </div>
         </div>
-        <div id="deptParent" style="display: none; padding: 15px;">
-            <div id="parentTree"></div>
+        <div id="proceCate" style="display: none; padding: 15px;">
+            <div id="proceCateTree"></div>
         </div>
         <script>
             //点击事件
-            function selectParent() {
+            function selectCate() {
                 //弹窗
                 layer.open({
-                    title: '',
+                    title: '工序分类',
                     type: 1,
-                    content: $('#deptParent'),
+                    content: $('#proceCate'),
                     area: ['400px', '300px'],
                     btn: '确定'
                 });
                 //异步加载部门列表
                 $.ajax({
-                    url: 'sysDept/list',
+                    url: 'cate/getProceCateTree',
                     success: function (data){
                         console.log(data);
                         layui.use('tree', function () {
                             var tree = layui.tree;
                             //渲染
                             var inst1 = tree.render({
-                                elem: '#parentTree'  //绑定元素
-                                ,data: data
+                                elem: '#proceCateTree'  //绑定元素
+                                ,data: data.data
                                 ,click: function (obj) {
                                     console.log(obj.data)
-                                    $("#deptParentName").val(obj.data.title);
+                                    $("#parentCateName").val(obj.data.title);
                                     console.log(obj);
-                                    $("#deptParentId").val(obj.data.id);
+                                    $("#parentCateId").val(obj.data.id);
                                 }
                             });
-
                         })
-
                     }
                 })
 

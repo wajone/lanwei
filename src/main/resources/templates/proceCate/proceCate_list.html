@@ -199,7 +199,7 @@
                         layer.msg('删除成功', {icon: 1});
                         xadmin.father_reload();
                     } else {
-                        layer.msg('删除失败，部门下面有子部门', {icon: 2});
+                        layer.msg('删除失败', {icon: 2});
                     }
                 }
             })
@@ -208,12 +208,13 @@
         });
     }
 </script>
-<script>var _hmt = _hmt || []; (function() {
-    var hm = document.createElement("script");
-    hm.src = "https://hm.baidu.com/hm.js?b393d153aeb26b46e9431fabaf0f6190";
-    var s = document.getElementsByTagName("script")[0];
-    s.parentNode.insertBefore(hm, s);
-})();
+<script>
+    var _hmt = _hmt || []; (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?b393d153aeb26b46e9431fabaf0f6190";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
 </script>
 <script>
     layui.use('laypage', function(){
@@ -235,7 +236,7 @@
 
                 //首次不执行
                 if(!first){
-                    location.href = "sysDept/page?currentPage="+obj.curr+"&pageSize="+obj.limit;
+                    location.href = "proceCate/page?currentPage="+obj.curr+"&pageSize="+obj.limit;
                 }
             }
         });
