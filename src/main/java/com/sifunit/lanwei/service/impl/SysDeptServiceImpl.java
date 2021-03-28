@@ -27,11 +27,9 @@ public class SysDeptServiceImpl extends BaseServiceImpl<SysDept> implements ISys
 
     @Override
     public PageInfo<SysDept> getPage(Page page, Model model) {
-        System.out.println(page.getPageSize());
         PageHelper.startPage(page.getCurrentPage(), page.getPageSize());
         List<SysDept> list = sysDeptMapper.list();
         PageInfo<SysDept> pageInfo = new PageInfo<>(list);
-        System.out.println(page.getPageSize());
         return pageInfo;
     }
 

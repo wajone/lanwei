@@ -31,7 +31,7 @@ CREATE TABLE `goods` (
   `create_time` datetime DEFAULT NULL,
   PRIMARY KEY (`good_id`),
   UNIQUE KEY `good_num` (`good_num`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 /*Data for the table `goods` */
 
@@ -268,6 +268,26 @@ CREATE TABLE `sys_user` (
 insert  into `sys_user`(`USER_ID`,`ORG_ID`,`USER_NAME`,`USER_PASSWORD`,`PHONE`,`EMAIL`,`BIRTHDAY`,`SEX`,`IMAGE_URL`,`HOBBY`,`PROVINCE_ID`,`PROVINCE_NAME`,`CITY_ID`,`CITY_NAME`,`COUNTRY_ID`,`COUNTRY_NAME`,`CREATE_TIEM`,`UPDATE_TIME`) values 
 (1,NULL,'root','weijiang',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
 
+/*Table structure for table `t_material_cate` */
+
+DROP TABLE IF EXISTS `t_material_cate`;
+
+CREATE TABLE `t_material_cate` (
+  `material_cate_id` bigint(11) NOT NULL AUTO_INCREMENT,
+  `material_cate_name` varchar(255) DEFAULT NULL,
+  `parent_cate_id` bigint(11) DEFAULT NULL,
+  `material_cate_desc` varchar(255) DEFAULT NULL,
+  `flag` tinyint(1) DEFAULT '1',
+  `create_time` datetime DEFAULT NULL,
+  `update_time` datetime DEFAULT NULL,
+  PRIMARY KEY (`material_cate_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+/*Data for the table `t_material_cate` */
+
+insert  into `t_material_cate`(`material_cate_id`,`material_cate_name`,`parent_cate_id`,`material_cate_desc`,`flag`,`create_time`,`update_time`) values 
+(1,'物料分类',0,'物料分类',1,'2021-03-28 16:51:17','2021-03-28 16:51:19');
+
 /*Table structure for table `t_materiel` */
 
 DROP TABLE IF EXISTS `t_materiel`;
@@ -276,8 +296,10 @@ CREATE TABLE `t_materiel` (
   `material_id` bigint(11) NOT NULL AUTO_INCREMENT,
   `material_no` varchar(20) DEFAULT NULL,
   `material_name` varchar(128) DEFAULT NULL,
-  `material_cat_id` bigint(11) DEFAULT NULL,
+  `material_cate_id` bigint(11) DEFAULT NULL,
+  `material_cate_name` varchar(255) DEFAULT NULL,
   `material_desc` varchar(255) DEFAULT NULL,
+  `flag` tinyint(1) DEFAULT NULL,
   `create_time` datetime DEFAULT NULL,
   `update_time` datetime DEFAULT NULL,
   PRIMARY KEY (`material_id`)
@@ -300,9 +322,27 @@ CREATE TABLE `t_procedure` (
   `create_time` datetime DEFAULT NULL,
   `update_time` datetime DEFAULT NULL,
   PRIMARY KEY (`proce_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
 
 /*Data for the table `t_procedure` */
+
+insert  into `t_procedure`(`proce_id`,`proce_no`,`proce_name`,`proce_cate_id`,`proce_cate_name`,`proce_desc`,`flag`,`create_time`,`update_time`) values 
+(1,'GX20210328001','下料-裁高发泡',2,'下料','裁高发泡',1,'2021-03-28 14:50:48','2021-03-28 14:50:48'),
+(2,'GX20210328002','下料-切金属条',2,'下料','切金属条',1,'2021-03-28 14:51:15','2021-03-28 14:51:15'),
+(3,'GX20210328003','手剪加修边',2,'下料','手剪加修边',1,'2021-03-28 14:51:40','2021-03-28 14:51:40'),
+(4,'GX20210328004','普通拼缝',3,'拼缝','普通拼缝',1,'2021-03-28 14:52:17','2021-03-28 14:52:17'),
+(5,'GX20210328005','三角针',3,'拼缝','三角针',1,'2021-03-28 14:52:33','2021-03-28 14:52:33'),
+(6,'GX20210328006','高架车',3,'拼缝','高架车',1,'2021-03-28 14:52:48','2021-03-28 14:52:48'),
+(7,'GX20210328007','剪海绵',3,'拼缝','剪海绵',1,'2021-03-28 14:53:01','2021-03-28 14:53:01'),
+(8,'GX20210328008','双针车',3,'拼缝','双针车',1,'2021-03-28 14:53:24','2021-03-28 14:53:24'),
+(9,'GX20210328009','频-盘套',4,'高频','频-盘套',1,'2021-03-28 14:53:42','2021-03-28 14:53:42'),
+(10,'GX20210328010','高频-BB胶',4,'高频','高频-BB胶',1,'2021-03-28 14:53:55','2021-03-28 14:53:55'),
+(11,'GX20210328011','单层套圈',5,'套圈','单层套圈',1,'2021-03-28 14:54:09','2021-03-28 14:54:09'),
+(12,'GX20210328012','双层套圈',5,'套圈','双层套圈',1,'2021-03-28 14:54:22','2021-03-28 14:54:22'),
+(13,'GX20210328013','折边包圈',6,'包圈','折边包圈',1,'2021-03-28 14:55:05','2021-03-28 14:55:05'),
+(14,'GX20210328014','验收',7,'验收','验收',1,'2021-03-28 14:55:28','2021-03-28 14:55:28'),
+(15,'GX20210328015','普通包装',8,'包装','普通包装',1,'2021-03-28 14:55:43','2021-03-28 14:55:43'),
+(16,'GX20210328016','打箱',8,'包装','打箱',1,'2021-03-28 14:55:59','2021-03-28 14:55:59');
 
 /*Table structure for table `user` */
 
