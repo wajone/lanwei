@@ -42,7 +42,7 @@
                     <input type="text" id="parentCateName" name="parentCateName" required="" lay-verify="required"
                            autocomplete="off" class="layui-input" readonly="true" value="物料分类">
                     <input type="hidden" name="parentCateId" id="parentCateId" value="1" >
-                    <input type="button" class="layui-btn layui-btn-primary" value="选择上级工序" onclick="selectCate();">
+                    <input type="button" class="layui-btn layui-btn-primary" value="选择上级物料" onclick="selectCate();">
                 </div>
                 <div class="layui-form-mid layui-word-aux">
                     <span class="x-red">*</span>请输入物料的上一级
@@ -130,7 +130,7 @@
             console.log(JSON.stringify(data.field));
             $.ajax({
                 data: $("#deptform").serialize(),
-                url: "proceCate/add",
+                url: "materialCate/add",
                 type: 'POST',
                 success: function (res) {
                     if (res.result) {

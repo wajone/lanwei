@@ -69,7 +69,7 @@ CREATE TABLE `proce_cate` (
   `create_time` datetime DEFAULT NULL,
   `update_time` datetime DEFAULT NULL,
   PRIMARY KEY (`proce_cate_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 /*Data for the table `proce_cate` */
 
@@ -268,6 +268,23 @@ CREATE TABLE `sys_user` (
 insert  into `sys_user`(`USER_ID`,`ORG_ID`,`USER_NAME`,`USER_PASSWORD`,`PHONE`,`EMAIL`,`BIRTHDAY`,`SEX`,`IMAGE_URL`,`HOBBY`,`PROVINCE_ID`,`PROVINCE_NAME`,`CITY_ID`,`CITY_NAME`,`COUNTRY_ID`,`COUNTRY_NAME`,`CREATE_TIEM`,`UPDATE_TIME`) values 
 (1,NULL,'root','weijiang',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
 
+/*Table structure for table `t_good_cate` */
+
+DROP TABLE IF EXISTS `t_good_cate`;
+
+CREATE TABLE `t_good_cate` (
+  `good_cate_id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `good_cate_name` varchar(255) DEFAULT NULL,
+  `parent_cate_id` bigint(20) DEFAULT NULL,
+  `good_cate_desc` varchar(255) DEFAULT NULL,
+  `flag` tinyint(1) DEFAULT NULL,
+  `create_time` datetime DEFAULT NULL,
+  `update_tiem` datetime DEFAULT NULL,
+  PRIMARY KEY (`good_cate_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+/*Data for the table `t_good_cate` */
+
 /*Table structure for table `t_material_cate` */
 
 DROP TABLE IF EXISTS `t_material_cate`;
@@ -281,12 +298,18 @@ CREATE TABLE `t_material_cate` (
   `create_time` datetime DEFAULT NULL,
   `update_time` datetime DEFAULT NULL,
   PRIMARY KEY (`material_cate_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 /*Data for the table `t_material_cate` */
 
 insert  into `t_material_cate`(`material_cate_id`,`material_cate_name`,`parent_cate_id`,`material_cate_desc`,`flag`,`create_time`,`update_time`) values 
-(1,'物料分类',0,'物料分类',1,'2021-03-28 16:51:17','2021-03-28 16:51:19');
+(1,'物料分类',0,'物料分类',1,'2021-03-28 16:51:17','2021-03-28 16:51:19'),
+(2,'辅料',1,'辅料',1,'2021-03-29 12:35:23','2021-03-29 12:35:25'),
+(3,'原材料',1,'原材料',1,'2021-03-29 12:40:49','2021-03-29 12:40:51'),
+(4,'印刷绣花',1,'印刷绣花',1,'2021-03-29 12:40:53','2021-03-29 12:40:55'),
+(5,'橡胶圈',1,'橡胶圈',1,'2021-03-29 12:40:57','2021-03-29 12:40:59'),
+(6,'纸箱',1,'纸箱',1,'2021-03-29 12:41:01','2021-03-29 12:41:03'),
+(7,'包装材料',1,'包装材料',1,'2021-03-29 12:41:06','2021-03-29 12:41:08');
 
 /*Table structure for table `t_materiel` */
 

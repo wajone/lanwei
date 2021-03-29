@@ -4,7 +4,6 @@ import com.github.pagehelper.PageInfo;
 import com.sifunit.lanwei.common.Page;
 import com.sifunit.lanwei.common.SysResult;
 import com.sifunit.lanwei.domain.MaterialCate;
-import com.sifunit.lanwei.domain.ProceCate;
 import com.sifunit.lanwei.service.IMaterialCateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,7 +22,6 @@ public class MaterialCateController {
 
     @GetMapping("page")
     public String page(Page page, Model model) {
-
         PageInfo<MaterialCate> pageInfo = materialCateService.getPage(page, model);
         model.addAttribute("pageInfo", pageInfo);
         return "materialCate/materialCate_list";
@@ -32,7 +30,6 @@ public class MaterialCateController {
     @RequestMapping("add")
     @ResponseBody
     public SysResult add(MaterialCate materialCate) {
-
         SysResult sysResult = new SysResult(false);
         int count = materialCateService.insertSelective(materialCate);
         if (count > 0) {
@@ -59,7 +56,6 @@ public class MaterialCateController {
     @RequestMapping("update")
     @ResponseBody
     public SysResult update(MaterialCate materialCate) {
-        System.out.println(materialCate);
         SysResult sysResult = new SysResult(false);
         int count = materialCateService.updateByPrimaryKeySelective(materialCate);
         if (count > 0) {
