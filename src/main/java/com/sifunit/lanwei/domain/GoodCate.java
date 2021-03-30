@@ -15,16 +15,16 @@ public class GoodCate {
 
     private Date createTime;
 
-    private Date updateTiem;
+    private Date updateTime;
 
-    public GoodCate(Long goodCateId, String goodCateName, Long parentCateId, String goodCateDesc, Boolean flag, Date createTime, Date updateTiem) {
+    public GoodCate(Long goodCateId, String goodCateName, Long parentCateId, String goodCateDesc, Boolean flag, Date createTime, Date updateTime) {
         this.goodCateId = goodCateId;
         this.goodCateName = goodCateName;
         this.parentCateId = parentCateId;
         this.goodCateDesc = goodCateDesc;
         this.flag = flag;
         this.createTime = createTime;
-        this.updateTiem = updateTiem;
+        this.updateTime = updateTime;
     }
 
     public GoodCate() {
@@ -79,11 +79,11 @@ public class GoodCate {
         this.createTime = createTime;
     }
 
-    public Date getUpdateTiem() {
-        return updateTiem;
+    public Date getUpdateTime() {
+        return updateTime;
     }
 
-    public void setUpdateTiem(Date updateTiem) {
-        this.updateTiem = updateTiem;
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
     }
 }

@@ -67,6 +67,7 @@ public class UserRealm extends AuthorizingRealm {
         }
         Subject currentUser = SecurityUtils.getSubject();
         currentUser.getSession().setAttribute("loginuser", user);
+        currentUser.getSession().setTimeout(18000000);
 
         return new SimpleAuthenticationInfo(user, user.getPassword(), "");
     }

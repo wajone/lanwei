@@ -1,0 +1,8 @@
+th.thcheckbox {
+    min-width: 30px;
+    width: 30px;
+}
+
+.mytable th,td {
+    text-align: center;
+}

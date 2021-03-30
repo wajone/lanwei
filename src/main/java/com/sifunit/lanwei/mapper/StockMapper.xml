@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sifunit.lanwei.mapper.StockMapper">
+  <resultMap id="BaseResultMap" type="com.sifunit.lanwei.domain.Stock">
+    <constructor>
+      <idArg column="stock_id" javaType="java.lang.Long" jdbcType="BIGINT" />
+      <arg column="material_no" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="material_name" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="material_cate_id" javaType="java.lang.Long" jdbcType="BIGINT" />
+      <arg column="material_cate_name" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="stock_num" javaType="java.lang.Long" jdbcType="BIGINT" />
+      <arg column="unit_id" javaType="java.lang.Long" jdbcType="BIGINT" />
+      <arg column="unit_name" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="create_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="update_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    stock_id, material_no, material_name, material_cate_id, material_cate_name, stock_num, 
+    unit_id, unit_name, create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_stock
+    where stock_id = #{stockId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from t_stock
+    where stock_id = #{stockId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.sifunit.lanwei.domain.Stock">
+    insert into t_stock (stock_id, material_no, material_name, 
+      material_cate_id, material_cate_name, stock_num, 
+      unit_id, unit_name, create_time, 
+      update_time)
+    values (#{stockId,jdbcType=BIGINT}, #{materialNo,jdbcType=VARCHAR}, #{materialName,jdbcType=VARCHAR}, 
+      #{materialCateId,jdbcType=BIGINT}, #{materialCateName,jdbcType=VARCHAR}, #{stockNum,jdbcType=BIGINT}, 
+      #{unitId,jdbcType=BIGINT}, #{unitName,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sifunit.lanwei.domain.Stock">
+    insert into t_stock
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="stockId != null">
+        stock_id,
+      </if>
+      <if test="materialNo != null">
+        material_no,
+      </if>
+      <if test="materialName != null">
+        material_name,
+      </if>
+      <if test="materialCateId != null">
+        material_cate_id,
+      </if>
+      <if test="materialCateName != null">
+        material_cate_name,
+      </if>
+      <if test="stockNum != null">
+        stock_num,
+      </if>
+      <if test="unitId != null">
+        unit_id,
+      </if>
+      <if test="unitName != null">
+        unit_name,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="stockId != null">
+        #{stockId,jdbcType=BIGINT},
+      </if>
+      <if test="materialNo != null">
+        #{materialNo,jdbcType=VARCHAR},
+      </if>
+      <if test="materialName != null">
+        #{materialName,jdbcType=VARCHAR},
+      </if>
+      <if test="materialCateId != null">
+        #{materialCateId,jdbcType=BIGINT},
+      </if>
+      <if test="materialCateName != null">
+        #{materialCateName,jdbcType=VARCHAR},
+      </if>
+      <if test="stockNum != null">
+        #{stockNum,jdbcType=BIGINT},
+      </if>
+      <if test="unitId != null">
+        #{unitId,jdbcType=BIGINT},
+      </if>
+      <if test="unitName != null">
+        #{unitName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sifunit.lanwei.domain.Stock">
+    update t_stock
+    <set>
+      <if test="materialNo != null">
+        material_no = #{materialNo,jdbcType=VARCHAR},
+      </if>
+      <if test="materialName != null">
+        material_name = #{materialName,jdbcType=VARCHAR},
+      </if>
+      <if test="materialCateId != null">
+        material_cate_id = #{materialCateId,jdbcType=BIGINT},
+      </if>
+      <if test="materialCateName != null">
+        material_cate_name = #{materialCateName,jdbcType=VARCHAR},
+      </if>
+      <if test="stockNum != null">
+        stock_num = #{stockNum,jdbcType=BIGINT},
+      </if>
+      <if test="unitId != null">
+        unit_id = #{unitId,jdbcType=BIGINT},
+      </if>
+      <if test="unitName != null">
+        unit_name = #{unitName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where stock_id = #{stockId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sifunit.lanwei.domain.Stock">
+    update t_stock
+    set material_no = #{materialNo,jdbcType=VARCHAR},
+      material_name = #{materialName,jdbcType=VARCHAR},
+      material_cate_id = #{materialCateId,jdbcType=BIGINT},
+      material_cate_name = #{materialCateName,jdbcType=VARCHAR},
+      stock_num = #{stockNum,jdbcType=BIGINT},
+      unit_id = #{unitId,jdbcType=BIGINT},
+      unit_name = #{unitName,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where stock_id = #{stockId,jdbcType=BIGINT}
+  </update>
+  <select id="list" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_stock
+  </select>
+</mapper>

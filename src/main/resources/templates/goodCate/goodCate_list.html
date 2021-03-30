@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
     <link rel="stylesheet" href="css/font.css">
     <link rel="stylesheet" href="css/xadmin.css">
+    <link rel="stylesheet" href="css/my.css">
     <script src="lib/layui/layui.js" charset="utf-8"></script>
     <script type="text/javascript" src="js/xadmin.js"></script>
     <!--[if lt IE 9]>
@@ -47,13 +48,13 @@
                 </div>
                 <div class="layui-card-header">
                     <button class="layui-btn layui-btn-danger" onclick="delAll(this)"><i class="layui-icon"></i>批量删除</button>
-                    <button class="layui-btn" onclick="xadmin.open('添加分类','proceCate/toAdd',650,450)"><i class="layui-icon"></i>添加分类</button>
+                    <button class="layui-btn" onclick="xadmin.open('添加分类','goodCate/toAdd',650,450)"><i class="layui-icon"></i>添加分类</button>
                 </div>
                 <div class="layui-card-body">
-                    <table class="layui-table">
+                    <table class="layui-table mytable">
                         <thead>
                         <tr>
-                            <th style="min-width: 20px;width: 20px;">
+                            <th class="thcheckbox">
                                 <input type="checkbox" id="checkall" onchange="allcheck(this)" lay-skin="primary">
                             </th>
                             <th>产品分类名称</th>
@@ -236,7 +237,7 @@
 
                 //首次不执行
                 if(!first){
-                    location.href = "proceCate/page?currentPage="+obj.curr+"&pageSize="+obj.limit;
+                    location.href = "goodCate/page?currentPage="+obj.curr+"&pageSize="+obj.limit;
                 }
             }
         });

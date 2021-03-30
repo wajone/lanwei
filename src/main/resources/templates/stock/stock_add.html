@@ -21,39 +21,68 @@
     <body>
         <div class="layui-fluid">
             <div class="layui-row">
-                <form class="layui-form" id="deptform">
+                <form class="layui-form" id="stockform">
                   <div class="layui-form-item">
-                      <label for="proceCateName" class="layui-form-label">
-                          <span class="x-red">*</span>分类名称
+                      <label for="materialNo" class="layui-form-label">
+                          <span class="x-red">*</span>物料编码
                       </label>
                       <div class="layui-input-inline">
-                          <input type="text" id="proceCateName" name="goodCateName" required="" lay-verify="required"
+                          <input type="text" id="materialNo" name="materialNo" required="" lay-verify="required"
                           autocomplete="off" class="layui-input">
+                          <input type="hidden" name="materialId" id="parentCateId" value="1" >
+                          <input type="button" class="layui-btn layui-btn-primary" value="选择物料编码" onclick="selectMaterial();">
                       </div>
                       <div class="layui-form-mid layui-word-aux">
-                          <span class="x-red">*</span>请输入分类名称
+                          <span class="x-red">*</span>请选择物料编码
                       </div>
                   </div>
                   <div class="layui-form-item">
-                      <label for="parentCateName" class="layui-form-label">
-                          <span class="x-red">*</span>上级分类
+                      <label for="materialName" class="layui-form-label">
+                          <span class="x-red">*</span>物料名称
                       </label>
                       <div class="layui-input-inline">
-                          <input type="text" id="parentCateName" name="parentCateName" required="" lay-verify="required"
-                          autocomplete="off" class="layui-input" readonly="true" value="产品分类">
-                          <input type="hidden" name="parentCateId" id="parentCateId" value="1" >
-                          <input type="button" class="layui-btn layui-btn-primary" value="选择上级产品分类" onclick="selectCate();">
-                      </div>
+                          <input type="text" id="materialName" name="materialName" required="" lay-verify="required"
+                          autocomplete="off" class="layui-input" readonly="true" value="物料名称">
+                          </div>
                       <div class="layui-form-mid layui-word-aux">
-                          <span class="x-red">*</span>选择上级产品分类
+                          <span class="x-red">*</span>输入物料名称
                       </div>
                   </div>
                     <div class="layui-form-item">
-                        <label for="goodCateDesc" class="layui-form-label">
-                            描述信息
+                        <label for="materialCateName" class="layui-form-label">
+                            <span class="x-red">*</span>所属分类
                         </label>
-                        <div class="layui-input-block" style="width: 350px;">
-                            <textarea id="goodCateDesc" name="goodCateDesc" placeholder="请输入产品分类的描述信息" class="layui-textarea"></textarea>
+                        <div class="layui-input-inline">
+                            <input type="text" id="materialCateName" name="materialCateName" required="" lay-verify="required"
+                                   autocomplete="off" class="layui-input" readonly="true" value="分类名称">
+                        </div>
+                        <div class="layui-form-mid layui-word-aux">
+                            <span class="x-red">*</span>物料所属分类
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="stockNum" class="layui-form-label">
+                            <span class="x-red">*</span>库存数量
+                        </label>
+                        <div class="layui-input-inline">
+                            <input type="text" id="stockNum" name="stockNum" required="" lay-verify="required"
+                                   autocomplete="off" class="layui-input">
+                        </div>
+                        <div class="layui-form-mid layui-word-aux">
+                            <span class="x-red">*</span>物料库存数量
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="unitName" class="layui-form-label">
+                            <span class="x-red">*</span>单位
+                        </label>
+                        <div class="layui-input-inline">
+                            <input type="text" id="unitName" name="unitName" required="" lay-verify="required"
+                                   autocomplete="off" class="layui-input">
+                            <input type="hidden" name="unitId" value="">
+                        </div>
+                        <div class="layui-form-mid layui-word-aux">
+                            <span class="x-red">*</span>单位名称
                         </div>
                     </div>
                   <div class="layui-form-item">
@@ -71,10 +100,10 @@
         </div>
         <script>
             //点击事件
-            function selectCate() {
+            function selectMaterial() {
                 //弹窗
                 layer.open({
-                    title: '工序分类',
+                    title: '物料列表',
                     type: 1,
                     content: $('#proceCate'),
                     area: ['400px', '300px'],
@@ -129,7 +158,7 @@
                 form.on('submit(add)',function(data) {
                     console.log(JSON.stringify(data.field));
                     $.ajax({
-                        data: $("#deptform").serialize(),
+                        data: $("#stockform").serialize(),
                         url: "goodCate/add",
                         type: 'POST',
                         success: function (res) {

@@ -9,12 +9,12 @@
       <arg column="good_cate_desc" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="flag" javaType="java.lang.Boolean" jdbcType="BIT" />
       <arg column="create_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
-      <arg column="update_tiem" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="update_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
     </constructor>
   </resultMap>
   <sql id="Base_Column_List">
     good_cate_id, good_cate_name, parent_cate_id, good_cate_desc, flag, create_time, 
-    update_tiem
+    update_time
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
@@ -29,10 +29,10 @@
   <insert id="insert" parameterType="com.sifunit.lanwei.domain.GoodCate">
     insert into t_good_cate (good_cate_id, good_cate_name, parent_cate_id, 
       good_cate_desc, flag, create_time, 
-      update_tiem)
+      update_time)
     values (#{goodCateId,jdbcType=BIGINT}, #{goodCateName,jdbcType=VARCHAR}, #{parentCateId,jdbcType=BIGINT}, 
       #{goodCateDesc,jdbcType=VARCHAR}, #{flag,jdbcType=BIT}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{updateTiem,jdbcType=TIMESTAMP})
+      #{updateTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.sifunit.lanwei.domain.GoodCate">
     insert into t_good_cate
@@ -53,7 +53,7 @@
         flag,
       </if>
         create_time,
-        update_tiem,
+        update_time,
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="goodCateId != null">
@@ -92,7 +92,7 @@
       <if test="createTime != null">
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
-        update_tiem = now(),
+        update_time = now(),
     </set>
     where good_cate_id = #{goodCateId,jdbcType=BIGINT}
   </update>
@@ -103,7 +103,7 @@
       good_cate_desc = #{goodCateDesc,jdbcType=VARCHAR},
       flag = #{flag,jdbcType=BIT},
       create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_tiem = #{updateTiem,jdbcType=TIMESTAMP}
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
     where good_cate_id = #{goodCateId,jdbcType=BIGINT}
   </update>
   <select id="list" resultMap="BaseResultMap">
