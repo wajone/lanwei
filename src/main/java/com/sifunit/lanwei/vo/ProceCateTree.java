@@ -1,7 +1,5 @@
 package com.sifunit.lanwei.vo;
 
-import com.sifunit.lanwei.domain.LayuiTree;
-
 import java.io.Serializable;
 import java.util.List;
 
