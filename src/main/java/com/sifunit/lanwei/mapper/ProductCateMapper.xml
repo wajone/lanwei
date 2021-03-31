@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sifunit.lanwei.mapper.ProductCateMapper">
+  <resultMap id="BaseResultMap" type="com.sifunit.lanwei.domain.ProductCate">
+    <constructor>
+      <idArg column="product_cate_id" javaType="java.lang.Long" jdbcType="BIGINT" />
+      <arg column="product_cate_name" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="parent_cate_id" javaType="java.lang.Long" jdbcType="BIGINT" />
+      <arg column="product_cate_desc" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="flag" javaType="java.lang.Boolean" jdbcType="BIT" />
+      <arg column="create_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="update_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    product_cate_id, product_cate_name, parent_cate_id, product_cate_desc, flag, create_time, 
+    update_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_product_cate
+    where product_cate_id = #{productCateId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from t_product_cate
+    where product_cate_id = #{productCateId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.sifunit.lanwei.domain.ProductCate">
+    insert into t_product_cate (product_cate_id, product_cate_name, parent_cate_id, 
+      product_cate_desc, flag, create_time, 
+      update_time)
+    values (#{productCateId,jdbcType=BIGINT}, #{productCateName,jdbcType=VARCHAR}, #{parentCateId,jdbcType=BIGINT}, 
+      #{productCateDesc,jdbcType=VARCHAR}, #{flag,jdbcType=BIT}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sifunit.lanwei.domain.ProductCate">
+    insert into t_product_cate
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="productCateId != null">
+        product_cate_id,
+      </if>
+      <if test="productCateName != null">
+        product_cate_name,
+      </if>
+      <if test="parentCateId != null">
+        parent_cate_id,
+      </if>
+      <if test="productCateDesc != null">
+        product_cate_desc,
+      </if>
+      <if test="flag != null">
+        flag,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="productCateId != null">
+        #{productCateId,jdbcType=BIGINT},
+      </if>
+      <if test="productCateName != null">
+        #{productCateName,jdbcType=VARCHAR},
+      </if>
+      <if test="parentCateId != null">
+        #{parentCateId,jdbcType=BIGINT},
+      </if>
+      <if test="productCateDesc != null">
+        #{productCateDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="flag != null">
+        #{flag,jdbcType=BIT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sifunit.lanwei.domain.ProductCate">
+    update t_product_cate
+    <set>
+      <if test="productCateName != null">
+        product_cate_name = #{productCateName,jdbcType=VARCHAR},
+      </if>
+      <if test="parentCateId != null">
+        parent_cate_id = #{parentCateId,jdbcType=BIGINT},
+      </if>
+      <if test="productCateDesc != null">
+        product_cate_desc = #{productCateDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="flag != null">
+        flag = #{flag,jdbcType=BIT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where product_cate_id = #{productCateId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sifunit.lanwei.domain.ProductCate">
+    update t_product_cate
+    set product_cate_name = #{productCateName,jdbcType=VARCHAR},
+      parent_cate_id = #{parentCateId,jdbcType=BIGINT},
+      product_cate_desc = #{productCateDesc,jdbcType=VARCHAR},
+      flag = #{flag,jdbcType=BIT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where product_cate_id = #{productCateId,jdbcType=BIGINT}
+  </update>
+  <select id="selectCountById">
+    select count(*) from t_product_cate where PRODUCT_CATE_ID = #{product_cate_id}
+  </select>
+  <select id="list" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_product_cate
+  </select>
+</mapper>
