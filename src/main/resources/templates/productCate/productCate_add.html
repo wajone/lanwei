@@ -23,11 +23,11 @@
             <div class="layui-row">
                 <form class="layui-form" id="deptform">
                   <div class="layui-form-item">
-                      <label for="proceCateName" class="layui-form-label">
+                      <label for="productCateName" class="layui-form-label">
                           <span class="x-red">*</span>分类名称
                       </label>
                       <div class="layui-input-inline">
-                          <input type="text" id="proceCateName" name="proceCateName" required="" lay-verify="required"
+                          <input type="text" id="productCateName" name="productCateName" required="" lay-verify="required"
                           autocomplete="off" class="layui-input">
                       </div>
                       <div class="layui-form-mid layui-word-aux">
@@ -49,11 +49,11 @@
                       </div>
                   </div>
                     <div class="layui-form-item">
-                        <label for="proceCateDesc" class="layui-form-label">
+                        <label for="productCateDesc" class="layui-form-label">
                             描述信息
                         </label>
                         <div class="layui-input-block" style="width: 350px;">
-                            <textarea id="proceCateDesc" name="proceCateDesc" placeholder="请输入分类的描述信息" class="layui-textarea"></textarea>
+                            <textarea id="productCateDesc" name="productCateDesc" placeholder="请输入分类的描述信息" class="layui-textarea"></textarea>
                         </div>
                     </div>
                   <div class="layui-form-item">
@@ -130,7 +130,7 @@
                     console.log(JSON.stringify(data.field));
                     $.ajax({
                         data: $("#deptform").serialize(),
-                        url: "proceCate/add",
+                        url: "productCate/add",
                         type: 'POST',
                         success: function (res) {
                             if (res.result) {

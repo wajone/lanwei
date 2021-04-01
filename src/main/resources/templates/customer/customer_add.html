@@ -3,7 +3,7 @@
     
     <head>
         <meta charset="UTF-8">
-        <title>添加部门</title>
+        <title>添加客户</title>
         <base th:href="${#request.getContextPath()}+'/'">
         <meta name="renderer" content="webkit">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -21,73 +21,85 @@
     <body>
         <div class="layui-fluid">
             <div class="layui-row">
-                <form class="layui-form" id="deptform" enctype="multipart/form-data">
+                <form class="layui-form" id="addform" enctype="multipart/form-data">
                     <div class="layui-form-item">
-                        <label for="goodImages" class="layui-form-label">
-                            产品图片
-                        </label>
-                        <div class="" style="padding: 0 30px" id="goodImages">
-                            <input type="file" id="uploadimages" multiple value="选择图片">
-                            <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px">
-                                预览图：
-                                <div class="layui-upload-list" id="imagesList"></div>
-                            </blockquote>
-                        </div>
-                    </div>
-                  <div class="layui-form-item">
-                      <label for="goodNum" class="layui-form-label">
-                          <span class="x-red">*</span>产品编码
-                      </label>
-                      <div class="layui-input-inline">
-                          <input type="text" id="goodNum" name="goodNum" required="" lay-verify="required"
-                          autocomplete="off" class="layui-input">
-                      </div>
-                      <div class="layui-form-mid layui-word-aux">
-                          <span class="x-red">*</span>请输入产品编码,必须唯一(例如：lwa20210001e代表方向盘环保)
-                      </div>
-                  </div>
-                  <div class="layui-form-item">
-                      <label for="goodName" class="layui-form-label">
-                          <span class="x-red">*</span>产品名称
-                      </label>
-                      <div class="layui-input-inline">
-                          <input type="text" id="goodName" name="goodName" required="" lay-verify="required"
-                          autocomplete="off" class="layui-input">
-                      </div>
-                      <div class="layui-form-mid layui-word-aux">
-                          <span class="x-red">*</span>请输产品名称
-                      </div>
-                  </div>
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">产品尺寸</label>
-                        <div class="layui-input-inline">
-                            <select id="goodSize" name="goodSize" lay-verify="required">
-                                <option value="选择产品尺寸"></option>
-                                <option value="S">S</option>
-                                <option value="M">M</option>
-                                <option value="L">L</option>
-                                <option value="XL">XL</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="layui-form-item">
-                        <label for="goodInnerRing" class="layui-form-label">
-                            <span class="x-red">*</span>内圈尺寸
+                        <label for="customerName" class="layui-form-label">
+                            <span class="x-red">*</span>客户姓名
                         </label>
                         <div class="layui-input-inline">
-                            <input type="text" id="goodInnerRing" name="goodInnerRing" required="" lay-verify="required"
+                            <input type="text" id="customerName" name="customerName" required="" lay-verify="required"
                                    autocomplete="off" class="layui-input">
                         </div>
                         <div class="layui-form-mid layui-word-aux">
-                            <span class="x-red">*</span>请输内圈尺寸
+                            <span class="x-red">*</span>请输入客户姓名
+                        </div>
+                    </div>
+                  <div class="layui-form-item">
+                      <label for="personName" class="layui-form-label">
+                          <span class="x-red">*</span>联系人姓名
+                      </label>
+                      <div class="layui-input-inline">
+                          <input type="text" id="personName" name="personName" required="" lay-verify="required"
+                          autocomplete="off" class="layui-input">
+                      </div>
+                      <div class="layui-form-mid layui-word-aux">
+                          <span class="x-red">*</span>请输入联系人姓名
+                      </div>
+                  </div>
+                    <div class="layui-form-item">
+                        <label for="personTel" class="layui-form-label">
+                            <span class="x-red">*</span>联系号码
+                        </label>
+                        <div class="layui-input-inline">
+                            <input type="text" id="personTel" name="personTel" required="" lay-verify="required"
+                                   autocomplete="off" class="layui-input">
+                        </div>
+                        <div class="layui-form-mid layui-word-aux">
+                            <span class="x-red">*</span>请输联系号码
+                        </div>
+                    </div>
+                  <div class="layui-form-item">
+                      <label for="area" class="layui-form-label">
+                          <span class="x-red">*</span>国家地区
+                      </label>
+                      <div class="layui-input-inline">
+                          <input type="text" id="area" name="area" required="" lay-verify="required"
+                          autocomplete="off" class="layui-input">
+                      </div>
+                      <div class="layui-form-mid layui-word-aux">
+                          <span class="x-red">*</span>请输国家地区
+                      </div>
+                  </div>
+                    <div class="layui-form-item">
+                        <label for="email" class="layui-form-label">
+                            <span class="x-red">*</span>邮箱地址
+                        </label>
+                        <div class="layui-input-inline">
+                            <input type="text" id="email" name="email" required="" lay-verify="email|required"
+                                   autocomplete="off" class="layui-input">
+                        </div>
+                        <div class="layui-form-mid layui-word-aux">
+                            <span class="x-red">*</span>请输邮箱地址
                         </div>
                     </div>
                     <div class="layui-form-item">
-                        <label for="goodDesc" class="layui-form-label">
+                        <label for="zipCode" class="layui-form-label">
+                            <span class="x-red">*</span>邮编
+                        </label>
+                        <div class="layui-input-inline">
+                            <input type="text" id="zipCode" name="zipCode" required="" lay-verify="required"
+                                   autocomplete="off" class="layui-input">
+                        </div>
+                        <div class="layui-form-mid layui-word-aux">
+                            <span class="x-red">*</span>请输邮编
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="customerDesc" class="layui-form-label">
                             描述信息
                         </label>
                         <div class="layui-input-block" style="width: 400px">
-                            <textarea id="goodDesc" name="goodDesc" placeholder="请输入产品描述信息" class="layui-textarea"></textarea>
+                            <textarea id="customerDesc" name="customerDesc" placeholder="描述信息" class="layui-textarea"></textarea>
                         </div>
                     </div>
                   <div class="layui-form-item">
@@ -133,29 +145,12 @@
                 });
 
                 //监听提交
-
                 form.on('submit(add)', function(data){
-                    var goodName = $("#goodName").val();
-                    var goodNum = $("#goodNum").val();
-                    var goodDesc = $("#goodDesc").val();
-                    var goodSize = $("#goodSize").val();
-                    var goodInnerRing = $("#goodInnerRing").val();
-                    var formData = new FormData();
-                    formData.append("goodImages", $("#uploadimages").get(0).files[0])
-                    formData.append("goodName", goodName)
-                    formData.append("goodNum", goodNum)
-                    formData.append("goodDesc", goodDesc)
-                    formData.append("goodSize", goodSize)
-                    formData.append("goodInnerRing", goodInnerRing)
 
                     $.ajax({
-                        data: formData,
-                        url: 'goods/goodsAdd',
-                        type: 'post',
-                        processData: false,
-                        contentType: false,
-                        cache: false,
-                        dataType: 'json',
+                        data: $("#addform").serialize(),
+                        url: "customer/add",
+                        type: 'POST',
                         success: function (res) {
                             if (res.result) {
                                 layer.alert("增加成功", {
@@ -172,31 +167,13 @@
                                 },function () {
                                     //关闭当前frame
                                     xadmin.close();
-
                                 })
                             }
                         }
                     })
-
                     return false;
                 });
 
-                var images = $("#uploadimages");
-                var imagesList = $("#imagesList");
-                images.change(function () {
-                    imagesList.html("");
-                    readFile(this);
-                })
-                var readFile = function (obj) {
-                    var fileList=obj.files;
-                    for(var i=0; i<fileList.length; i++) {
-                        var reader = new FileReader();
-                        reader.readAsDataURL(fileList[i]);
-                        reader.onload=function(e) {
-                            imagesList.append('<img src="'+ this.result +'" alt="'+ this.result +'" class="layui-upload-img" style="width: 80px">');
-                        }
-                    }
-                }
             });
 
         </script>

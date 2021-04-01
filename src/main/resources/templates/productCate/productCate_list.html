@@ -192,7 +192,7 @@
                 ids.push(checks[i].value);
             }
             $.ajax({
-                url: 'sysDept/batchDel',
+                url: 'productCate/batchDel',
                 data: "ids="+ids,
                 success: function (data) {
                     if (data.result) {
@@ -237,7 +237,7 @@
 
                 //首次不执行
                 if(!first){
-                    location.href = "proceCate/page?currentPage="+obj.curr+"&pageSize="+obj.limit;
+                    location.href = "productCate/page?currentPage="+obj.curr+"&pageSize="+obj.limit;
                 }
             }
         });

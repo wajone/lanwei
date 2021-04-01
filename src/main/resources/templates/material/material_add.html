@@ -31,7 +31,7 @@
                           autocomplete="off" class="layui-input">
                       </div>
                       <div class="layui-form-mid layui-word-aux">
-                          <span class="x-red">*</span>请输入物料编码
+                          <span class="x-red">*</span>请输入物料编码，必须唯一
                       </div>
                   </div>
                   <div class="layui-form-item">
@@ -40,20 +40,20 @@
                       </label>
                       <div class="layui-input-inline">
                           <input type="text" id="deptParentName" name="deptParentName" required="" lay-verify="required"
-                          autocomplete="off" class="layui-input" readonly="true" value="所属分类">
+                          autocomplete="off" class="layui-input" readonly="true" value="">
                           <input type="hidden" name="deptParentId" id="deptParentId" value="1" >
-                          <input type="button" class="layui-btn layui-btn-primary" value="选择所属分类" onclick="selectCate();">
+                          <input type="button" class="layui-btn layui-btn-primary" value="点击选择" onclick="selectCate();">
                       </div>
                       <div class="layui-form-mid layui-word-aux">
-                          <span class="x-red">*</span>请输入物料分类
+                          <span class="x-red">*</span>请输入物料所在的分类
                       </div>
                   </div>
                     <div class="layui-form-item">
-                        <label for="deptDesc" class="layui-form-label">
+                        <label for="materialDesc" class="layui-form-label">
                             描述信息
                         </label>
                         <div class="layui-input-block" style="width: 350px;">
-                            <textarea id="deptDesc" name="deptDesc" placeholder="请输入物料描述信息" class="layui-textarea"></textarea>
+                            <textarea id="materialDesc" name="materialDesc" placeholder="请输入物料描述信息" class="layui-textarea"></textarea>
                         </div>
                     </div>
                   <div class="layui-form-item">
@@ -67,30 +67,30 @@
             </div>
         </div>
     </body>
-        <div id="deptParent" style="display: none; padding: 15px;">
-            <div id="parentTree"></div>
+        <div id="treeContainer" style="display: none; padding: 15px;">
+            <div id="cateTree"></div>
         </div>
         <script>
             //点击事件
             function selectCate() {
                 //弹窗
                 layer.open({
-                    title: '部门列表',
+                    title: '物料分类',
                     type: 1,
-                    content: $('#deptParent'),
+                    content: $('#treeContainer'),
                     area: ['400px', '300px'],
                     btn: '确定'
                 });
                 //异步加载部门列表
                 $.ajax({
-                    url: 'sysDept/list',
+                    url: 'cate/getMaterialTree',
                     success: function (data){
                         console.log(data);
                         layui.use('tree', function () {
                             var tree = layui.tree;
                             //渲染
                             var inst1 = tree.render({
-                                elem: '#parentTree'  //绑定元素
+                                elem: '#cateTree'  //绑定元素
                                 ,data: data
                                 ,click: function (obj) {
                                     console.log(obj.data)

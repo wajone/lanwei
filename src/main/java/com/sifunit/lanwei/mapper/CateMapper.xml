@@ -25,4 +25,27 @@
         WHERE
             parent_cate_id= #{id}
     </select>
+
+    <resultMap type="com.sifunit.lanwei.vo.ProductCateTree" id="productTreeMap">
+        <id column="product_cate_id" property="id"/>
+        <result column="parent_cate_id" property="parent_id"/>
+        <result column="product_cate_name" property="title"/>
+        <collection property="children" ofType="com.sifunit.lanwei.vo.ProductCateTree" column="product_cate_id" select="getProductChildren"/>
+    </resultMap>
+
+    <!-- 先查询菜单根级目录 -->
+    <!-- 这里的返回结果必须为resultMap，并且值为上面构建的resultMap的id的值 -->
+    <select id="getProductCateTree" resultMap="productTreeMap">
+        SELECT product_cate_id,parent_cate_id,product_cate_name FROM t_product_cate  WHERE  parent_cate_id=0
+    </select>
+    <!-- 再利用上次查询结果colliection中column的值cid做递归查询，查出所有子菜单 -->
+    <!-- 这里的返回结果必须为resultMap，并且值为上面构建的resultMap的id的值 -->
+    <select id="getProductChildren" resultMap="productTreeMap">
+        SELECT
+            product_cate_id,parent_cate_id,product_cate_name
+        FROM
+            t_product_cate
+        WHERE
+            parent_cate_id= #{id}
+    </select>
 </mapper>

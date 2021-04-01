@@ -24,10 +24,11 @@ public class CateController {
         return Layui.data(list.size(), list);
     }
 
-    @RequestMapping("getProceCateTree")
+    @RequestMapping("getProductCateTree")
     @ResponseBody
     public Layui getProductCateTree() {
         List<ProductCateTree> list = cateService.getProductCateTree();
         return Layui.data(list.size(), list);
     }
+
 }
