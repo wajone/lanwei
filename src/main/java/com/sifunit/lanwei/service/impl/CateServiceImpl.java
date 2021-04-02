@@ -1,5 +1,6 @@
 package com.sifunit.lanwei.service.impl;
 
+import com.sifunit.lanwei.domain.MaterialCate;
 import com.sifunit.lanwei.mapper.CateMapper;
 import com.sifunit.lanwei.service.ICateService;
 import com.sifunit.lanwei.vo.ProceCateTree;
@@ -12,15 +13,20 @@ import java.util.List;
 @Service
 public class CateServiceImpl implements ICateService {
     @Autowired
-    CateMapper mapper;
+    CateMapper cateMapper;
 
     @Override
     public List<ProceCateTree> getProceCateTree() {
-        return mapper.getProceCateTree();
+        return cateMapper.getProceCateTree();
     }
 
     @Override
     public List<ProductCateTree> getProductCateTree() {
-        return mapper.getProductCateTree();
+        return cateMapper.getProductCateTree();
+    }
+
+    @Override
+    public List<MaterialCate> getMaterialCateTree() {
+        return cateMapper.getMaterialCateTree();
     }
 }

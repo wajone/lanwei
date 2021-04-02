@@ -8,6 +8,7 @@
         <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
         <link rel="stylesheet" href="css/font.css">
         <link rel="stylesheet" href="css/xadmin.css">
+        <link rel="stylesheet" href="css/my.css">
         <script src="lib/layui/layui.js" charset="utf-8"></script>
         <script type="text/javascript" src="js/xadmin.js"></script>
         <!--[if lt IE 9]>
@@ -51,10 +52,10 @@
                             <button class="layui-btn" onclick="xadmin.open('添加工序','proce/toAdd',800,600)"><i class="layui-icon"></i>添加工序</button>
                         </div>
                         <div class="layui-card-body">
-                            <table class="layui-table">
+                            <table class="layui-table mytable">
                               <thead>
                                 <tr>
-                                  <th style="min-width: auto">
+                                  <th class="thcheckbox">
                                     <input type="checkbox" id="checkall" onclick="allcheck(this)" name="" lay-skin="primary">
                                   </th>
                                   <th>工序编码</th>

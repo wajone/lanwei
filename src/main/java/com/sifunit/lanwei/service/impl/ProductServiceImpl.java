@@ -50,7 +50,7 @@ public class ProductServiceImpl extends BaseServiceImpl<Product> implements IPro
 
 
         StringBuffer imagesUrl = new StringBuffer();
-        if (files.length > 0 ) {
+        if (files != null ) {
             for(MultipartFile file: files) {
                 if (!file.isEmpty()) {
                     //上传图片并把路径添加到imagesUrl
@@ -101,15 +101,17 @@ public class ProductServiceImpl extends BaseServiceImpl<Product> implements IPro
 
     @Override
     public SysResult delById(Long productId) {
-        SysResult sysResult = new SysResult(false);
+        SysResult sysResult = new SysResult();
         Product product = new Product();
         product.setProductId(productId);
         product.setFlag(false);
         int count = productMapper.updateByPrimaryKeySelective(product);
         if (count == 0) {
+            sysResult.setResult(false);
             sysResult.setData("删除失败！");
         } else {
             sysResult.setResult(true);
+            sysResult.setData("删除成功！");
         }
         return sysResult;
     }

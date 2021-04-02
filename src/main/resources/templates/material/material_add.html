@@ -34,14 +34,26 @@
                           <span class="x-red">*</span>请输入物料编码，必须唯一
                       </div>
                   </div>
+                    <div class="layui-form-item">
+                        <label for="materialName" class="layui-form-label">
+                            <span class="x-red">*</span>物料名称
+                        </label>
+                        <div class="layui-input-inline">
+                            <input type="text" id="materialName" name="materialName" required="" lay-verify="required"
+                                   autocomplete="off" class="layui-input">
+                        </div>
+                        <div class="layui-form-mid layui-word-aux">
+                            <span class="x-red">*</span>请输入物料名称
+                        </div>
+                    </div>
                   <div class="layui-form-item">
-                      <label for="deptParentName" class="layui-form-label">
+                      <label for="materialCateName" class="layui-form-label">
                           <span class="x-red">*</span>物料分类
                       </label>
                       <div class="layui-input-inline">
-                          <input type="text" id="deptParentName" name="deptParentName" required="" lay-verify="required"
+                          <input type="text" id="materialCateName" name="materialCateName" required="" lay-verify="required"
                           autocomplete="off" class="layui-input" readonly="true" value="">
-                          <input type="hidden" name="deptParentId" id="deptParentId" value="1" >
+                          <input type="hidden" name="materialCateId" id="materialCateId" value="1" >
                           <input type="button" class="layui-btn layui-btn-primary" value="点击选择" onclick="selectCate();">
                       </div>
                       <div class="layui-form-mid layui-word-aux">
@@ -83,7 +95,7 @@
                 });
                 //异步加载部门列表
                 $.ajax({
-                    url: 'cate/getMaterialTree',
+                    url: 'cate/getMaterialCateTree',
                     success: function (data){
                         console.log(data);
                         layui.use('tree', function () {
@@ -91,12 +103,12 @@
                             //渲染
                             var inst1 = tree.render({
                                 elem: '#cateTree'  //绑定元素
-                                ,data: data
+                                ,data: data.data
                                 ,click: function (obj) {
                                     console.log(obj.data)
-                                    $("#deptParentName").val(obj.data.title);
+                                    $("#materialCateName").val(obj.data.title);
                                     console.log(obj);
-                                    $("#deptParentId").val(obj.data.id);
+                                    $("#materialCateId").val(obj.data.id);
                                 }
                             });
 
@@ -133,7 +145,7 @@
                     console.log(JSON.stringify(data.field));
                     $.ajax({
                         data: $("#deptform").serialize(),
-                        url: "sysDept/add",
+                        url: "material/add",
                         type: 'POST',
                         success: function (res) {
                             if (res.result) {

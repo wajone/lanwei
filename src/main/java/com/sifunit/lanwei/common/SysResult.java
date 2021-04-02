@@ -25,6 +25,9 @@ public class SysResult {
         this.data = data;
     }
 
+    public SysResult() {
+    }
+
     public SysResult(boolean result) {
         this.result = result;
     }

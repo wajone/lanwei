@@ -3,9 +3,7 @@ package com.sifunit.lanwei.controller;
 import com.github.pagehelper.PageInfo;
 import com.sifunit.lanwei.common.Page;
 import com.sifunit.lanwei.common.SysResult;
-import com.sifunit.lanwei.domain.Material;
 import com.sifunit.lanwei.domain.Stock;
-import com.sifunit.lanwei.service.IMaterialService;
 import com.sifunit.lanwei.service.IStockService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,24 +13,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-@RequestMapping("material")
-public class MaterialController {
-
+@RequestMapping("purchase")
+public class PurchaseController {
     @Autowired
-    IMaterialService materialService;
+    IStockService stockService;
 
     @GetMapping("page")
     public String page(Page page, Model model) {
-        PageInfo<Material> pageInfo = materialService.getPage(page, model);
+        PageInfo<Stock> pageInfo = stockService.getPage(page, model);
         model.addAttribute("pageInfo", pageInfo);
-        return "material/material_list";
+        return "stock/stock_list";
     }
 
     @RequestMapping("add")
     @ResponseBody
-    public SysResult add(Material material) {
+    public SysResult add(Stock stock) {
         SysResult sysResult = new SysResult(false);
-        int count = materialService.insertSelective(material);
+        int count = stockService.insertSelective(stock);
         if (count > 0) {
             sysResult.setResult(true);
             sysResult.setData("添加成功!");
@@ -44,35 +41,27 @@ public class MaterialController {
 
     @GetMapping("toAdd")
     public String toAdd() {
-        return "material/material_add";
+        return "stock/stock_add";
     }
 
     @GetMapping("toUpdate")
-    public String toUpdate(Long materilaId, Model model) {
-        Material material = materialService.selectByPrimaryKey(materilaId);
-        model.addAttribute("material", material);
-        return "material/material_update";
+    public String toUpdate(Long stockId, Model model) {
+        Stock stock = stockService.selectByPrimaryKey(stockId);
+        model.addAttribute("stock", stock);
+        return "stock/stock_update";
     }
 
     @RequestMapping("update")
     @ResponseBody
-    public SysResult update(Material material) {
+    public SysResult update(Stock stock) {
         SysResult sysResult = new SysResult(false);
-        int count = materialService.updateByPrimaryKeySelective(material);
+        int count = stockService.updateByPrimaryKeySelective(stock);
         if (count > 0) {
             sysResult.setResult(true);
             sysResult.setData("修改成功!");
         } else {
             sysResult.setData("修改失败!");
         }
-        return sysResult;
-    }
-
-    @GetMapping("delById")
-    @ResponseBody
-    public SysResult delById(Long materialId) {
-        System.out.println(materialId);
-        SysResult sysResult = materialService.delById(materialId);
         return sysResult;
     }
 }

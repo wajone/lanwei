@@ -1,6 +1,7 @@
 package com.sifunit.lanwei.controller;
 
 import com.sifunit.lanwei.common.Layui;
+import com.sifunit.lanwei.domain.MaterialCate;
 import com.sifunit.lanwei.service.ICateService;
 import com.sifunit.lanwei.vo.ProceCateTree;
 import com.sifunit.lanwei.vo.ProductCateTree;
@@ -28,6 +29,13 @@ public class CateController {
     @ResponseBody
     public Layui getProductCateTree() {
         List<ProductCateTree> list = cateService.getProductCateTree();
+        return Layui.data(list.size(), list);
+    }
+
+    @RequestMapping("getMaterialCateTree")
+    @ResponseBody
+    public Layui getMaterialCateTree() {
+        List<MaterialCate> list = cateService.getMaterialCateTree();
         return Layui.data(list.size(), list);
     }
 
