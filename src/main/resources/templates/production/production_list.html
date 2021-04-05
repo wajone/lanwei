@@ -69,13 +69,13 @@
                               <tbody>
                                 <tr th:each="production : ${pageInfo.list}">
                                   <td>
-                                    <input type="checkbox" name="ids" th:value="" lay-skin="primary">
+                                    <input type="checkbox" name="ids" th:value="${production.productionId}" lay-skin="primary">
                                   </td>
-                                  <td th:text=""></td>
-                                  <td th:text=""></td>
-                                  <td th:text=""></td>
-                                  <td th:text=""></td>
-                                  <td th:text=""></td>
+                                  <td th:text="${production.productionNo}"></td>
+                                  <td th:text="${production.createTime}"></td>
+                                  <td th:text="${production.advanceTime}"></td>
+                                  <td th:text="${production.realTime}"></td>
+                                  <td th:text="${production.customerName                            }"></td>
 
                                   <td>
                                     <button class="layui-btn layui-btn-primary" id="demo4">

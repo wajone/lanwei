@@ -3,13 +3,15 @@
 <mapper namespace="com.sifunit.lanwei.mapper.ProductionDetailMapper">
   <resultMap type="com.sifunit.lanwei.vo.ProductionDetail" id="productionDetail">
     <id column="production_id" />
-    <result column="productionNo"/>
-    <result column="contactNo"/>
-    <result column="exportNo"/>
-    <result column="customerId"/>
-    <result column="customerName"/>
-    <result column="contactNo"/>
-    <collection property="products" ofType="com.sifunit.lanwei.domain.Product" column="production_id" select="getProducts"/>
+    <result column="production_no"/>
+    <result column="contact_no"/>
+    <result column="export_no"/>
+    <result column="customer_id"/>
+    <result column="customer_name"/>
+    <result column="create_time"/>
+    <result column="advance_time"/>
+    <result column="real_time"/>
+    <collection property="products" ofType="com.sifunit.lanwei.vo.ProductDetail" column="production_id" select="getProducts"/>
   </resultMap>
 
   <sql id="Base_Column_List">
@@ -28,9 +30,9 @@
 
   </select>
 
-  <select id="getProducts" resultType="com.sifunit.lanwei.domain.Product">
+  <select id="getProducts" resultType="com.sifunit.lanwei.vo.ProductDetail">
     SELECT
-      product_id,parent_no,image_url,product_name,product_size,attach_info,product_cate_id,product_cate_name,product_desc
+      a.product_id,a.product_name,b.product_num,b.product_color,b.production_desc
     FROM
       t_product a
     LEFT JOIN
