@@ -8,6 +8,7 @@
         <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
         <link rel="stylesheet" href="css/font.css">
         <link rel="stylesheet" href="css/xadmin.css">
+        <link rel="stylesheet" href="css/my.css">
         <script src="lib/layui/layui.js" charset="utf-8"></script>
         <script type="text/javascript" src="js/xadmin.js"></script>
         <!--[if lt IE 9]>
@@ -19,9 +20,9 @@
         <div class="x-nav">
           <span class="layui-breadcrumb">
             <a href="">首页</a>
-            <a href="">演示</a>
+            <a href="">生产管理</a>
             <a>
-              <cite>导航元素</cite></a>
+              <cite>生产计划表</cite></a>
           </span>
           <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" onclick="location.reload()" title="刷新">
             <i class="layui-icon layui-icon-refresh" style="line-height:30px"></i></a>
@@ -30,7 +31,7 @@
             <div class="layui-row layui-col-space15">
                 <div class="layui-col-md12">
                     <div class="layui-card">
-                        <div class="layui-card-body ">
+                        <div class="layui-card-body">
                             <form class="layui-form layui-col-space5">
                                 <div class="layui-inline layui-show-xs-block">
                                     <input class="layui-input"  autocomplete="off" placeholder="开始日" name="start" id="start">
@@ -48,22 +49,21 @@
                         </div>
                         <div class="layui-card-header">
                             <button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
-                            <button class="layui-btn" onclick="xadmin.open('生产计划表','pro/toAdd',1000,700)"><i class="layui-icon"></i>添加</button>
+                            <button class="layui-btn" onclick="xadmin.open('生产计划表','pro/toAdd',1000,700)"><i class="layui-icon"></i>添加计划表</button>
                         </div>
                         <div class="layui-card-body">
-                            <table class="layui-table layui-form">
+                            <table class="layui-table mytable">
                               <thead>
                                 <tr>
-                                  <th>
+                                  <th class="thcheckbox" >
                                     <input type="checkbox" name="" lay-skin="primary">
                                   </th>
-                                  <th>产品图片</th>
-                                  <th>产品编码</th>
-                                  <th>产品名称</th>
-                                  <th>产品尺寸</th>
-                                  <th>内圈尺寸</th>
-                                  <th>产品描述</th>
-                                  <th>增加时间</th>
+                                  <th>生产单号</th>
+                                  <th>下单时间</th>
+                                  <th>预交时间</th>
+                                  <th>实际交期</th>
+                                  <th>客户名称</th>
+                                  <th>合同编号</th>
                                   <th>操作</th>
                               </thead>
                               <tbody>
@@ -71,12 +71,18 @@
                                   <td>
                                     <input type="checkbox" name="ids" th:value="" lay-skin="primary">
                                   </td>
-                                  <td><img th:src="" alt=""></td>
                                   <td th:text=""></td>
                                   <td th:text=""></td>
                                   <td th:text=""></td>
                                   <td th:text=""></td>
                                   <td th:text=""></td>
+
+                                  <td>
+                                    <button class="layui-btn layui-btn-primary" id="demo4">
+                                            查看产品
+                                            <i class="layui-icon layui-icon-more-vertical layui-font-12"></i>
+                                    </button>
+                                  </td>
                                   <td th:text="${#dates.format("",'yyyy-MM-dd')}">createTime</td>
                                   <td class="td-manage">
                                     <a onclick="member_stop(this,'10001')" href="javascript:;"  title="启用">

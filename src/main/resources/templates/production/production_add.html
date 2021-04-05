@@ -3,15 +3,17 @@
     
     <head>
         <meta charset="UTF-8">
-        <title>添加部门</title>
+        <title>添加生产计划表</title>
         <base th:href="${#request.getContextPath()}+'/'">
         <meta name="renderer" content="webkit">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
         <link rel="stylesheet" href="css/font.css">
         <link rel="stylesheet" href="css/xadmin.css">
+        <link rel="stylesheet" href="css/my.css">
         <script type="text/javascript" src="lib/layui/layui.js" charset="utf-8"></script>
         <script type="text/javascript" src="js/xadmin.js"></script>
+
         <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
         <!--[if lt IE 9]>
             <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
@@ -74,9 +76,20 @@
                                  autocomplete="off" class="layui-input">
                       </div>
                   </div>
+                    <div class="layui-form-iterm">
+                        <label for="customerName" class="layui-form-label">
+                            <span class="x-red">*</span>客户名称
+                        </label>
+                        <div class="layui-input-inline">
+                            <input type="text" id="customerName" name="customerName"
+                                   autocomplete="off" class="layui-input">
+                            <input type="hidden" name="customerId" id="customerId" value="0" >
+                            <input type="button" class="layui-btn layui-btn-primary" value="点击选择" onclick="selectCustomer();">
+                        </div>
+                    </div>
                   <div style="padding-left: 30px; padding-right: 30px;">
                       <div class="layui-form-item" >
-                          <table class="layui-table" lay-skin="line">
+                          <table class="layui-table mytable" lay-skin="line">
                               <thead>
                               <tr>
                                   <th>产品编码</th>
@@ -89,7 +102,7 @@
                               </tr>
                               </thead>
                               <tbody>
-                              <tr id="tabtr" class="goodtr">
+                              <tr class="producttr">
                                   <td>
                                     <div class="layui-input-inline">
                                       <input type="text" name="price_min[]" placeholder="" autocomplete="off" class="layui-input searchGoods">
@@ -112,7 +125,7 @@
                           </table>
                       </div>
                       <div class="layui-form-item">
-                          <button id="addGoods" class="layui-btn layui-btn-primary">增加一行</button>
+                          <button id="addProduct" class="layui-btn layui-btn-primary">增加一行</button>
                       <div class="layui-form-item" style="margin-top: 50px; float: right">
                           <button  class="layui-btn" lay-filter="add" lay-submit="">
                               提交
@@ -126,7 +139,43 @@
         </div>
 
         <script>
+            function selectCustomer() {
+                //弹窗
+                layer.open({
+                    title: '选择客户',
+                    type: 1,
+                    content: $('#productCate'),
+                    area: ['450px', '350px'],
+                    btn: '确定'
+                });
+                //异步加载部门列表
+                $.ajax({
+                    url: 'cate/getProductCateTree',
+                    success: function (data){
+                        console.log(data);
+                        layui.use('tree', function () {
+                            var tree = layui.tree;
+                            //渲染
+                            var inst1 = tree.render({
+                                elem: '#productCateTree'  //绑定元素
+                                ,data: data.data
+                                ,click: function (obj) {
+                                    $("#productCateName").val(obj.data.title);
+                                    console.log(obj);
+                                    $("#productCateId").val(obj.data.id);
+                                }
+                            });
+                        })
+                    }
+                })
+
+            }
+
+
             function member_del(obj,id){
+                if ($(".producttr").length <= 1) {
+                    return;
+                }
                 layer.confirm('确认要删除吗？',function(index){
                     //发异步删除数据
                     $(obj).parents("tr").remove();
@@ -151,8 +200,8 @@
                 });
 
                 //增加一行按钮点击功能
-                $("#addGoods").click(function () {
-                    var tr = $("#tabtr");
+                $("#addProduct").click(function () {
+                    var tr = $(".producttr:last");
                     var newtr = tr.clone();
                     newtr.find(":input").each(function (i) {
                         //循环新克隆的newtr，在里边找到所有的input标签，
@@ -185,8 +234,6 @@
                 //监听提交
 
                 form.on('submit(add)', function(data){
-
-
                     $.ajax({
                         data: '',
                         url: 'goods/goodsAdd',

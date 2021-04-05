@@ -85,36 +85,6 @@ insert  into `proce_cate`(`proce_cate_id`,`proce_cate_name`,`parent_cate_id`,`pr
 (7,'验收',1,'验收',1,'2021-03-28 10:14:38','2021-03-28 10:14:40'),
 (8,'包装',1,'包装打箱',1,'2021-03-28 10:14:42','2021-03-28 10:14:44');
 
-/*Table structure for table `production_goods` */
-
-DROP TABLE IF EXISTS `production_goods`;
-
-CREATE TABLE `production_goods` (
-  `production_num` int(20) DEFAULT NULL,
-  `good_num` int(20) DEFAULT NULL,
-  `production_amount` bigint(20) DEFAULT NULL,
-  `production_desc` varchar(128) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-/*Data for the table `production_goods` */
-
-/*Table structure for table `production_plan` */
-
-DROP TABLE IF EXISTS `production_plan`;
-
-CREATE TABLE `production_plan` (
-  `pro_id` bigint(11) NOT NULL AUTO_INCREMENT,
-  `pro_number` varchar(20) DEFAULT NULL,
-  `pro_contract num` varchar(20) DEFAULT NULL,
-  `pro_export_num` varchar(20) DEFAULT NULL,
-  `pro_order_time` datetime DEFAULT NULL COMMENT '下单时间',
-  `pro_advance_time` datetime DEFAULT NULL COMMENT '预交时间',
-  `pro_real_time` datetime DEFAULT NULL COMMENT '实际交期',
-  PRIMARY KEY (`pro_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-/*Data for the table `production_plan` */
-
 /*Table structure for table `role` */
 
 DROP TABLE IF EXISTS `role`;
@@ -445,6 +415,38 @@ insert  into `t_product_cate`(`product_cate_id`,`product_cate_name`,`parent_cate
 (1,'产品分类',0,'产品分类',1,'2021-04-02 10:13:50','2021-04-02 10:13:51'),
 (2,'方向盘套',1,'方向盘套',1,'2021-04-02 10:14:11','2021-04-02 10:14:11'),
 (3,'椅套',1,'椅套',1,'2021-04-02 10:15:09','2021-04-02 10:15:09');
+
+/*Table structure for table `t_production` */
+
+DROP TABLE IF EXISTS `t_production`;
+
+CREATE TABLE `t_production` (
+  `production_id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `production_no` varchar(100) DEFAULT NULL,
+  `contact_no` varchar(100) DEFAULT NULL,
+  `export_no` varchar(100) DEFAULT NULL,
+  `customer_id` bigint(20) DEFAULT NULL,
+  `create_time` datetime DEFAULT NULL,
+  `advance_time` datetime DEFAULT NULL,
+  `real_time` datetime DEFAULT NULL,
+  PRIMARY KEY (`production_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+/*Data for the table `t_production` */
+
+/*Table structure for table `t_production_detail` */
+
+DROP TABLE IF EXISTS `t_production_detail`;
+
+CREATE TABLE `t_production_detail` (
+  `production_id` bigint(20) DEFAULT NULL,
+  `product_id` bigint(20) DEFAULT NULL,
+  `product_num` bigint(20) DEFAULT NULL,
+  `product_color` char(6) DEFAULT NULL,
+  `production_desc` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+/*Data for the table `t_production_detail` */
 
 /*Table structure for table `t_purchase` */
 

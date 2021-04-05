@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sifunit.lanwei.mapper.ProductionDetailMapper">
+  <resultMap type="com.sifunit.lanwei.vo.ProductionDetail" id="productionDetail">
+    <id column="production_id" />
+    <result column="productionNo"/>
+    <result column="contactNo"/>
+    <result column="exportNo"/>
+    <result column="customerId"/>
+    <result column="customerName"/>
+    <result column="contactNo"/>
+    <collection property="products" ofType="com.sifunit.lanwei.domain.Product" column="production_id" select="getProducts"/>
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    production_id, production_no, contact_no, export_no, customer_id, create_time, advance_time,
+    real_time
+  </sql>
+
+  <select id="list" resultMap="productionDetail">
+    SELECT
+    <include refid="Base_Column_List" />
+    ,b.customer_name
+    FROM t_production a
+    LEFT JOIN
+        t_customer b
+    ON b.customer_id = a.customer_id
+
+  </select>
+
+  <select id="getProducts" resultType="com.sifunit.lanwei.domain.Product">
+    SELECT
+      product_id,parent_no,image_url,product_name,product_size,attach_info,product_cate_id,product_cate_name,product_desc
+    FROM
+      t_product a
+    LEFT JOIN
+          t_production_detail b
+    ON
+        a.product_id = b.product_id AND b.production_id = #{production_id}
+  </select>
+</mapper>

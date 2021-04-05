@@ -3,10 +3,11 @@ package com.sifunit.lanwei.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.sifunit.lanwei.common.Page;
-import com.sifunit.lanwei.domain.ProductionPlan;
+import com.sifunit.lanwei.domain.Production;
 import com.sifunit.lanwei.mapper.IBaseMapper;
-import com.sifunit.lanwei.mapper.ProductionPlanMapper;
+import com.sifunit.lanwei.mapper.ProductionMapper;
 import com.sifunit.lanwei.service.IProductionService;
+import com.sifunit.lanwei.vo.ProductionDetail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
@@ -14,25 +15,21 @@ import org.springframework.ui.Model;
 import java.util.List;
 
 @Service
-public class ProductionServiceImpl extends BaseServiceImpl<ProductionPlan> implements IProductionService {
+public class ProductionServiceImpl extends BaseServiceImpl<Production> implements IProductionService {
 
     @Autowired
-    ProductionPlanMapper productonPlanMapper;
+    ProductionMapper productionMapper;
+
     @Override
-    public IBaseMapper<ProductionPlan> getMapper() {
-        return productonPlanMapper;
+    public IBaseMapper<Production> getMapper() {
+        return productionMapper;
     }
 
     @Override
-    public List<ProductionPlan> list() {
-        return productonPlanMapper.list();
-    }
-
-    @Override
-    public PageInfo<ProductionPlan> getPageInfo(Page page, Model model) {
+    public PageInfo<Production> getPageInfo(Page page, Model model) {
         PageHelper.startPage(page.getCurrentPage(), page.getPageSize());
-        List<ProductionPlan> list = productonPlanMapper.list();
-        PageInfo<ProductionPlan> pageInfo = new PageInfo<>(list);
+        List<Production> list = productionMapper.list();
+        PageInfo<Production> pageInfo = new PageInfo<>(list);
         return pageInfo;
     }
 }
