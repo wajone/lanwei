@@ -38,11 +38,19 @@
     <result column="product_color" property="productColor" />
     <result column="production_desc" property="productionDesc" />
     <result column="product_name" property="productName" />
+    <result column="product_no" property="productNo" />
+    <result column="image_url" property="imageUrl" />
+    <result column="product_size" property="productSize" />
+    <result column="attach_info" property="attachInfo" />
+    <result column="product_cate_id" property="productCateId" />
+    <result column="product_cate_name" property="productCateName" />
+    <result column="product_desc" property="productDesc" />
   </resultMap>
 
   <select id="getProducts" resultMap="productDetailMap">
     SELECT
-      a.product_id,a.product_serial,a.product_num,a.product_color,a.production_desc,b.product_name
+      a.product_id,a.product_serial,a.product_num,a.product_color,a.production_desc,b.product_name,b.product_no,b.image_url,b.product_size,b.attach_info,
+           b.product_cate_id,b.product_cate_name,b.product_desc
     FROM
       t_production_detail a
     LEFT JOIN

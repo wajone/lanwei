@@ -11,6 +11,8 @@ public class ProductDetail {
 
     private String productName;
 
+    private String productNo;
+
     private String productSerial;
 
     private long productNum;
@@ -18,4 +20,17 @@ public class ProductDetail {
     private String productColor;
 
     private String productionDesc;
+
+    private String imageUrl;
+
+    private String productSize;
+
+    private String attachInfo;
+
+    private Long productCateId;
+
+    private String productCateName;
+
+    private String productDesc;
+
 }

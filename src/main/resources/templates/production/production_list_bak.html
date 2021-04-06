@@ -52,17 +52,55 @@
                             <button class="layui-btn" onclick="xadmin.open('生产计划表','pro/toAdd',1000,700)"><i class="layui-icon"></i>添加计划表</button>
                         </div>
                         <div class="layui-card-body">
-                            <div class="layui-row layui-col-space10">
-                                <div class="layui-col-md4">
-                                    1/3
-                                </div>
-                                <div class="layui-col-md4">
-                                    1/3
-                                </div>
-                                <div class="layui-col-md4">
-                                    1/3
-                                </div>
-                            </div>
+                            <table class="layui-table mytable">
+                              <thead>
+                                <tr>
+                                  <th class="thcheckbox" >
+                                    <input type="checkbox" name="" lay-skin="primary">
+                                  </th>
+                                  <th>生产单号</th>
+                                  <th>合同编号</th>
+                                  <th>外销编号</th>
+                                  <th>客户名称</th>
+                                  <th>下单时间</th>
+                                  <th>预交时间</th>
+                                  <th>实际交期</th>
+                                  <th>相关产品</th>
+                                  <th>操作</th>
+                              </thead>
+                              <tbody>
+                                <tr th:each="production : ${pageInfo.list}">
+                                  <td>
+                                    <input type="checkbox" name="ids" th:value="${production.productionId}" lay-skin="primary">
+                                  </td>
+                                  <td th:text="${production.productionNo}"></td>
+                                  <td th:text="${production.contactNo}"></td>
+                                  <td th:text="${production.exportNo}"></td>
+                                  <td th:text="${production.customerName}"></td>
+                                  <td th:text="${#dates.format(production.createTime,'yyyy-MM-dd')}"></td>
+                                  <td th:text="${#dates.format(production.advanceTime,'yyyy-MM-dd')}"></td>
+                                  <td th:text="${#dates.format(production.realTime,'yyyy-MM-dd')}"></td>
+                                  <td>
+                                    <ul>
+                                        <li th:each="product : ${production.products}">
+                                            <a th:href="product/" th:text="${product.productNo}"></a>
+                                        </li>
+                                    </ul>
+                                  </td>
+                                  <td class="td-manage">
+                                    <a onclick="member_stop(this,'10001')" href="javascript:;"  title="启用">
+                                      <i class="layui-icon">&#xe601;</i>
+                                    </a>
+                                    <a title="编辑"  onclick="xadmin.open('编辑','admin-edit.html')" href="javascript:;">
+                                      <i class="layui-icon">&#xe642;</i>
+                                    </a>
+                                    <a title="删除" onclick="member_del(this,'要删除的id')" href="javascript:;">
+                                      <i class="layui-icon">&#xe640;</i>
+                                    </a>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
                         </div>
                         <div class="layui-card-body">
                             <div id="pager" style="text-align: center">
