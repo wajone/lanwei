@@ -1,6 +1,5 @@
 package com.sifunit.lanwei.vo;
 
-import com.sifunit.lanwei.domain.Product;
 import lombok.Data;
 
 import java.util.Date;
@@ -26,6 +25,8 @@ public class ProductionDetail {
     private Date advanceTime;
 
     private Date realTime;
+
+    private Boolean isCompleted;
 
     private List<ProductDetail> products;
 }

@@ -15,4 +15,6 @@ public interface ICustomerService extends IBaseService<Customer> {
     SysResult delById(Long customerId);
 
     PageInfo<Customer> getPage(Page page, Model model);
+
+    PageInfo<Customer> listCustomers();
 }

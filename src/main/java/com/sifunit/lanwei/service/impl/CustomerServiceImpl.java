@@ -50,4 +50,11 @@ public class CustomerServiceImpl extends BaseServiceImpl<Customer> implements IC
         PageInfo<Customer> pageInfo = new PageInfo<>(list);
         return pageInfo;
     }
+
+    @Override
+    public PageInfo<Customer> listCustomers() {
+        List<Customer> list = customerMapper.list();
+        PageInfo<Customer> pageInfo = new PageInfo<>(list);
+        return pageInfo;
+    }
 }

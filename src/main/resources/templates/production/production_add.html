@@ -26,28 +26,28 @@
                 <form class="layui-form" id="deptform" enctype="multipart/form-data">
                     <h2 style="text-align: center; margin-bottom: 20px; font-weight: bold">生产计划表</h2>
                   <div class="layui-form-item">
-                        <label for="goodNum" class="layui-form-label">
+                        <label for="createTime" class="layui-form-label">
                             <span class="x-red">*</span>下单时间
                         </label>
                         <div class="layui-input-inline">
-                            <input type="text" id="goodNum" name="goodNum" required="" lay-verify="required"
+                            <input type="text" id="createTime" name="createTime" required="" lay-verify="required"
                                    autocomplete="off" class="layui-input">
                         </div>
-                      <label for="goodNum" class="layui-form-label">
+                      <label for="contactNo" class="layui-form-label">
                           <span class="x-red">*</span>合同编号
                       </label>
                       <div class="layui-input-inline">
-                          <input type="text" id="goodNum" name="goodNum" required="" lay-verify="required"
+                          <input type="text" id="contactNo" name="contactNo" required="" lay-verify="required"
                                  autocomplete="off" class="layui-input">
                       </div>
 
                     </div>
                   <div class="layui-form-item">
-                      <label for="goodNum" class="layui-form-label">
+                      <label for="advanceTime" class="layui-form-label">
                           <span class="x-red">*</span>预交时间
                       </label>
                       <div class="layui-input-inline">
-                          <input type="text" id="goodNum" name="goodNum" required="" lay-verify="required"
+                          <input type="text" id="advanceTime" name="advanceTime" required="" lay-verify="required"
                           autocomplete="off" class="layui-input">
                       </div>
                       <label for="goodNum" class="layui-form-label">
@@ -60,11 +60,11 @@
 
                   </div>
                   <div class="layui-form-item">
-                      <label for="goodName" class="layui-form-label">
+                      <label for="realTime" class="layui-form-label">
                           <span class="x-red">*</span>实际交期
                       </label>
                       <div class="layui-input-inline">
-                          <input type="text" id="goodName" name="goodName" required="" lay-verify="required"
+                          <input type="text" id="realTime" name="realTime" required="" lay-verify="required"
                           autocomplete="off" class="layui-input">
                       </div>
 
@@ -77,14 +77,14 @@
                       </div>
                   </div>
                     <div class="layui-form-iterm">
-                        <label for="customerName" class="layui-form-label">
+                        <label class="layui-form-label">
                             <span class="x-red">*</span>客户名称
                         </label>
                         <div class="layui-input-inline">
-                            <input type="text" id="customerName" name="customerName"
-                                   autocomplete="off" class="layui-input">
-                            <input type="hidden" name="customerId" id="customerId" value="0" >
-                            <input type="button" class="layui-btn layui-btn-primary" value="点击选择" onclick="selectCustomer();">
+                            <select name="customerId" lay-verify="required" lay-search="">
+                                <option value="">直接选择或搜索选择</option>
+                                <option th:each="customer : ${pageInfo.list}" th:value="${customer.customerId}" th:text="${customer.customerName}">客户名称</option>
+                            </select>
                         </div>
                     </div>
                   <div style="padding-left: 30px; padding-right: 30px;">
@@ -105,12 +105,12 @@
                               <tr class="producttr">
                                   <td>
                                     <div class="layui-input-inline">
-                                      <input type="text" name="price_min[]" placeholder="" autocomplete="off" class="layui-input searchGoods">
+                                      <input type="text" name="productNo[]" placeholder="" autocomplete="off" class="layui-input searchGoods">
                                     </div>
                                   </td>
                                   <td>
                                   <div class="layui-input-inline" style="width: 100px;">
-                                    <input type="text" name="price_min" placeholder="" autocomplete="off" class="layui-input">
+                                    <input type="text" name="productSerial" placeholder="" autocomplete="off" class="layui-input">
                                   </div>
                                   </td>
                                   <td><img src="/upload/lwa202103170001e.jpg" alt=""></td>
@@ -144,20 +144,20 @@
                 layer.open({
                     title: '选择客户',
                     type: 1,
-                    content: $('#productCate'),
+                    content: $('#customer'),
                     area: ['450px', '350px'],
                     btn: '确定'
                 });
                 //异步加载部门列表
                 $.ajax({
-                    url: 'cate/getProductCateTree',
+                    url: 'customer/get',
                     success: function (data){
                         console.log(data);
                         layui.use('tree', function () {
                             var tree = layui.tree;
                             //渲染
                             var inst1 = tree.render({
-                                elem: '#productCateTree'  //绑定元素
+                                elem: '#customerList'  //绑定元素
                                 ,data: data.data
                                 ,click: function (obj) {
                                     $("#productCateName").val(obj.data.title);
@@ -197,6 +197,15 @@
                 });
                 laydate.render({
                     elem: '#date1'
+                });
+                laydate.render({
+                    elem: '#createTime'
+                });
+                laydate.render({
+                    elem: '#advanceTime'
+                });
+                laydate.render({
+                    elem: '#realTime'
                 });
 
                 //增加一行按钮点击功能
@@ -293,5 +302,7 @@
                 s.parentNode.insertBefore(hm, s);
             })();</script>
     </body>
-
+    <div id="customer" style="display: none; padding: 15px;">
+        <div id="customerList"></div>
+    </div>
 </html>

@@ -2,21 +2,22 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sifunit.lanwei.mapper.ProductionDetailMapper">
   <resultMap type="com.sifunit.lanwei.vo.ProductionDetail" id="productionDetail">
-    <id column="production_id" />
-    <result column="production_no"/>
-    <result column="contact_no"/>
-    <result column="export_no"/>
-    <result column="customer_id"/>
-    <result column="customer_name"/>
-    <result column="create_time"/>
-    <result column="advance_time"/>
-    <result column="real_time"/>
+    <id column="production_id" property="productionId"/>
+    <result column="production_no" property="productionNo"/>
+    <result column="contact_no" property="contactNo"/>
+    <result column="export_no" property="exportNo"/>
+    <result column="customer_id" property="customerId"/>
+    <result column="customer_name" property="customerName"/>
+    <result column="create_time" property="createTime"/>
+    <result column="advance_time" property="advanceTime"/>
+    <result column="real_time" property="realTime"/>
+    <result column="is_completed" property="isCompleted"/>
     <collection property="products" ofType="com.sifunit.lanwei.vo.ProductDetail" column="production_id" select="getProducts"/>
   </resultMap>
 
   <sql id="Base_Column_List">
-    production_id, production_no, contact_no, export_no, customer_id, create_time, advance_time,
-    real_time
+    production_id, production_no, contact_no, export_no, a.customer_id, a.create_time, advance_time,
+    real_time, is_completed
   </sql>
 
   <select id="list" resultMap="productionDetail">
@@ -29,15 +30,26 @@
     ON b.customer_id = a.customer_id
 
   </select>
+  
+  <resultMap id="productDetailMap" type="com.sifunit.lanwei.vo.ProductDetail">
+    <result column="product_id" property="productId" />
+    <result column="product_serial" property="productSerial" />
+    <result column="product_num" property="productNum" />
+    <result column="product_color" property="productColor" />
+    <result column="production_desc" property="productionDesc" />
+    <result column="product_name" property="productName" />
+  </resultMap>
 
-  <select id="getProducts" resultType="com.sifunit.lanwei.vo.ProductDetail">
+  <select id="getProducts" resultMap="productDetailMap">
     SELECT
-      a.product_id,a.product_name,b.product_num,b.product_color,b.production_desc
+      a.product_id,a.product_serial,a.product_num,a.product_color,a.production_desc,b.product_name
     FROM
-      t_product a
+      t_production_detail a
     LEFT JOIN
-          t_production_detail b
+          t_product b
     ON
-        a.product_id = b.product_id AND b.production_id = #{production_id}
+        a.product_id = b.product_id
+    WHERE
+        a.production_id = #{product_id}
   </select>
 </mapper>

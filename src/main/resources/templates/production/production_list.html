@@ -59,11 +59,13 @@
                                     <input type="checkbox" name="" lay-skin="primary">
                                   </th>
                                   <th>生产单号</th>
+                                  <th>合同编号</th>
+                                  <th>外销编号</th>
+                                  <th>客户名称</th>
                                   <th>下单时间</th>
                                   <th>预交时间</th>
                                   <th>实际交期</th>
-                                  <th>客户名称</th>
-                                  <th>合同编号</th>
+                                  <th>相关产品</th>
                                   <th>操作</th>
                               </thead>
                               <tbody>
@@ -72,18 +74,19 @@
                                     <input type="checkbox" name="ids" th:value="${production.productionId}" lay-skin="primary">
                                   </td>
                                   <td th:text="${production.productionNo}"></td>
-                                  <td th:text="${production.createTime}"></td>
-                                  <td th:text="${production.advanceTime}"></td>
-                                  <td th:text="${production.realTime}"></td>
-                                  <td th:text="${production.customerName                            }"></td>
-
+                                  <td th:text="${production.contactNo}"></td>
+                                  <td th:text="${production.exportNo}"></td>
+                                  <td th:text="${production.customerName}"></td>
+                                  <td th:text="${#dates.format(production.createTime,'yyyy-MM-dd')}"></td>
+                                  <td th:text="${#dates.format(production.advanceTime,'yyyy-MM-dd')}"></td>
+                                  <td th:text="${#dates.format(production.realTime,'yyyy-MM-dd')}"></td>
                                   <td>
-                                    <button class="layui-btn layui-btn-primary" id="demo4">
-                                            查看产品
-                                            <i class="layui-icon layui-icon-more-vertical layui-font-12"></i>
-                                    </button>
+                                    <ul>
+                                        <li th:each="product : ${production.products}">
+                                            <span th:text="${product.productName}"></span>
+                                        </li>
+                                    </ul>
                                   </td>
-                                  <td th:text="${#dates.format("",'yyyy-MM-dd')}">createTime</td>
                                   <td class="td-manage">
                                     <a onclick="member_stop(this,'10001')" href="javascript:;"  title="启用">
                                       <i class="layui-icon">&#xe601;</i>
