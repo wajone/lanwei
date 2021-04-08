@@ -16,32 +16,6 @@ CREATE DATABASE /*!32312 IF NOT EXISTS*/`oa_2021` /*!40100 DEFAULT CHARACTER SET
 
 USE `oa_2021`;
 
-/*Table structure for table `goods` */
-
-DROP TABLE IF EXISTS `goods`;
-
-CREATE TABLE `goods` (
-  `good_id` bigint(11) NOT NULL AUTO_INCREMENT,
-  `good_images` varchar(128) DEFAULT NULL,
-  `good_no` varchar(25) DEFAULT NULL,
-  `good_name` varchar(128) DEFAULT NULL,
-  `good_cate_id` bigint(11) DEFAULT NULL,
-  `good_cate_name` varchar(255) DEFAULT NULL,
-  `good_size` varchar(10) DEFAULT 'M',
-  `good_inner_ring` varchar(128) DEFAULT NULL,
-  `good_desc` varchar(128) DEFAULT NULL,
-  `create_time` datetime DEFAULT NULL,
-  PRIMARY KEY (`good_id`),
-  UNIQUE KEY `good_num` (`good_no`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
-
-/*Data for the table `goods` */
-
-insert  into `goods`(`good_id`,`good_images`,`good_no`,`good_name`,`good_cate_id`,`good_cate_name`,`good_size`,`good_inner_ring`,`good_desc`,`create_time`) values 
-(1,'/upload/lwa202103170001e.jpg','lwa202103170001e','蓝威环保方向盘套',NULL,NULL,'L','38-8.2白色冲孔','玫红色法兰复合','2021-03-17 10:20:37'),
-(2,'/upload/3.png','asfsdfasdf','asdfasdfas',NULL,NULL,'S','asdfasdf','asfasdf','2021-03-24 20:33:10'),
-(3,'/upload/03.gif','asdf','asdf',NULL,NULL,'S','asdf','asf','2021-03-26 14:37:38');
-
 /*Table structure for table `perm` */
 
 DROP TABLE IF EXISTS `perm`;
@@ -256,9 +230,34 @@ CREATE TABLE `t_customer` (
   `create_time` datetime DEFAULT NULL,
   `update_time` datetime DEFAULT NULL,
   PRIMARY KEY (`customer_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 /*Data for the table `t_customer` */
+
+insert  into `t_customer`(`customer_id`,`customer_name`,`person_name`,`person_tel`,`area`,`email`,`zip_code`,`customer_desc`,`create_time`,`update_time`) values 
+(1,'CA','doris','15215823304','American','doris@163.com','317200','美国大客户','2021-04-08 14:45:40',NULL);
+
+/*Table structure for table `t_emp` */
+
+DROP TABLE IF EXISTS `t_emp`;
+
+CREATE TABLE `t_emp` (
+  `emp_id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `emp_no` varchar(100) DEFAULT NULL,
+  `emp_name` varchar(50) DEFAULT NULL,
+  `emp_birthday` date DEFAULT NULL,
+  `dept_id` bigint(20) DEFAULT NULL,
+  `dept_name` varchar(50) DEFAULT NULL,
+  `on_job` tinyint(1) DEFAULT '1',
+  `hiredate` datetime DEFAULT NULL,
+  `update_time` datetime DEFAULT NULL,
+  PRIMARY KEY (`emp_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+/*Data for the table `t_emp` */
+
+insert  into `t_emp`(`emp_id`,`emp_no`,`emp_name`,`emp_birthday`,`dept_id`,`dept_name`,`on_job`,`hiredate`,`update_time`) values 
+(1,'50004','干伟江','2021-04-06',2,'企管部',1,'2021-04-08 12:33:31',NULL);
 
 /*Table structure for table `t_good_cate` */
 
@@ -282,6 +281,21 @@ insert  into `t_good_cate`(`good_cate_id`,`good_cate_name`,`parent_cate_id`,`goo
 (2,'方向盘套',1,'各类方向盘套',NULL,'2021-03-30 12:51:21','2021-03-30 12:51:21'),
 (3,'护肩套',1,'各类护肩套',NULL,'2021-03-30 12:51:41','2021-03-30 12:51:41'),
 (4,'椅套',1,'各类椅套',NULL,'2021-03-30 12:51:54','2021-03-30 12:51:54');
+
+/*Table structure for table `t_labor` */
+
+DROP TABLE IF EXISTS `t_labor`;
+
+CREATE TABLE `t_labor` (
+  `emp_id` bigint(20) DEFAULT NULL,
+  `produciton_id` bigint(20) DEFAULT NULL,
+  `product_id` bigint(20) DEFAULT NULL,
+  `proce_id` bigint(20) DEFAULT NULL,
+  `submit_num` bigint(20) DEFAULT NULL,
+  `submit_time` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+/*Data for the table `t_labor` */
 
 /*Table structure for table `t_material` */
 
@@ -387,12 +401,14 @@ CREATE TABLE `t_product` (
   `update_time` datetime DEFAULT NULL,
   PRIMARY KEY (`product_id`),
   UNIQUE KEY `UNIQUE` (`product_no`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 /*Data for the table `t_product` */
 
 insert  into `t_product`(`product_id`,`product_no`,`image_url`,`product_name`,`product_size`,`attach_info`,`product_cate_id`,`product_cate_name`,`product_desc`,`flag`,`create_time`,`update_time`) values 
-(1,'lwa202103170001e','/upload/lwa202103170001e.jpg','蓝威方向盘套','L','37.5内圈',2,'方向盘套','方向盘套',1,'2021-04-02 11:18:23','2021-04-02 11:18:23');
+(1,'lwa202103170001e','/upload/lwa202103170001e.jpg','蓝威方向盘套','L','37.5内圈',2,'方向盘套','方向盘套',1,'2021-04-02 11:18:23','2021-04-02 11:18:23'),
+(2,'lwa202103170002e','/upload/lwa202103170001e.jpg','蓝威方向盘套2','M',NULL,NULL,NULL,NULL,1,NULL,NULL),
+(4,'问我','/upload/44504DA4-EDD5-4514-837F-6135DC342265.jpeg','啥事','S','',3,'椅套','',0,'2021-04-08 14:33:33','2021-04-08 14:33:43');
 
 /*Table structure for table `t_product_cate` */
 
@@ -429,10 +445,15 @@ CREATE TABLE `t_production` (
   `create_time` datetime DEFAULT NULL,
   `advance_time` datetime DEFAULT NULL,
   `real_time` datetime DEFAULT NULL,
+  `is_completed` tinyint(1) DEFAULT '0',
+  `level` int(3) DEFAULT '1',
   PRIMARY KEY (`production_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 /*Data for the table `t_production` */
+
+insert  into `t_production`(`production_id`,`production_no`,`contact_no`,`export_no`,`customer_id`,`create_time`,`advance_time`,`real_time`,`is_completed`,`level`) values 
+(1,'Z2001-25-555T','465456465','31312',1,'2021-04-06 07:39:34','2021-04-06 07:39:36','2021-04-24 07:39:38',0,1);
 
 /*Table structure for table `t_production_detail` */
 
@@ -441,12 +462,39 @@ DROP TABLE IF EXISTS `t_production_detail`;
 CREATE TABLE `t_production_detail` (
   `production_id` bigint(20) DEFAULT NULL,
   `product_id` bigint(20) DEFAULT NULL,
+  `product_serial` char(5) DEFAULT NULL,
   `product_num` bigint(20) DEFAULT NULL,
   `product_color` char(6) DEFAULT NULL,
   `production_desc` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `t_production_detail` */
+
+insert  into `t_production_detail`(`production_id`,`product_id`,`product_serial`,`product_num`,`product_color`,`production_desc`) values 
+(1,1,'3-1',100,'黑色',NULL),
+(1,2,'3-2',200,'红色','asdf');
+
+/*Table structure for table `t_progress` */
+
+DROP TABLE IF EXISTS `t_progress`;
+
+CREATE TABLE `t_progress` (
+  `production_id` bigint(20) DEFAULT NULL,
+  `product_id` bigint(20) DEFAULT NULL,
+  `proce_id` bigint(20) DEFAULT NULL,
+  `completed_num` bigint(20) DEFAULT NULL,
+  `goal_num` bigint(20) DEFAULT NULL,
+  `create_time` datetime DEFAULT NULL,
+  `finishd_time` datetime DEFAULT NULL,
+  KEY `production_id` (`production_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+/*Data for the table `t_progress` */
+
+insert  into `t_progress`(`production_id`,`product_id`,`proce_id`,`completed_num`,`goal_num`,`create_time`,`finishd_time`) values 
+(1,1,1,50,100,NULL,NULL),
+(1,1,2,60,100,NULL,NULL),
+(1,1,4,70,200,NULL,NULL);
 
 /*Table structure for table `t_purchase` */
 
