@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
+@RequestMapping("unit")
 public class UnitController {
     @Autowired
     IUnitService unitService;
@@ -30,6 +31,7 @@ public class UnitController {
     @ResponseBody
     public SysResult add(Unit unit) {
         SysResult sysResult = new SysResult(false);
+        System.out.println(unit.getUnitName());
         int count = unitService.insertSelective(unit);
         if (count > 0) {
             sysResult.setResult(true);
@@ -42,21 +44,21 @@ public class UnitController {
 
     @GetMapping("toAdd")
     public String toAdd() {
-        return "unite/unit_add";
+        return "unit/unit_add";
     }
 
     @GetMapping("toUpdate")
-    public String toUpdate(Long productCateId, Model model) {
-        ProductCate productCate = unitService.selectByPrimaryKey(productCateId);
-        model.addAttribute("productCate", productCate);
+    public String toUpdate(Long unitId, Model model) {
+        Unit unit = unitService.selectByPrimaryKey(unitId);
+        model.addAttribute("unit", unit);
         return "unit/unit_update";
     }
 
     @RequestMapping("update")
     @ResponseBody
-    public SysResult update(ProductCate productCate) {
+    public SysResult update(Unit unit) {
         SysResult sysResult = new SysResult(false);
-        int count = unitService.updateByPrimaryKeySelective(productCate);
+        int count = unitService.updateByPrimaryKeySelective(unit);
         if (count > 0) {
             sysResult.setResult(true);
             sysResult.setData("修改成功!");
@@ -68,8 +70,8 @@ public class UnitController {
 
     @GetMapping("delById")
     @ResponseBody
-    public SysResult delById(Long productCateId) {
-        SysResult sysResult = unitService.delById(productCateId);
+    public SysResult delById(Long unitId) {
+        SysResult sysResult = unitService.delById(unitId);
         return sysResult;
     }
 }
