@@ -3,6 +3,7 @@ package com.sifunit.lanwei.vo;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.List;
 
 @Data
 public class ProductDetail {
@@ -32,5 +33,7 @@ public class ProductDetail {
     private String productCateName;
 
     private String productDesc;
+
+    private List<ProceDetail> procedures;
 
 }

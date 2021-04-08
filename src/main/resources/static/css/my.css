@@ -6,3 +6,46 @@ th.thcheckbox {
 .mytable th,td {
     text-align: center;
 }
+
+.production_detail {
+    background: #2F4056;
+    color: white;
+    padding: 5px 15px;
+}
+
+.detail_left p, .detail_right p {
+    font-size: 14px;
+    line-height: 30px;
+}
+
+.detail_right span, .detail_left span {
+    font-weight: bold;
+}
+
+.mytable td, .mytable th {
+    min-width: 20px;
+}
+
+.marigntop20 {
+    margin-top: 20px;
+}
+
+.progress_left {
+    display: inline-block;
+    width: 20%;
+}
+
+.progress_item p {
+    font-size: 14px;
+    font-weight: 400;
+    color: #1E9FFF;
+}
+
+.progress_right {
+    display: inline-block;
+    width: 75%;
+}
+
+.progress_item {
+    padding: 10px;
+}

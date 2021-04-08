@@ -12,12 +12,13 @@
     <result column="advance_time" property="advanceTime"/>
     <result column="real_time" property="realTime"/>
     <result column="is_completed" property="isCompleted"/>
+    <result column="level" property="level"/>
     <collection property="products" ofType="com.sifunit.lanwei.vo.ProductDetail" column="production_id" select="getProducts"/>
   </resultMap>
 
   <sql id="Base_Column_List">
     production_id, production_no, contact_no, export_no, a.customer_id, a.create_time, advance_time,
-    real_time, is_completed
+    real_time, is_completed, level
   </sql>
 
   <select id="list" resultMap="productionDetail">
@@ -45,6 +46,7 @@
     <result column="product_cate_id" property="productCateId" />
     <result column="product_cate_name" property="productCateName" />
     <result column="product_desc" property="productDesc" />
+    <collection property="procedures" ofType="com.sifunit.lanwei.vo.ProceDetail" column="product_id" select="getProdedures"/>
   </resultMap>
 
   <select id="getProducts" resultMap="productDetailMap">
@@ -59,5 +61,27 @@
         a.product_id = b.product_id
     WHERE
         a.production_id = #{product_id}
+  </select>
+
+  <resultMap id="proceDetailMap" type="com.sifunit.lanwei.vo.ProceDetail">
+    <result column="proce_id" property="proceId" />
+    <result column="completed_num" property="completedNum" />
+    <result column="goal_num" property="goalNum" />
+    <result column="proce_no" property="proceNo" />
+    <result column="proce_name" property="proceName" />
+    <result column="proce_desc" property="proceDesc" />
+  </resultMap>
+
+  <select id="getProdedures" resultMap="proceDetailMap">
+    SELECT
+        a.proce_id,a.completed_num,a.goal_num,b.proce_no,b.proce_name,b.proce_desc
+    FROM
+        t_progress a
+    LEFT JOIN
+        t_procedure b
+    ON
+        a.proce_id = b.proce_id
+    WHERE
+        a.product_id = #{product_id}
   </select>
 </mapper>

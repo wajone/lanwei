@@ -53,16 +53,86 @@
                         </div>
                         <div class="layui-card-body">
                             <div class="layui-row layui-col-space10">
-                                <div class="layui-col-md4">
-                                    1/3
+                                <div class="layui-col-md6" th:each="production : ${pageInfo.list}" style="border: 1px solid #efeef0;height: 450px;overflow-y: scroll;">
+                                    <div class="layui-card">
+                                        <div class="layui-card-header" style="background: #efeef0">
+                                            <div style="float: left">生产单号：[[${production.productionNo}]]</div>
+                                            <div style="float: right;">
+                                                紧急程度：<div id="level" style="height: 42px;line-height: 42px;margin-top: -25px;"></div>
+                                            </div>
+                                        </div>
+                                        <div class="layui-card-body">
+                                            <div style="color: #666">
+                                                <div class="detail_left" style="float: left;margin-left: 20px;">
+                                                    <P><span class="title">下单时间：</span>[[${#dates.format(production.createTime,'yyyy-MM-dd')}]]</P>
+                                                    <P><span class="title">预交时间：</span>[[${#dates.format(production.advanceTime,'yyyy-MM-dd')}]]</P>
+                                                    <P><span class="title">实际交期：</span>[[${#dates.format(production.realTime,'yyyy-MM-dd')}]]</P>
+                                                </div>
+                                                <div class="detail_right" style="float: right;margin-right: 20px">
+                                                    <P><span class="title">合同编号：</span>[[${production.contactNo}]]</P>
+                                                    <P><span class="title">外销编号：</span>[[${production.exportNo}]]</P>
+                                                    <P><span class="title">客&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;户：</span>[[${production.customerName}]]</P>
+                                                </div>
+                                                <div style="clear: both"></div>
+                                            </div>
+
+                                            <div class="product_detail" style="margin-top: 20px;">
+                                                <p>相关产品</p>
+                                                <table class="layui-table mytable" lay-skin="line">
+                                                    <thead>
+                                                    <tr>
+                                                        <th>序号</th>
+                                                        <th>图片</th>
+                                                        <th>产品编号</th>
+                                                        <th>产品尺寸</th>
+                                                        <th>数量</th>
+                                                        <th>颜色</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr th:each="product : ${production.products}">
+                                                        <td th:text="${product.productSerial}"></td>
+                                                        <td><img th:src="${product.imageUrl}" alt="" style="width: 40px"></td>
+                                                        <td th:text="${product.productNo}"></td>
+                                                        <td th:text="${product.productSize}"></td>
+                                                        <td th:text="${product.productNum}"></td>
+                                                        <td th:text="${product.productColor}"></td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+
+                                            <!--进度展示-->
+                                            <div class="progress" style="margin-top: 20px;">
+                                                <p style="font-weight: bold">进度展示</p>
+                                                <div class="progress_item" th:each="product : ${production.products}">
+                                                    <p>[[${product.productName}]]---[[${product.productNo}]]</p>
+                                                    <div th:each="procedure : ${product.procedures}">
+                                                        <div class="progress_left">
+                                                            [[${procedure.proceName}]]：
+                                                        </div>
+                                                        <div class="progress_right">
+                                                            <div class="layui-progress" lay-showPercent="yes">
+                                                                <div class="layui-progress-bar layui-bg-green" th:lay-percent="${procedure.completedNum*100/procedure.goalNum}+'%'"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!--底部-->
+                                            <div class="production_bottom marigntop20" >
+                                                <div style="float: left">
+                                                    <p>制作人:许玉静</p>
+                                                </div>
+                                                <div style="float: right">
+                                                    是否完成
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="layui-col-md4">
-                                    1/3
                                 </div>
-                                <div class="layui-col-md4">
-                                    1/3
-                                </div>
-                            </div>
                         </div>
                         <div class="layui-card-body">
                             <div id="pager" style="text-align: center">
@@ -74,9 +144,10 @@
         </div> 
     </body>
     <script>
-      layui.use(['laydate','form'], function(){
+      layui.use(['laydate','form','element'], function(){
         var laydate = layui.laydate;
         var form = layui.form;
+        var element = layui.element;
         
         //执行一个laydate实例
         laydate.render({
@@ -143,8 +214,16 @@
       })();
     </script>
     <script>
-        layui.use('laypage', function(){
+        layui.use(['laypage','rate'], function(){
             var laypage = layui.laypage;
+            var rate = layui.rate;
+
+            rate.render({
+                elem: '#level'
+                ,length: 3
+                ,value: 3
+                ,readonly: true
+            });
 
             //执行一个laypage实例
             laypage.render({

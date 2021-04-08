@@ -28,5 +28,7 @@ public class ProductionDetail {
 
     private Boolean isCompleted;
 
+    private Integer level;
+
     private List<ProductDetail> products;
 }
