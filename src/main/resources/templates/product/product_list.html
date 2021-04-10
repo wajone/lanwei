@@ -175,7 +175,6 @@
                     if (res.result) {
                         $(obj).parents("tr").remove();
                         layer.msg('已删除!',{icon:1,time:1000});
-                        xadmin.father_reload();
                     } else {
                         layer.msg('删除失败!',{icon:2,time:1000});
                     }

@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sifunit.lanwei.mapper.LaborMapper">
+  <resultMap id="BaseResultMap" type="com.sifunit.lanwei.domain.Labor">
+    <constructor>
+      <idArg column="labor_id" javaType="java.lang.Long" jdbcType="BIGINT" />
+      <arg column="emp_id" javaType="java.lang.Long" jdbcType="BIGINT" />
+      <arg column="emp_name" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="production_id" javaType="java.lang.Long" jdbcType="BIGINT" />
+      <arg column="product_id" javaType="java.lang.Long" jdbcType="BIGINT" />
+      <arg column="product_name" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="proce_id" javaType="java.lang.Long" jdbcType="BIGINT" />
+      <arg column="proce_name" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="submit_num" javaType="java.lang.Long" jdbcType="BIGINT" />
+      <arg column="submit_emp_name" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="submit_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    labor_id, emp_id, emp_name, production_id, product_id, product_name, proce_id, proce_name, 
+    submit_num, submit_emp_name, submit_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_labor
+    where labor_id = #{laborId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from t_labor
+    where labor_id = #{laborId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.sifunit.lanwei.domain.Labor">
+    insert into t_labor (labor_id, emp_id, emp_name, 
+      production_id, product_id, product_name, 
+      proce_id, proce_name, submit_num, 
+      submit_emp_name, submit_time)
+    values (#{laborId,jdbcType=BIGINT}, #{empId,jdbcType=BIGINT}, #{empName,jdbcType=VARCHAR}, 
+      #{productionId,jdbcType=BIGINT}, #{productId,jdbcType=BIGINT}, #{productName,jdbcType=VARCHAR}, 
+      #{proceId,jdbcType=BIGINT}, #{proceName,jdbcType=VARCHAR}, #{submitNum,jdbcType=BIGINT}, 
+      #{submitEmpName,jdbcType=VARCHAR}, #{submitTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sifunit.lanwei.domain.Labor">
+    insert into t_labor
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="laborId != null">
+        labor_id,
+      </if>
+      <if test="empId != null">
+        emp_id,
+      </if>
+      <if test="empName != null">
+        emp_name,
+      </if>
+      <if test="productionId != null">
+        production_id,
+      </if>
+      <if test="productId != null">
+        product_id,
+      </if>
+      <if test="productName != null">
+        product_name,
+      </if>
+      <if test="proceId != null">
+        proce_id,
+      </if>
+      <if test="proceName != null">
+        proce_name,
+      </if>
+      <if test="submitNum != null">
+        submit_num,
+      </if>
+      <if test="submitEmpName != null">
+        submit_emp_name,
+      </if>
+      <if test="submitTime != null">
+        submit_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="laborId != null">
+        #{laborId,jdbcType=BIGINT},
+      </if>
+      <if test="empId != null">
+        #{empId,jdbcType=BIGINT},
+      </if>
+      <if test="empName != null">
+        #{empName,jdbcType=VARCHAR},
+      </if>
+      <if test="productionId != null">
+        #{productionId,jdbcType=BIGINT},
+      </if>
+      <if test="productId != null">
+        #{productId,jdbcType=BIGINT},
+      </if>
+      <if test="productName != null">
+        #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="proceId != null">
+        #{proceId,jdbcType=BIGINT},
+      </if>
+      <if test="proceName != null">
+        #{proceName,jdbcType=VARCHAR},
+      </if>
+      <if test="submitNum != null">
+        #{submitNum,jdbcType=BIGINT},
+      </if>
+      <if test="submitEmpName != null">
+        #{submitEmpName,jdbcType=VARCHAR},
+      </if>
+      <if test="submitTime != null">
+        #{submitTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sifunit.lanwei.domain.Labor">
+    update t_labor
+    <set>
+      <if test="empId != null">
+        emp_id = #{empId,jdbcType=BIGINT},
+      </if>
+      <if test="empName != null">
+        emp_name = #{empName,jdbcType=VARCHAR},
+      </if>
+      <if test="productionId != null">
+        production_id = #{productionId,jdbcType=BIGINT},
+      </if>
+      <if test="productId != null">
+        product_id = #{productId,jdbcType=BIGINT},
+      </if>
+      <if test="productName != null">
+        product_name = #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="proceId != null">
+        proce_id = #{proceId,jdbcType=BIGINT},
+      </if>
+      <if test="proceName != null">
+        proce_name = #{proceName,jdbcType=VARCHAR},
+      </if>
+      <if test="submitNum != null">
+        submit_num = #{submitNum,jdbcType=BIGINT},
+      </if>
+      <if test="submitEmpName != null">
+        submit_emp_name = #{submitEmpName,jdbcType=VARCHAR},
+      </if>
+      <if test="submitTime != null">
+        submit_time = #{submitTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where labor_id = #{laborId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sifunit.lanwei.domain.Labor">
+    update t_labor
+    set emp_id = #{empId,jdbcType=BIGINT},
+      emp_name = #{empName,jdbcType=VARCHAR},
+      production_id = #{productionId,jdbcType=BIGINT},
+      product_id = #{productId,jdbcType=BIGINT},
+      product_name = #{productName,jdbcType=VARCHAR},
+      proce_id = #{proceId,jdbcType=BIGINT},
+      proce_name = #{proceName,jdbcType=VARCHAR},
+      submit_num = #{submitNum,jdbcType=BIGINT},
+      submit_emp_name = #{submitEmpName,jdbcType=VARCHAR},
+      submit_time = #{submitTime,jdbcType=TIMESTAMP}
+    where labor_id = #{laborId,jdbcType=BIGINT}
+  </update>
+
+  <select id="list" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_labor
+  </select>
+</mapper>

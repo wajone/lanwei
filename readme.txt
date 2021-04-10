@@ -46,3 +46,8 @@ $(":text").val("Hello World");jquery设置value值
 202103271658
 2021032781131
 20210404
+
+ newtr.find(":input").each(function (i) {
+                    //循环新克隆的newtr，在里边找到所有的input标签，
+                    $(this).val("");
+                });

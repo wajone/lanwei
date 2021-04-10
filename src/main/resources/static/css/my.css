@@ -3,8 +3,9 @@ th.thcheckbox {
     width: 30px;
 }
 
-.mytable th,td {
+.mytable th,.mytable td {
     text-align: center;
+    min-width: 40px;
 }
 
 .production_detail {
@@ -48,4 +49,13 @@ th.thcheckbox {
 
 .progress_item {
     padding: 10px;
+}
+
+.production_table td, .production_table th {
+    min-width: 50px;
+    text-align: center;
+}
+
+.layui-row p {
+    margin-top: 10px;
 }

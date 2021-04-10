@@ -9,13 +9,14 @@
       <arg column="material_cate_id" javaType="java.lang.Long" jdbcType="BIGINT" />
       <arg column="material_cate_name" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="material_desc" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="material_size" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="flag" javaType="java.lang.Boolean" jdbcType="BIT" />
       <arg column="create_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
       <arg column="update_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
     </constructor>
   </resultMap>
   <sql id="Base_Column_List">
-    material_id, material_no, material_name, material_cate_id, material_cate_name, material_desc, 
+    material_id, material_no, material_name, material_cate_id, material_cate_name, material_desc, material_size,
     flag, create_time, update_time
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
@@ -34,8 +35,8 @@
       flag, create_time, update_time
       )
     values (#{materialId,jdbcType=BIGINT}, #{materialNo,jdbcType=VARCHAR}, #{materialName,jdbcType=VARCHAR}, 
-      #{materialCateId,jdbcType=BIGINT}, #{materialCateName,jdbcType=VARCHAR}, #{materialDesc,jdbcType=VARCHAR}, 
-      #{flag,jdbcType=BIT}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      #{materialCateId,jdbcType=BIGINT}, #{materialCateName,jdbcType=VARCHAR}, #{materialDesc,jdbcType=VARCHAR},
+      #{materialSize,jdbcType=VARCHAR}, #{flag,jdbcType=BIT}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.sifunit.lanwei.domain.Material">
@@ -58,6 +59,9 @@
       </if>
       <if test="materialDesc != null">
         material_desc,
+      </if>
+      <if test="materialSize != null">
+        material_size,
       </if>
       <if test="flag != null">
         flag,
@@ -84,6 +88,9 @@
       <if test="materialDesc != null">
         #{materialDesc,jdbcType=VARCHAR},
       </if>
+      <if test="materialSize != null">
+        #{materialSize,jdbcType=VARCHAR},
+      </if>
       <if test="flag != null">
         #{flag,jdbcType=BIT},
       </if>
@@ -108,6 +115,9 @@
       <if test="materialDesc != null">
         material_desc = #{materialDesc,jdbcType=VARCHAR},
       </if>
+      <if test="materialSize != null">
+        material_size = #{materialSize,jdbcType=VARCHAR},
+      </if>
       <if test="flag != null">
         flag = #{flag,jdbcType=BIT},
       </if>
@@ -125,6 +135,7 @@
       material_cate_id = #{materialCateId,jdbcType=BIGINT},
       material_cate_name = #{materialCateName,jdbcType=VARCHAR},
       material_desc = #{materialDesc,jdbcType=VARCHAR},
+      material_size= #{materialSize,jdbcType=VARCHAR},
       flag = #{flag,jdbcType=BIT},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP}

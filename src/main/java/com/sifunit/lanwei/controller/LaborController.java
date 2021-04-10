@@ -3,8 +3,8 @@ package com.sifunit.lanwei.controller;
 import com.github.pagehelper.PageInfo;
 import com.sifunit.lanwei.common.Page;
 import com.sifunit.lanwei.common.SysResult;
-import com.sifunit.lanwei.domain.Unit;
-import com.sifunit.lanwei.service.IUnitService;
+import com.sifunit.lanwei.domain.Labor;
+import com.sifunit.lanwei.service.ILaborService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,28 +13,28 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-@RequestMapping("unit")
-public class UnitController {
+@RequestMapping("labor")
+public class LaborController {
     @Autowired
-    IUnitService unitService;
+    ILaborService laborService;
 
     @GetMapping("page")
     public String page(Page page, Model model) {
-        PageInfo<Unit> pageInfo = unitService.getPage(page, model);
+        PageInfo<Labor> pageInfo = laborService.getPage(page, model);
         model.addAttribute("pageInfo", pageInfo);
-        return "unit/unit_list";
+        return "labor/labor_list";
     }
 
     @RequestMapping("add")
     @ResponseBody
-    public SysResult add(Unit unit) {
-        SysResult sysResult = new SysResult(false);
-        System.out.println(unit.getUnitName());
-        int count = unitService.insertSelective(unit);
+    public SysResult add(Labor labor) {
+        SysResult sysResult = new SysResult();
+        int count = laborService.insertSelective(labor);
         if (count > 0) {
             sysResult.setResult(true);
             sysResult.setData("添加成功!");
         } else {
+            sysResult.setResult(false);
             sysResult.setData("添加失败!");
         }
         return sysResult;
@@ -42,21 +42,21 @@ public class UnitController {
 
     @GetMapping("toAdd")
     public String toAdd() {
-        return "unit/unit_add";
+        return "labor/labor_add";
     }
 
     @GetMapping("toUpdate")
-    public String toUpdate(Long unitId, Model model) {
-        Unit unit = unitService.selectByPrimaryKey(unitId);
-        model.addAttribute("unit", unit);
-        return "unit/unit_update";
+    public String toUpdate(Long laborId, Model model) {
+        Labor labor = laborService.selectByPrimaryKey(laborId);
+        model.addAttribute("labor", labor);
+        return "labor/labor_update";
     }
 
     @RequestMapping("update")
     @ResponseBody
-    public SysResult update(Unit unit) {
+    public SysResult update(Labor labor) {
         SysResult sysResult = new SysResult();
-        int count = unitService.updateByPrimaryKeySelective(unit);
+        int count = laborService.updateByPrimaryKeySelective(labor);
         if (count > 0) {
             sysResult.setResult(true);
             sysResult.setData("修改成功!");
@@ -69,8 +69,8 @@ public class UnitController {
 
     @GetMapping("delById")
     @ResponseBody
-    public SysResult delById(Long unitId) {
-        SysResult sysResult = unitService.delById(unitId);
+    public SysResult delById(Long laborId) {
+        SysResult sysResult = laborService.delById(laborId);
         return sysResult;
     }
 }

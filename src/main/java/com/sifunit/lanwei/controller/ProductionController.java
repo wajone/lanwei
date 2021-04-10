@@ -4,8 +4,10 @@ import com.github.pagehelper.PageInfo;
 import com.sifunit.lanwei.common.Page;
 import com.sifunit.lanwei.domain.Customer;
 import com.sifunit.lanwei.domain.Production;
+import com.sifunit.lanwei.domain.Unit;
 import com.sifunit.lanwei.service.ICustomerService;
 import com.sifunit.lanwei.service.IProductionService;
+import com.sifunit.lanwei.service.IUnitService;
 import com.sifunit.lanwei.service.impl.ProductionDetailService;
 import com.sifunit.lanwei.vo.ProductionDetail;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,8 @@ public class ProductionController {
     ProductionDetailService productionDetailService;
     @Autowired
     ICustomerService customerService;
+    @Autowired
+    IUnitService unitService;
 
     @GetMapping("page")
     public String list(Page page, Model model) {
@@ -33,9 +37,10 @@ public class ProductionController {
 
     @GetMapping("toAdd")
     public String toAdd(Model model) {
-        PageInfo<Customer> pageInfo = customerService.listCustomers();
-        System.out.println(pageInfo.getList());
-        model.addAttribute("pageInfo", pageInfo);
+        PageInfo<Customer> customers = customerService.listCustomers();
+        PageInfo<Unit> units = unitService.listUnits();
+        model.addAttribute("customers", customers);
+        model.addAttribute("units", units);
         return "production/production_add";
     }
 }

@@ -23,7 +23,7 @@
     <body>
         <div class="layui-fluid">
             <div class="layui-row">
-                <form class="layui-form" id="deptform" enctype="multipart/form-data">
+                <form class="layui-form" id="deptform">
                     <h2 style="text-align: center; margin-bottom: 20px; font-weight: bold">生产计划表</h2>
                   <div class="layui-form-item">
                         <label for="createTime" class="layui-form-label">
@@ -76,47 +76,62 @@
                                  autocomplete="off" class="layui-input">
                       </div>
                   </div>
-                    <div class="layui-form-iterm">
+                  <div class="layui-form-item">
                         <label class="layui-form-label">
                             <span class="x-red">*</span>客户名称
                         </label>
                         <div class="layui-input-inline">
                             <select name="customerId" lay-verify="required" lay-search="">
                                 <option value="">直接选择或搜索选择</option>
-                                <option th:each="customer : ${pageInfo.list}" th:value="${customer.customerId}" th:text="${customer.customerName}">客户名称</option>
+                                <option th:each="customer : ${customers.list}" th:value="${customer.customerId}" th:text="${customer.customerName}">客户名称</option>
                             </select>
                         </div>
+                      <label for="comment" class="layui-form-label">
+                          备注
+                      </label>
+                      <div class="layui-input-inline">
+                          <input type="text" id="comment" name="goodName" required="" lay-verify="required"
+                                 autocomplete="off" class="layui-input">
+                      </div>
                     </div>
                   <div style="padding-left: 30px; padding-right: 30px;">
-                      <div class="layui-form-item" >
-                          <table class="layui-table mytable" lay-skin="line">
-                              <thead>
+                      <div class="layui-form-item"  style="border: 1px solid #009688;border-radius: 5px">
+                          <table class="layui-table production_table" lay-skin="line" style="text-align: center;">
+                              <thead class="top-head">
                               <tr>
-                                  <th>产品编码</th>
+                                  <th>序号</th>
+                                  <th style="width: 120px;">产品编码</th>
                                   <th>序号</th>
                                   <th>图片</th>
                                   <th>颜色</th>
                                   <th>数量</th>
+                                  <th>单位</th>
                                   <th>产品工艺描述</th>
                                   <th>操作</th>
                               </tr>
                               </thead>
                               <tbody>
                               <tr class="producttr">
-                                  <td>
-                                    <div class="layui-input-inline">
+                                  <td><span class="numberClass"></span></td>
+                                  <td  style="width: 120px;">
+                                    <div>
                                       <input type="text" name="productNo[]" placeholder="" autocomplete="off" class="layui-input searchGoods">
                                     </div>
                                   </td>
-                                  <td>
-                                  <div class="layui-input-inline" style="width: 100px;">
-                                    <input type="text" name="productSerial" placeholder="" autocomplete="off" class="layui-input">
+                                  <td  style="width: 70px;">
+                                  <div>
+                                    <input type="text" name="productSerial[]" placeholder="" autocomplete="off" class="layui-input">
                                   </div>
                                   </td>
                                   <td><img src="/upload/lwa202103170001e.jpg" alt=""></td>
-                                  <td><input type="text" name="price_min" placeholder="" autocomplete="off" class="layui-input"></td>
-                                  <td><input type="text" name="price_min" placeholder="" autocomplete="off" class="layui-input"></td>
-                                  <td><input type="text" name="price_min" placeholder="" autocomplete="off" class="layui-input"></td>
+                                  <td style="width: 70px;"><input type="text" name="productColor[]" placeholder="" autocomplete="off" class="layui-input"></td>
+                                  <td style="width: 70px;"><input type="text" name="productNum[]" placeholder="" autocomplete="off" class="layui-input"></td>
+                                  <td style="width: 70px;">
+                                      <select name="unitId" id="">
+                                          <option th:each="unit : ${units.list}" th:value="${unit.unitId}" th:text="${unit.unitName}">单位</option>
+                                      </select>
+                                  </td>
+                                  <td><input type="text" name="productDesc[]" placeholder="" autocomplete="off" class="layui-input"></td>
                                   <td><a title="删除" disabled onclick="member_del(this,'要删除的id')" href="javascript:;">
                                       <i class="layui-icon">&#xe640;</i>删除
                                   </a></td>
@@ -125,53 +140,39 @@
                           </table>
                       </div>
                       <div class="layui-form-item">
-                          <button id="addProduct" class="layui-btn layui-btn-primary">增加一行</button>
-                      <div class="layui-form-item" style="margin-top: 50px; float: right">
-                          <button  class="layui-btn" lay-filter="add" lay-submit="">
-                              提交
-                          </button>
+                          <a id="addProduct" class="layui-btn layui-btn-primary" onclick="addTr()" href="javascript:;">增加一行</a>
+
+                      </div>
+                      <div class="layui-form-item">
+                          <div class="layui-row" style="color: #666;">
+                              <div class="layui-col-xs6">
+                                  <div class="grid-demo grid-demo-bg1">
+                                      <h3>制单人</h3>
+                                      <p>干伟江</p>
+                                  </div>
+                              </div>
+                              <div class="layui-col-xs6">
+                                  <div class="grid-demo">
+                                      <h3>创建时间</h3>
+                                      <p id="createDate">2021-03-18</p>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="layui-form-item">
+                          <div class="layui-form-item" style="margin-top: 50px; float: right">
+                              <button  class="layui-btn" lay-filter="add" lay-submit="">
+                                  提交
+                              </button>
+                          </div>
                       </div>
                   </div>
 
-                  </div>
-              </form>
+                </form>
             </div>
         </div>
-
+        <script src="js/jquery.min.js"></script>
         <script>
-            function selectCustomer() {
-                //弹窗
-                layer.open({
-                    title: '选择客户',
-                    type: 1,
-                    content: $('#customer'),
-                    area: ['450px', '350px'],
-                    btn: '确定'
-                });
-                //异步加载部门列表
-                $.ajax({
-                    url: 'customer/get',
-                    success: function (data){
-                        console.log(data);
-                        layui.use('tree', function () {
-                            var tree = layui.tree;
-                            //渲染
-                            var inst1 = tree.render({
-                                elem: '#customerList'  //绑定元素
-                                ,data: data.data
-                                ,click: function (obj) {
-                                    $("#productCateName").val(obj.data.title);
-                                    console.log(obj);
-                                    $("#productCateId").val(obj.data.id);
-                                }
-                            });
-                        })
-                    }
-                })
-
-            }
-
-
             function member_del(obj,id){
                 if ($(".producttr").length <= 1) {
                     return;
@@ -179,9 +180,42 @@
                 layer.confirm('确认要删除吗？',function(index){
                     //发异步删除数据
                     $(obj).parents("tr").remove();
+                    number();
                     layer.msg('已删除!',{icon:1,time:1000});
                 });
             }
+            //增加一行按钮点击功能
+            function addTr() {
+                var tr = $(".producttr:last");
+                var newtr = tr.clone(true);
+
+                tr.after(newtr);
+                number();
+                return false;
+            }
+
+            function number() {
+                for(var i=0;i< $(".numberClass").length;i++){
+                    $(".numberClass").get(i).innerHTML = i+1;
+                }
+            }
+
+            function getFormatDate(){
+                var nowDate = new Date();
+                var year = nowDate.getFullYear();
+                var month = nowDate.getMonth() + 1 < 10 ? "0" + (nowDate.getMonth() + 1) : nowDate.getMonth() + 1;
+                var date = nowDate.getDate() < 10 ? "0" + nowDate.getDate() : nowDate.getDate();
+                var hour = nowDate.getHours()< 10 ? "0" + nowDate.getHours() : nowDate.getHours();
+                var minute = nowDate.getMinutes()< 10 ? "0" + nowDate.getMinutes() : nowDate.getMinutes();
+                var second = nowDate.getSeconds()< 10 ? "0" + nowDate.getSeconds() : nowDate.getSeconds();
+                return year + "-" + month + "-" + date+" "+hour+":"+minute+":"+second;
+            }
+
+            $(document).ready(function (){
+                number();
+
+                $("#createDate").text(getFormatDate())
+            })
         </script>
 
         <script>
@@ -208,21 +242,6 @@
                     elem: '#realTime'
                 });
 
-                //增加一行按钮点击功能
-                $("#addProduct").click(function () {
-                    var tr = $(".producttr:last");
-                    var newtr = tr.clone();
-                    newtr.find(":input").each(function (i) {
-                        //循环新克隆的newtr，在里边找到所有的input标签，
-                        $(this).val("");
-                    });
-
-                    tr.after(newtr);
-                    //$(newtr).find("select[name='goodNum']").val($(tr).find("select[name='goodNum']").val());
-                   //FORM.render();
-                    return false;
-                })
-
 
                 //自定义验证规则
                 form.verify({
@@ -243,14 +262,11 @@
                 //监听提交
 
                 form.on('submit(add)', function(data){
+                    console.log(data)
                     $.ajax({
                         data: '',
-                        url: 'goods/goodsAdd',
+                        url: 'production/productionAdd',
                         type: 'post',
-                        processData: false,
-                        contentType: false,
-                        cache: false,
-                        dataType: 'json',
                         success: function (res) {
                             if (res.result) {
                                 layer.alert("增加成功", {
@@ -276,22 +292,8 @@
                     return false;
                 });
 
-                var images = $("#uploadimages");
-                var imagesList = $("#imagesList");
-                images.change(function () {
-                    imagesList.html("");
-                    readFile(this);
-                })
-                var readFile = function (obj) {
-                    var fileList=obj.files;
-                    for(var i=0; i<fileList.length; i++) {
-                        var reader = new FileReader();
-                        reader.readAsDataURL(fileList[i]);
-                        reader.onload=function(e) {
-                            imagesList.append('<img src="'+ this.result +'" alt="'+ this.result +'" class="layui-upload-img" style="width: 80px">');
-                        }
-                    }
-                }
+
+
             });
 
         </script>

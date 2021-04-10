@@ -4,10 +4,11 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.sifunit.lanwei.common.Page;
 import com.sifunit.lanwei.common.SysResult;
+import com.sifunit.lanwei.domain.Labor;
 import com.sifunit.lanwei.domain.Unit;
 import com.sifunit.lanwei.mapper.IBaseMapper;
-import com.sifunit.lanwei.mapper.UnitMapper;
-import com.sifunit.lanwei.service.IUnitService;
+import com.sifunit.lanwei.mapper.LaborMapper;
+import com.sifunit.lanwei.service.ILaborService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
@@ -15,28 +16,27 @@ import org.springframework.ui.Model;
 import java.util.List;
 
 @Service
-public class UnitServiceImpl extends BaseServiceImpl<Unit> implements IUnitService {
-
+public class LaborServiceImpl extends BaseServiceImpl<Labor> implements ILaborService {
     @Autowired
-    UnitMapper unitMapper;
+    LaborMapper laborMapper;
 
     @Override
-    public IBaseMapper<Unit> getMapper() {
-        return unitMapper;
+    public IBaseMapper<Labor> getMapper() {
+        return laborMapper;
     }
 
     @Override
-    public PageInfo<Unit> getPage(Page page, Model model) {
+    public PageInfo<Labor> getPage(Page page, Model model) {
         PageHelper.startPage(page.getCurrentPage(), page.getPageSize());
-        List<Unit> list = unitMapper.list();
-        PageInfo<Unit> pageInfo = new PageInfo<>(list);
+        List<Labor> list = laborMapper.list();
+        PageInfo<Labor> pageInfo = new PageInfo<>(list);
         return pageInfo;
     }
 
     @Override
-    public SysResult delById(Long unitId) {
+    public SysResult delById(Long laborId) {
         SysResult sysResult = new SysResult();
-        int count = unitMapper.deleteByPrimaryKey(unitId);
+        int count = laborMapper.deleteByPrimaryKey(laborId);
         if (count == 0) {
             sysResult.setResult(false);
             sysResult.setData("删除客户失败！");
@@ -45,12 +45,5 @@ public class UnitServiceImpl extends BaseServiceImpl<Unit> implements IUnitServi
             sysResult.setData("删除客户成功！");
         }
         return sysResult;
-    }
-
-    @Override
-    public PageInfo<Unit> listUnits() {
-        List<Unit> list = unitMapper.list();
-        PageInfo<Unit> pageInfo = new PageInfo<>(list);
-        return pageInfo;
     }
 }

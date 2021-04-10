@@ -10,4 +10,6 @@ public interface IUnitService extends IBaseService<Unit> {
     PageInfo<Unit> getPage(Page page, Model model);
 
     SysResult delById(Long unitId);
+
+    PageInfo<Unit> listUnits();
 }

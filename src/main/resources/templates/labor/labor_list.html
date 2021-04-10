@@ -21,7 +21,7 @@
           <span class="layui-breadcrumb">
             <a href="">首页</a>
             <a href="">生产管理</a>
-            <a><cite>物料列表</cite></a>
+            <a><cite>报工列表</cite></a>
           </span>
     <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" onclick="location.reload()" title="刷新">
         <i class="layui-icon layui-icon-refresh" style="line-height:30px"></i></a>
@@ -48,7 +48,7 @@
                 </div>
                 <div class="layui-card-header">
                     <button class="layui-btn layui-btn-danger" onclick="delAll(this)"><i class="layui-icon"></i>批量删除</button>
-                    <button class="layui-btn" onclick="xadmin.open('添加物料','material/toAdd',650,450)"><i class="layui-icon"></i>添加物料</button>
+                    <button class="layui-btn" onclick="xadmin.open('添加单位','labor/toAdd',650,650)"><i class="layui-icon"></i>新增报工</button>
                 </div>
                 <div class="layui-card-body">
                     <table class="layui-table mytable">
@@ -57,32 +57,31 @@
                             <th class="thcheckbox">
                                 <input type="checkbox" id="checkall" onchange="allcheck(this)" lay-skin="primary">
                             </th>
-                            <th>物料编码</th>
-                            <th>物料名称</th>
-                            <th>所属分类</th>
-                            <th>尺寸信息</th>
-                            <th>物料描述</th>
-                            <th>创建时间</th>
-                            <th>更新时间</th>
+                            <th>生产单号</th>
+                            <th>产品编号</th>
+                            <th>产品名称</th>
+                            <th>工序编号</th>
+                            <th>工序名称</th>
+                            <th>员工姓名</th>
+                            <th>报工数量</th>
+                            <th>报工时间</th>
+                            <th>上报人</th>
                             <th>操作</th>
                         </thead>
                         <tbody>
-                        <tr th:each="material : ${pageInfo.list}">
+                        <tr th:each="unit : ${pageInfo.list}">
                             <td>
-                                <input type="checkbox" onchange="changebox(this)" class="delbox" th:value="${material.materialId}" lay-skin="primary">
+                                <input type="checkbox" onchange="changebox(this)" class="delbox" th:value="${unit.unitId}" lay-skin="primary">
                             </td>
-                            <td th:text="${material.materialNo}"></td>
-                            <td th:text="${material.materialName}"></td>
-                            <td th:text="${material.materialCateName}"></td>
-                            <td th:text="${material.materialSize}"></td>
-                            <td th:text="${material.materialDesc}"></td>
-                            <td th:text="${#dates.format(material.createTime,'yyyy-MM-dd HH:mm')}">createTime</td>
-                            <td th:text="${#dates.format(material.updateTime,'yyyy-MM-dd HH:mm')}">updateTime</td>
+                            <td th:text="${unit.unitName}"></td>
+                            <td th:text="${unit.unitDesc}"></td>
+                            <td th:text="${#dates.format(unit.createTime,'yyyy-MM-dd')}">createTime</td>
+                            <td th:text="${#dates.format(unit.updateTime,'yyyy-MM-dd')}">updateTime</td>
                             <td>
-                                <a title="编辑"  th:onclick="xadmin.open('编辑','material/toUpdate?deptId=[[${material.materialId}]]')" href="javascript:;">
+                                <a title="编辑"  th:onclick="xadmin.open('编辑','unit/toUpdate?unitId=[[${unit.unitId}]]')" href="javascript:;">
                                     <i class="layui-icon">&#xe642;</i>
                                 </a>
-                                <a title="删除" th:onclick="member_del(this,'[[${material.materialId}]]')" href="javascript:;">
+                                <a title="删除" th:onclick="member_del(this,'[[${unit.unitId}]]')" href="javascript:;">
                                     <i class="layui-icon">&#xe640;</i>
                                 </a>
                             </td>
@@ -165,14 +164,14 @@
         layer.confirm('确认要删除吗？',function(index){
             //发异步删除数据
             $.ajax({
-                url: 'material/delById',
-                data: "materialId="+id,
+                url: 'unit/delById',
+                data: "unitId="+id,
                 success: function (res) {
                     if (res.result) {
                         $(obj).parents("tr").remove();
-                        layer.msg(res.data,{icon:1,time:2000});
+                        layer.msg('已删除!',{icon:1,time:2000});
                     } else {
-                        layer.msg(res.data,{icon:2,time:2000});
+                        layer.msg('删除失败!',{icon:2,time:2000});
                     }
                 }
 
@@ -197,7 +196,7 @@
                 ids.push(checks[i].value);
             }
             $.ajax({
-                url: 'sysDept/batchDel',
+                url: 'unit/batchDel',
                 data: "ids="+ids,
                 success: function (data) {
                     if (data.result) {
@@ -241,7 +240,7 @@
 
                 //首次不执行
                 if(!first){
-                    location.href = "material/page?currentPage="+obj.curr+"&pageSize="+obj.limit;
+                    location.href = "labor/page?currentPage="+obj.curr+"&pageSize="+obj.limit;
                 }
             }
         });
