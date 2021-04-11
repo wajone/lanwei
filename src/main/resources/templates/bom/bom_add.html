@@ -3,7 +3,7 @@
     
     <head>
         <meta charset="UTF-8">
-        <title>添加生产计划表</title>
+        <title>添加BOM&工艺路线</title>
         <base th:href="${#request.getContextPath()}+'/'">
         <meta name="renderer" content="webkit">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -20,115 +20,97 @@
             <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
     </head>
-    <body>
+    <body style="background: #fff;">
         <div class="layui-fluid">
             <div class="layui-row">
-                <form class="layui-form" id="deptform">
-                    <h2 style="text-align: center; margin-bottom: 20px; font-weight: bold">生产计划表</h2>
-                  <div class="layui-form-item">
-                        <label for="createTime" class="layui-form-label">
-                            <span class="x-red">*</span>下单时间
-                        </label>
-                        <div class="layui-input-inline">
-                            <input type="text" id="createTime" name="createTime" required="" lay-verify="required"
-                                   autocomplete="off" class="layui-input">
-                        </div>
-                      <label for="contactNo" class="layui-form-label">
-                          <span class="x-red">*</span>合同编号
-                      </label>
-                      <div class="layui-input-inline">
-                          <input type="text" id="contactNo" name="contactNo" required="" lay-verify="required"
-                                 autocomplete="off" class="layui-input">
-                      </div>
-
-                    </div>
-                  <div class="layui-form-item">
-                      <label for="advanceTime" class="layui-form-label">
-                          <span class="x-red">*</span>预交时间
-                      </label>
-                      <div class="layui-input-inline">
-                          <input type="text" id="advanceTime" name="advanceTime" required="" lay-verify="required"
-                          autocomplete="off" class="layui-input">
-                      </div>
-                      <label for="goodNum" class="layui-form-label">
-                          <span class="x-red">*</span>外销编号
-                      </label>
-                      <div class="layui-input-inline">
-                          <input type="text" id="goodNum" name="goodNum" required="" lay-verify="required"
-                                 autocomplete="off" class="layui-input">
-                      </div>
-
-                  </div>
-                  <div class="layui-form-item">
-                      <label for="realTime" class="layui-form-label">
-                          <span class="x-red">*</span>实际交期
-                      </label>
-                      <div class="layui-input-inline">
-                          <input type="text" id="realTime" name="realTime" required="" lay-verify="required"
-                          autocomplete="off" class="layui-input">
-                      </div>
-
-                      <label for="goodName" class="layui-form-label">
-                          <span class="x-red">*</span>生产单号
-                      </label>
-                      <div class="layui-input-inline">
-                          <input type="text" id="goodName" name="goodName" required="" lay-verify="required"
-                                 autocomplete="off" class="layui-input">
-                      </div>
-                  </div>
+                <form class="layui-form" id="bomform">
+                    <h2 style="text-align: center; margin-bottom: 20px; font-weight: bold">BOM&工艺路线</h2>
                   <div class="layui-form-item">
                         <label class="layui-form-label">
-                            <span class="x-red">*</span>客户名称
+                            <span class="x-red">*</span>选择产品
                         </label>
                         <div class="layui-input-inline">
-                            <select name="customerId" lay-verify="required" lay-search="">
-                                <option value="">直接选择或搜索选择</option>
-                                <option th:each="customer : ${customers.list}" th:value="${customer.customerId}" th:text="${customer.customerName}">客户名称</option>
+                            <select name="chooseProduct" lay-filter="aihao">
+                                <option value=""></option>
+                                <option value="0">写作</option>
+                                <option value="2">游戏</option>
+                                <option value="3">音乐</option>
+                                <option value="4">旅行</option>
                             </select>
                         </div>
-                      <label for="comment" class="layui-form-label">
-                          备注
+                      <label for="productName" class="layui-form-label">
+                          <span class="x-red">*</span>产品名称
                       </label>
                       <div class="layui-input-inline">
-                          <input type="text" id="comment" name="goodName" required="" lay-verify="required"
+                          <input type="text" id="productName" placeholder="请输入" name="productName" required="" lay-verify="required"
                                  autocomplete="off" class="layui-input">
                       </div>
                     </div>
+                  <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            <span class="x-red">*</span>规格型号
+                        </label>
+                        <div class="layui-input-inline">
+                            <input type="text" id="productSize" placeholder="请输入" name="productSize" required="" lay-verify="required"
+                                   autocomplete="off" class="layui-input">
+                        </div>
+                      <label for="productName" class="layui-form-label">
+                          <span class="x-red">*</span>单位
+                      </label>
+                      <div class="layui-input-inline">
+                          <select name="chooseProduct" lay-filter="aihao">
+                              <option value=""></option>
+                              <option value="0">写作</option>
+                              <option value="2">游戏</option>
+                              <option value="3">音乐</option>
+                              <option value="4">旅行</option>
+                          </select>
+                      </div>
+                    </div>
+                  <div>
+                      <h3 style="margin-left: 30px;margin-bottom: 10px">物料清单</h3>
+                  </div>
                   <div style="padding-left: 30px; padding-right: 30px;">
-                      <div class="layui-form-item"  style="border: 1px solid #009688;border-radius: 5px">
+                      <div class="layui-form-item"  style="border: 1px solid #009688;border-radius: 5px;overflow-x: scroll">
                           <table class="layui-table production_table" lay-skin="line" style="text-align: center;">
                               <thead class="top-head">
                               <tr>
                                   <th>序号</th>
-                                  <th style="width: 120px;">产品编码</th>
-                                  <th>序号</th>
-                                  <th>图片</th>
-                                  <th>颜色</th>
-                                  <th>数量</th>
-                                  <th>单位</th>
-                                  <th>产品工艺描述</th>
+                                  <th style="width: 120px;"><span class="x-red">*</span>选择物料</th>
+                                  <th><span class="x-red">*</span>物料名称</th>
+                                  <th><span class="x-red">*</span>物料编码</th>
+                                  <th><span class="x-red">*</span>物料规格</th>
+                                  <th><span class="x-red">*</span>单位</th>
+                                  <th>备注</th>
                                   <th>操作</th>
                               </tr>
                               </thead>
                               <tbody>
-                              <tr class="producttr">
+                              <tr class="materialtr">
                                   <td><span class="numberClass"></span></td>
                                   <td  style="width: 120px;">
-                                    <div>
-                                      <input type="text" name="productNo[]" placeholder="" autocomplete="off" class="layui-input searchGoods">
-                                    </div>
+                                      <select name="chooseProduct[]">
+                                          <option value=""></option>
+                                          <option value="0">写作</option>
+                                          <option value="2">游戏</option>
+                                          <option value="3">音乐</option>
+                                          <option value="4">旅行</option>
+                                      </select>
                                   </td>
-                                  <td  style="width: 70px;">
+                                  <td  style="width: 100px;">
                                   <div>
-                                    <input type="text" name="productSerial[]" placeholder="" autocomplete="off" class="layui-input">
+                                    <input type="text" name="materialName[]" placeholder="" autocomplete="off" class="layui-input">
                                   </div>
                                   </td>
-                                  <td><img src="/upload/lwa202103170001e.jpg" alt=""></td>
-                                  <td style="width: 70px;"><input type="text" name="productColor[]" placeholder="" autocomplete="off" class="layui-input"></td>
-                                  <td style="width: 70px;"><input type="text" name="productNum[]" placeholder="" autocomplete="off" class="layui-input"></td>
-                                  <td style="width: 70px;">
-                                      <select name="unitId[]" id="">
-                                          <option th:each="unit : ${units.list}" th:value="${unit.unitId}" th:text="${unit.unitName}">单位</option>
+                                  <td style="width: 100px;"><input type="text" name="materialNo[]" placeholder="" autocomplete="off" class="layui-input"></td>
+                                  <td style="width: 100px;"><input type="text" name="productNum[]" placeholder="" autocomplete="off" class="layui-input"></td>
+                                  <td style="width: 100px;">
+                                      <select name="chooseUnit[]">
+                                          <option value=""></option>
+                                          <option value="0">写作</option>
+                                          <option value="2">游戏</option>
+                                          <option value="3">音乐</option>
+                                          <option value="4">旅行</option>
                                       </select>
                                   </td>
                                   <td><input type="text" name="productDesc[]" placeholder="" autocomplete="off" class="layui-input"></td>
@@ -174,7 +156,7 @@
         <script src="js/jquery.min.js"></script>
         <script>
             function member_del(obj,id){
-                if ($(".producttr").length <= 1) {
+                if ($(".materialtr").length <= 1) {
                     return;
                 }
                 layer.confirm('确认要删除吗？',function(index){
@@ -186,9 +168,10 @@
             }
             //增加一行按钮点击功能
             function addTr() {
-                var tr = $(".producttr:last");
+                var tr = $(".materialtr:last");
                 var newtr = tr.clone(true);
 
+                newtr.find("select").each(function() { document.getElementById($(this).attr("chooseUnit")).selectedIndex = 0; });
                 tr.after(newtr);
                 number();
                 return false;
@@ -264,7 +247,7 @@
                 form.on('submit(add)', function(data){
                     console.log(data)
                     $.ajax({
-                        data: '',
+                        data: 'bomform',
                         url: 'production/productionAdd',
                         type: 'post',
                         success: function (res) {
