@@ -51,3 +51,18 @@ $(":text").val("Hello World");jquery设置value值
                     //循环新克隆的newtr，在里边找到所有的input标签，
                     $(this).val("");
                 });
+
+
+//流加载
+ if(datas == 9){
+                                var option = '';
+                                for(var i=0;i<datas.length;i++){
+                                    //循环获取返回值，并组装成html代码
+                                    option +="<option value='"+datas[i].groupid+"'>"+datas[i].groupname+"</option>";
+                                }
+                            }else{
+                                var option = '<option value="0">下拉加载</option>';  //默认值
+                            }
+
+                            $("#productId").append(option);
+                            form.render('select','group');

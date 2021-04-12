@@ -5,9 +5,7 @@ import com.github.pagehelper.PageInfo;
 import com.sifunit.lanwei.common.FileUploadUtils;
 import com.sifunit.lanwei.common.Page;
 import com.sifunit.lanwei.common.SysResult;
-import com.sifunit.lanwei.domain.Goods;
 import com.sifunit.lanwei.domain.Product;
-import com.sifunit.lanwei.domain.SysDept;
 import com.sifunit.lanwei.mapper.IBaseMapper;
 import com.sifunit.lanwei.mapper.ProductMapper;
 import com.sifunit.lanwei.service.IProductService;
@@ -18,7 +16,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
-import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 
 @Service
@@ -114,5 +111,12 @@ public class ProductServiceImpl extends BaseServiceImpl<Product> implements IPro
             sysResult.setData("删除成功！");
         }
         return sysResult;
+    }
+
+    @Override
+    public PageInfo<Product> list() {
+        List<Product> list = productMapper.list();
+        PageInfo<Product> pageInfo = new PageInfo<>(list);
+        return pageInfo;
     }
 }

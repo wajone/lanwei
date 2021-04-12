@@ -61,7 +61,7 @@ public class UserRealm extends AuthorizingRealm {
         //链接数据库查询用户
         System.out.println(userToken.getUsername());
         User user = userService.selectByUsername(userToken.getUsername());
-        System.out.println(user.getPassword());
+
         if (user == null) {
             return null;
         }

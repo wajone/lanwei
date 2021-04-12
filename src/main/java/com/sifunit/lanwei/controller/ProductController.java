@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 
 @Controller
 @RequestMapping("product")
@@ -46,6 +47,7 @@ public class ProductController {
         model.addAttribute("pageInfo", pageInfo);
         return "product/product_list";
     }
+
 
     @RequestMapping("toAdd")
     public String toAdd() {
@@ -78,5 +80,12 @@ public class ProductController {
     public SysResult delById(Long productId) {
         SysResult sysResult = productService.delById(productId);
         return sysResult;
+    }
+
+    @RequestMapping("selectById")
+    @ResponseBody
+    public Product selectById(Long productId) {
+
+        return productService.selectByPrimaryKey(productId);
     }
 }

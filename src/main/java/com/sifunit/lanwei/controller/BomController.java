@@ -4,7 +4,11 @@ import com.github.pagehelper.PageInfo;
 import com.sifunit.lanwei.common.Page;
 import com.sifunit.lanwei.common.SysResult;
 import com.sifunit.lanwei.domain.Bom;
+import com.sifunit.lanwei.domain.Product;
+import com.sifunit.lanwei.domain.Unit;
 import com.sifunit.lanwei.service.IBomService;
+import com.sifunit.lanwei.service.IProductService;
+import com.sifunit.lanwei.service.IUnitService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +21,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class BomController {
     @Autowired
     IBomService bomService;
+    @Autowired
+    IProductService productService;
+    @Autowired
+    IUnitService unitService;
 
     @GetMapping("page")
     public String page(Page page, Model model) {
@@ -41,7 +49,12 @@ public class BomController {
     }
 
     @GetMapping("toAdd")
-    public String toAdd() {
+    public String toAdd(Model model) {
+        PageInfo<Unit> units = unitService.listUnits();
+        //获取所有产品信息，下一步可以实行分页返回数据，全端用流加载，目前还没找到解决办法，先全部返回
+        PageInfo<Product> products = productService.list();
+        model.addAttribute("units", units);
+        model.addAttribute("products", products);
         return "bom/bom_add";
     }
 

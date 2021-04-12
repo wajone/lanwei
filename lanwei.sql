@@ -29,9 +29,6 @@ CREATE TABLE `perm` (
 
 /*Data for the table `perm` */
 
-insert  into `perm`(`perm_id`,`perm_url`,`perm_description`) values 
-(1,'/user/*','拥有对用户的所有操作权限');
-
 /*Table structure for table `proce_cate` */
 
 DROP TABLE IF EXISTS `proce_cate`;
@@ -49,16 +46,6 @@ CREATE TABLE `proce_cate` (
 
 /*Data for the table `proce_cate` */
 
-insert  into `proce_cate`(`proce_cate_id`,`proce_cate_name`,`parent_cate_id`,`proce_cate_desc`,`flag`,`create_time`,`update_time`) values 
-(1,'工序',0,'生产工序分类',1,'2021-03-28 10:12:00','2021-03-28 10:12:00'),
-(2,'下料',1,'下料排料等工序',1,'2021-03-28 10:13:01','2021-03-28 10:13:04'),
-(3,'拼缝',1,'普通拼缝,三角针,高架车...',1,'2021-03-28 10:14:22','2021-03-28 10:14:26'),
-(4,'高频',1,'高频-盘套',1,'2021-03-28 10:14:24','2021-03-28 10:14:28'),
-(5,'套圈',1,'单层套圈,双层套圈',1,'2021-03-28 10:14:30','2021-03-28 10:14:32'),
-(6,'包圈',1,'折边包圈',1,'2021-03-28 10:14:34','2021-03-28 10:14:36'),
-(7,'验收',1,'验收',1,'2021-03-28 10:14:38','2021-03-28 10:14:40'),
-(8,'包装',1,'包装打箱',1,'2021-03-28 10:14:42','2021-03-28 10:14:44');
-
 /*Table structure for table `role` */
 
 DROP TABLE IF EXISTS `role`;
@@ -72,9 +59,6 @@ CREATE TABLE `role` (
 
 /*Data for the table `role` */
 
-insert  into `role`(`role_id`,`role_name`,`role_description`) values 
-(1,'超级管理员','超级管理员');
-
 /*Table structure for table `role_perm` */
 
 DROP TABLE IF EXISTS `role_perm`;
@@ -85,9 +69,6 @@ CREATE TABLE `role_perm` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin ROW_FORMAT=DYNAMIC;
 
 /*Data for the table `role_perm` */
-
-insert  into `role_perm`(`role_id`,`perm_id`) values 
-(1,1);
 
 /*Table structure for table `sys_dept` */
 
@@ -106,19 +87,6 @@ CREATE TABLE `sys_dept` (
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 
 /*Data for the table `sys_dept` */
-
-insert  into `sys_dept`(`dept_id`,`dept_name`,`dept_parent_id`,`dept_parent_name`,`dept_desc`,`flag`,`create_time`,`update_time`) values 
-(1,'蓝威',0,'无','公司总部',1,'2021-03-19 16:35:52','2021-04-02 07:34:59'),
-(2,'企管部',1,'蓝威','人事行政',1,'2021-03-19 16:43:45','2021-03-19 16:43:45'),
-(3,'品技部',1,'蓝威','阿斯顿发',1,'2021-03-19 16:43:52','2021-03-20 11:11:32'),
-(4,'生产部',1,'蓝威','',1,'2021-03-19 16:43:59','2021-03-19 16:43:59'),
-(5,'销售部',1,'蓝威','',1,'2021-03-19 16:44:09','2021-03-19 16:44:09'),
-(6,'财务部',1,'蓝威','',1,'2021-03-19 16:44:24','2021-03-19 16:44:24'),
-(7,'财务部',1,'蓝威','财务相关',1,'2021-03-20 11:11:22','2021-03-20 11:11:22'),
-(8,'什么部门',1,'蓝威','',1,'2021-03-20 15:19:32','2021-03-23 16:04:30'),
-(9,'阿什顿',1,'蓝威','',1,'2021-03-20 15:19:40','2021-03-23 16:08:49'),
-(10,'暗示法',1,'蓝威','',0,'2021-03-20 15:19:46','2021-03-23 15:51:33'),
-(11,'阿斯顿发',1,'蓝威','',0,'2021-03-20 15:19:51','2021-03-23 15:50:33');
 
 /*Table structure for table `sys_menu` */
 
@@ -156,17 +124,6 @@ CREATE TABLE `sys_org` (
 ) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
 
 /*Data for the table `sys_org` */
-
-insert  into `sys_org`(`ORG_ID`,`ORG_PARENT_ID`,`ORG_PARENT_NAME`,`ORG_NAME`,`ORG_DESC`,`FLAG`,`CREATE_TIME`,`UPDATE_TIME`) values 
-(1,-1,'蓝威','总经办','总经办',1,'2021-01-26 13:30:20','2021-01-26 13:30:23'),
-(2,-1,'蓝威','企管部','企业管理部门',1,'2021-01-28 09:07:10','2021-01-28 09:07:13'),
-(3,-1,'蓝威','营销部','行销部',1,'2021-01-28 09:07:10','2021-01-28 09:07:13'),
-(4,-1,'蓝威','品技部','品技',1,'2021-01-28 09:07:10','2021-01-28 09:07:13'),
-(18,NULL,'??','????','???',1,NULL,NULL),
-(19,NULL,'???','??','??',1,'2021-02-05 13:06:11','2021-02-05 13:06:11'),
-(20,NULL,'??','???','?????',0,'2021-02-05 14:13:50','2021-02-05 14:13:50'),
-(21,NULL,'asfasfasfsaf','asfdsdfasfd','asfasfsafasfsafsaf',1,'2021-02-06 08:26:50','2021-02-06 08:26:50'),
-(22,NULL,'蓝威','科技部','阿斯顿发',1,'2021-02-06 08:27:14','2021-02-06 08:27:14');
 
 /*Table structure for table `sys_role` */
 
@@ -211,18 +168,17 @@ CREATE TABLE `sys_user` (
 
 /*Data for the table `sys_user` */
 
-insert  into `sys_user`(`USER_ID`,`ORG_ID`,`USER_NAME`,`USER_PASSWORD`,`PHONE`,`EMAIL`,`BIRTHDAY`,`SEX`,`IMAGE_URL`,`HOBBY`,`PROVINCE_ID`,`PROVINCE_NAME`,`CITY_ID`,`CITY_NAME`,`COUNTRY_ID`,`COUNTRY_NAME`,`CREATE_TIEM`,`UPDATE_TIME`) values 
-(1,NULL,'root','weijiang',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
-
 /*Table structure for table `t_bom` */
 
 DROP TABLE IF EXISTS `t_bom`;
 
 CREATE TABLE `t_bom` (
   `bom_id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `production_id` bigint(20) DEFAULT NULL,
   `product_id` bigint(20) DEFAULT NULL,
   `material_id` bigint(20) DEFAULT NULL,
+  `product_unit_id` bigint(20) DEFAULT NULL,
+  `material_num` bigint(20) DEFAULT NULL,
+  `comment` varchar(50) DEFAULT NULL,
   `create_time` datetime DEFAULT NULL,
   `update_time` datetime DEFAULT NULL,
   PRIMARY KEY (`bom_id`)
@@ -250,9 +206,6 @@ CREATE TABLE `t_customer` (
 
 /*Data for the table `t_customer` */
 
-insert  into `t_customer`(`customer_id`,`customer_name`,`person_name`,`person_tel`,`area`,`email`,`zip_code`,`customer_desc`,`create_time`,`update_time`) values 
-(1,'CA','doris','15215823304','American','doris@163.com','317200','美国大客户','2021-04-08 14:45:40',NULL);
-
 /*Table structure for table `t_emp` */
 
 DROP TABLE IF EXISTS `t_emp`;
@@ -272,9 +225,6 @@ CREATE TABLE `t_emp` (
 
 /*Data for the table `t_emp` */
 
-insert  into `t_emp`(`emp_id`,`emp_no`,`emp_name`,`emp_birthday`,`dept_id`,`dept_name`,`on_job`,`hiredate`,`update_time`) values 
-(1,'50004','干伟江','2021-04-06',2,'企管部',1,'2021-04-08 12:33:31',NULL);
-
 /*Table structure for table `t_good_cate` */
 
 DROP TABLE IF EXISTS `t_good_cate`;
@@ -291,12 +241,6 @@ CREATE TABLE `t_good_cate` (
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 /*Data for the table `t_good_cate` */
-
-insert  into `t_good_cate`(`good_cate_id`,`good_cate_name`,`parent_cate_id`,`good_cate_desc`,`flag`,`create_time`,`update_time`) values 
-(1,'产品分类',0,'产品分类',1,'2021-03-30 12:42:22','2021-03-30 12:42:24'),
-(2,'方向盘套',1,'各类方向盘套',NULL,'2021-03-30 12:51:21','2021-03-30 12:51:21'),
-(3,'护肩套',1,'各类护肩套',NULL,'2021-03-30 12:51:41','2021-03-30 12:51:41'),
-(4,'椅套',1,'各类椅套',NULL,'2021-03-30 12:51:54','2021-03-30 12:51:54');
 
 /*Table structure for table `t_labor` */
 
@@ -339,9 +283,6 @@ CREATE TABLE `t_material` (
 
 /*Data for the table `t_material` */
 
-insert  into `t_material`(`material_id`,`material_no`,`material_name`,`material_cate_id`,`material_cate_name`,`material_desc`,`material_size`,`flag`,`create_time`,`update_time`) values 
-(1,'365254125544','改革及',6,'纸箱','阿斯顿发',NULL,0,NULL,'2021-04-02 16:43:16');
-
 /*Table structure for table `t_material_cate` */
 
 DROP TABLE IF EXISTS `t_material_cate`;
@@ -358,15 +299,6 @@ CREATE TABLE `t_material_cate` (
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 /*Data for the table `t_material_cate` */
-
-insert  into `t_material_cate`(`material_cate_id`,`material_cate_name`,`parent_cate_id`,`material_cate_desc`,`flag`,`create_time`,`update_time`) values 
-(1,'物料分类',0,'物料分类',1,'2021-03-28 16:51:17','2021-03-28 16:51:19'),
-(2,'辅料',1,'辅料',1,'2021-03-29 12:35:23','2021-03-29 12:35:25'),
-(3,'原材料',1,'原材料',1,'2021-03-29 12:40:49','2021-03-29 12:40:51'),
-(4,'印刷绣花',1,'印刷绣花',1,'2021-03-29 12:40:53','2021-03-29 12:40:55'),
-(5,'橡胶圈',1,'橡胶圈',1,'2021-03-29 12:40:57','2021-03-29 12:40:59'),
-(6,'纸箱',1,'纸箱',1,'2021-03-29 12:41:01','2021-03-29 12:41:03'),
-(7,'包装材料',1,'包装材料',1,'2021-03-29 12:41:06','2021-03-29 12:41:08');
 
 /*Table structure for table `t_procedure` */
 
@@ -387,24 +319,6 @@ CREATE TABLE `t_procedure` (
 
 /*Data for the table `t_procedure` */
 
-insert  into `t_procedure`(`proce_id`,`proce_no`,`proce_name`,`proce_cate_id`,`proce_cate_name`,`proce_desc`,`flag`,`create_time`,`update_time`) values 
-(1,'GX20210328001','下料-裁高发泡',2,'下料','裁高发泡',1,'2021-03-28 14:50:48','2021-03-28 14:50:48'),
-(2,'GX20210328002','下料-切金属条',2,'下料','切金属条',1,'2021-03-28 14:51:15','2021-03-28 14:51:15'),
-(3,'GX20210328003','手剪加修边',2,'下料','手剪加修边',1,'2021-03-28 14:51:40','2021-03-28 14:51:40'),
-(4,'GX20210328004','普通拼缝',3,'拼缝','普通拼缝',1,'2021-03-28 14:52:17','2021-03-28 14:52:17'),
-(5,'GX20210328005','三角针',3,'拼缝','三角针',1,'2021-03-28 14:52:33','2021-03-28 14:52:33'),
-(6,'GX20210328006','高架车',3,'拼缝','高架车',1,'2021-03-28 14:52:48','2021-03-28 14:52:48'),
-(7,'GX20210328007','剪海绵',3,'拼缝','剪海绵',1,'2021-03-28 14:53:01','2021-03-28 14:53:01'),
-(8,'GX20210328008','双针车',3,'拼缝','双针车',1,'2021-03-28 14:53:24','2021-03-28 14:53:24'),
-(9,'GX20210328009','频-盘套',4,'高频','频-盘套',1,'2021-03-28 14:53:42','2021-03-28 14:53:42'),
-(10,'GX20210328010','高频-BB胶',4,'高频','高频-BB胶',1,'2021-03-28 14:53:55','2021-03-28 14:53:55'),
-(11,'GX20210328011','单层套圈',5,'套圈','单层套圈',1,'2021-03-28 14:54:09','2021-03-28 14:54:09'),
-(12,'GX20210328012','双层套圈',5,'套圈','双层套圈',1,'2021-03-28 14:54:22','2021-03-28 14:54:22'),
-(13,'GX20210328013','折边包圈',6,'包圈','折边包圈',1,'2021-03-28 14:55:05','2021-03-28 14:55:05'),
-(14,'GX20210328014','验收',7,'验收','验收',1,'2021-03-28 14:55:28','2021-03-28 14:55:28'),
-(15,'GX20210328015','普通包装',8,'包装','普通包装',1,'2021-03-28 14:55:43','2021-03-28 14:55:43'),
-(16,'GX20210328016','打箱',8,'包装','打箱',1,'2021-03-28 14:55:59','2021-03-28 14:55:59');
-
 /*Table structure for table `t_product` */
 
 DROP TABLE IF EXISTS `t_product`;
@@ -424,14 +338,22 @@ CREATE TABLE `t_product` (
   `update_time` datetime DEFAULT NULL,
   PRIMARY KEY (`product_id`),
   UNIQUE KEY `UNIQUE` (`product_no`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
 /*Data for the table `t_product` */
 
 insert  into `t_product`(`product_id`,`product_no`,`image_url`,`product_name`,`product_size`,`attach_info`,`product_cate_id`,`product_cate_name`,`product_desc`,`flag`,`create_time`,`update_time`) values 
-(1,'lwa202103170001e','/upload/lwa202103170001e.jpg','蓝威方向盘套','L','37.5内圈',2,'方向盘套','方向盘套',1,'2021-04-02 11:18:23','2021-04-02 11:18:23'),
-(2,'lwa202103170002e','/upload/lwa202103170001e.jpg','蓝威方向盘套2','M',NULL,NULL,NULL,NULL,0,NULL,'2021-04-09 13:57:38'),
-(4,'问我','/upload/44504DA4-EDD5-4514-837F-6135DC342265.jpeg','啥事','S','',3,'椅套','',0,'2021-04-08 14:33:33','2021-04-08 14:33:43');
+(1,'lwa20210412001NBK','/upload/lwa202103170001e.jpg','新款方向盘套','M','内圈37.5',1,'方向盘套','',1,'2021-04-12 12:35:48','2021-04-12 12:35:48'),
+(2,'lwa20210317001ERD','/upload/lwa202103170001e.jpg','毛绒方向盘','L','38内圈',1,'方向盘套','',1,'2021-04-12 13:44:01','2021-04-12 13:44:01'),
+(3,'lwa20210317002ERD','/upload/lwa202103170001e.jpg','毛绒方向盘','L','38内圈',1,'方向盘套',NULL,1,NULL,NULL),
+(4,'lwa20210317003ERD','/upload/lwa202103170001e.jpg','毛绒方向盘','L','38内圈',1,'方向盘套',NULL,1,NULL,NULL),
+(5,'lwa20210317004ERD','/upload/lwa202103170001e.jpg','毛绒方向盘','L','38内圈',1,'方向盘套',NULL,1,NULL,NULL),
+(6,'lwa20210317005ERD','/upload/lwa202103170001e.jpg','毛绒方向盘','L','38内圈',1,'方向盘套',NULL,1,NULL,NULL),
+(7,'lwa20210317006ERD','/upload/lwa202103170001e.jpg','毛绒方向盘','L','38内圈',1,'方向盘套',NULL,1,NULL,NULL),
+(8,'lwa20210317007ERD','/upload/lwa202103170001e.jpg','毛绒方向盘','L','38内圈',1,'方向盘套',NULL,1,NULL,NULL),
+(9,'lwa20210317009ERD','/upload/lwa202103170001e.jpg','毛绒方向盘','L','38内圈',1,'方向盘套',NULL,1,NULL,NULL),
+(10,'lwa20210317010ERD','/upload/lwa202103170001e.jpg','毛绒方向盘','L','38内圈',1,'方向盘套',NULL,1,NULL,NULL),
+(11,'lwa20210317011ERD','/upload/lwa202103170001e.jpg','毛绒方向盘','L','38内圈',1,'方向盘套',NULL,1,NULL,NULL);
 
 /*Table structure for table `t_product_cate` */
 
@@ -446,14 +368,12 @@ CREATE TABLE `t_product_cate` (
   `create_time` datetime DEFAULT NULL,
   `update_time` datetime DEFAULT NULL,
   PRIMARY KEY (`product_cate_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 /*Data for the table `t_product_cate` */
 
 insert  into `t_product_cate`(`product_cate_id`,`product_cate_name`,`parent_cate_id`,`product_cate_desc`,`flag`,`create_time`,`update_time`) values 
-(1,'产品分类',0,'产品分类',1,'2021-04-02 10:13:50','2021-04-02 10:13:51'),
-(2,'方向盘套',1,'方向盘套',1,'2021-04-02 10:14:11','2021-04-02 10:14:11'),
-(3,'椅套',1,'椅套',1,'2021-04-02 10:15:09','2021-04-02 10:15:09');
+(1,'方向盘套',0,'方向盘套',1,'2021-04-12 12:34:17','2021-04-12 12:34:17');
 
 /*Table structure for table `t_production` */
 
@@ -478,9 +398,6 @@ CREATE TABLE `t_production` (
 
 /*Data for the table `t_production` */
 
-insert  into `t_production`(`production_id`,`production_no`,`contact_no`,`export_no`,`customer_id`,`order_time`,`advance_time`,`real_time`,`is_completed`,`level`,`maker`,`comment`,`create_time`) values 
-(1,'Z2001-25-555T','465456465','31312',1,'2021-04-06 07:39:34','2021-04-06 07:39:36','2021-04-24 07:39:38',0,1,NULL,NULL,NULL);
-
 /*Table structure for table `t_production_detail` */
 
 DROP TABLE IF EXISTS `t_production_detail`;
@@ -495,10 +412,6 @@ CREATE TABLE `t_production_detail` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `t_production_detail` */
-
-insert  into `t_production_detail`(`production_id`,`product_id`,`product_serial`,`product_num`,`product_color`,`production_desc`) values 
-(1,1,'3-1',100,'黑色',NULL),
-(1,2,'3-2',200,'红色','asdf');
 
 /*Table structure for table `t_progress` */
 
@@ -516,11 +429,6 @@ CREATE TABLE `t_progress` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `t_progress` */
-
-insert  into `t_progress`(`production_id`,`product_id`,`proce_id`,`completed_num`,`goal_num`,`create_time`,`finishd_time`) values 
-(1,1,1,50,100,NULL,NULL),
-(1,1,2,60,100,NULL,NULL),
-(1,1,4,70,200,NULL,NULL);
 
 /*Table structure for table `t_purchase` */
 
@@ -570,15 +478,14 @@ CREATE TABLE `t_unit` (
   `create_time` datetime DEFAULT NULL,
   `update_time` datetime DEFAULT NULL,
   PRIMARY KEY (`unit_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 /*Data for the table `t_unit` */
 
 insert  into `t_unit`(`unit_id`,`unit_name`,`unit_desc`,`create_time`,`update_time`) values 
-(1,'个','数量单位','2021-04-09 10:01:01','2021-04-09 10:01:01'),
-(2,'只','数量单位','2021-04-09 14:52:50','2021-04-09 14:52:50'),
-(3,'米','长度单位','2021-04-09 14:54:55','2021-04-09 14:54:55'),
-(4,'匹','布匹单位','2021-04-09 14:55:34','2021-04-09 14:55:34');
+(5,'个','数量单位','2021-04-12 12:32:22','2021-04-12 12:32:22'),
+(6,'米','长度单位','2021-04-12 12:32:31','2021-04-12 12:32:31'),
+(7,'公斤','重量单位','2021-04-12 12:32:42','2021-04-12 12:32:42');
 
 /*Table structure for table `user` */
 
@@ -594,8 +501,7 @@ CREATE TABLE `user` (
 /*Data for the table `user` */
 
 insert  into `user`(`user_id`,`username`,`password`) values 
-(0,'jimmy','weijiang'),
-(1,'root','weijiang');
+(0,'root','weijiang');
 
 /*Table structure for table `user_role` */
 
@@ -607,9 +513,6 @@ CREATE TABLE `user_role` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin ROW_FORMAT=DYNAMIC;
 
 /*Data for the table `user_role` */
-
-insert  into `user_role`(`user_id`,`role_id`) values 
-(1,1);
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

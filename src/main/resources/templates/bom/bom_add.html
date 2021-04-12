@@ -25,17 +25,15 @@
             <div class="layui-row">
                 <form class="layui-form" id="bomform">
                     <h2 style="text-align: center; margin-bottom: 20px; font-weight: bold">BOM&工艺路线</h2>
+                    <div style="position: absolute;right: 200px;top: 55px;"><img src="" alt="" id="productImage" style="width: 110px;height: 110px;"></div>
                   <div class="layui-form-item">
                         <label class="layui-form-label">
                             <span class="x-red">*</span>选择产品
                         </label>
                         <div class="layui-input-inline">
-                            <select name="chooseProduct" lay-filter="aihao">
-                                <option value=""></option>
-                                <option value="0">写作</option>
-                                <option value="2">游戏</option>
-                                <option value="3">音乐</option>
-                                <option value="4">旅行</option>
+                            <select class="flow-default" id="productId" name="productId" lay-filter="productId" lay-verify="required" lay-search="">
+                                <option value="">直接选择或搜索选择</option>
+                                <option th:each="product : ${products.list}" th:value="${product.productId}" th:text="${product.productNo}">直接选择或搜索选择</option>
                             </select>
                         </div>
                       <label for="productName" class="layui-form-label">
@@ -43,7 +41,7 @@
                       </label>
                       <div class="layui-input-inline">
                           <input type="text" id="productName" placeholder="请输入" name="productName" required="" lay-verify="required"
-                                 autocomplete="off" class="layui-input">
+                                 autocomplete="off" class="layui-input" disabled>
                       </div>
                     </div>
                   <div class="layui-form-item">
@@ -52,18 +50,14 @@
                         </label>
                         <div class="layui-input-inline">
                             <input type="text" id="productSize" placeholder="请输入" name="productSize" required="" lay-verify="required"
-                                   autocomplete="off" class="layui-input">
+                                   autocomplete="off" class="layui-input" disabled>
                         </div>
-                      <label for="productName" class="layui-form-label">
+                      <label class="layui-form-label">
                           <span class="x-red">*</span>单位
                       </label>
                       <div class="layui-input-inline">
-                          <select name="chooseProduct" lay-filter="aihao">
-                              <option value=""></option>
-                              <option value="0">写作</option>
-                              <option value="2">游戏</option>
-                              <option value="3">音乐</option>
-                              <option value="4">旅行</option>
+                          <select name="productUnitId" id="">
+                              <option th:each="unit : ${units.list}" th:value="${unit.unitId}" th:text="${unit.unitName}">单位</option>
                           </select>
                       </div>
                     </div>
@@ -202,11 +196,13 @@
         </script>
 
         <script>
-            layui.use(['form', 'layedit', 'laydate', 'jquery'], function(){
+            layui.use(['form', 'layedit', 'laydate', 'jquery', 'flow', 'element'], function(){
                 var form = layui.form
                     ,layer = layui.layer
                     ,$ = layui.jquery
-                    ,laydate = layui.laydate;
+                    ,laydate = layui.laydate
+                    ,flow = layui.flow
+                    ,element = layui.element;
 
                 //日期
                 laydate.render({
@@ -215,14 +211,26 @@
                 laydate.render({
                     elem: '#date1'
                 });
-                laydate.render({
-                    elem: '#createTime'
-                });
-                laydate.render({
-                    elem: '#advanceTime'
-                });
-                laydate.render({
-                    elem: '#realTime'
+
+                flow.load({
+                    elem: '#productId' //流加载容器
+                    , done: function (page, next) { //执行下一页的回调
+                        var lis = [];
+                        //以jQuery的Ajax请求为例，请求下一页数据（注意：page是从2开始返回）
+
+                        $.get('/product/list?currentPage='+page, function(res){
+
+                            //假设你的列表返回在data集合中
+                            layui.each(res, function(index, item){
+                                lis.push('<option value="' + item.productId +'">'+ item.productNo +'</option>');
+                            });
+
+                            $("#productId").append(lis);
+                            //执行下一页渲染，第二参数为：满足“加载更多”的条件，即后面仍有分页
+                            //pages为Ajax返回的总页数，只有当前页小于总页数的情况下，才会继续出现加载更多
+                            next(lis.join(''), page < 10);
+                        });
+                    }
                 });
 
 
@@ -242,8 +250,27 @@
                     }
                 });
 
-                //监听提交
+                form.on('select(productId)', function(data){
+                    if (data.value == ''){
+                        $("#productName").val('');
+                        $("#productSize").val('');
+                        return;
+                    }
+                    $.ajax({
+                        type:'post',
+                        url:'product/selectById',
+                        data:{productId:data.value},
+                        success:function(res){
+                            if (res) {
+                                $("#productName").val(res.productName);
+                                $("#productSize").val(res.productSize);
+                                $("#productImage").attr("src", res.imageUrl);
+                            }
+                        },
+                    });
+                });
 
+                //监听提交
                 form.on('submit(add)', function(data){
                     console.log(data)
                     $.ajax({
@@ -276,7 +303,6 @@
                 });
 
 
-
             });
 
         </script>
@@ -287,7 +313,4 @@
                 s.parentNode.insertBefore(hm, s);
             })();</script>
     </body>
-    <div id="customer" style="display: none; padding: 15px;">
-        <div id="customerList"></div>
-    </div>
 </html>
