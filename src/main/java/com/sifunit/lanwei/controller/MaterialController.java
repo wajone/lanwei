@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("material")
 public class MaterialController {
@@ -74,5 +76,17 @@ public class MaterialController {
         System.out.println(materialId);
         SysResult sysResult = materialService.delById(materialId);
         return sysResult;
+    }
+
+    @RequestMapping("list")
+    @ResponseBody
+    public List<Material> list() {
+        return materialService.list();
+    }
+
+    @RequestMapping("selectById")
+    @ResponseBody
+    public Material selectById(Long materialId) {
+        return materialService.selectByPrimaryKey(materialId);
     }
 }

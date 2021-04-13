@@ -49,4 +49,16 @@ public class MaterialServiceImpl extends BaseServiceImpl<Material> implements IM
         }
         return sysResult;
     }
+
+    @Override
+    public PageInfo<Material> listMaterials() {
+        List<Material> list = materialMapper.list();
+        PageInfo<Material> pageInfo = new PageInfo<>(list);
+        return pageInfo;
+    }
+
+    @Override
+    public List<Material> list() {
+        return materialMapper.list();
+    }
 }

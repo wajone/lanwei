@@ -114,7 +114,7 @@ public class ProductServiceImpl extends BaseServiceImpl<Product> implements IPro
     }
 
     @Override
-    public PageInfo<Product> list() {
+    public PageInfo<Product> listProducts() {
         List<Product> list = productMapper.list();
         PageInfo<Product> pageInfo = new PageInfo<>(list);
         return pageInfo;

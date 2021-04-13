@@ -66,3 +66,20 @@ $(":text").val("Hello World");jquery设置value值
 
                             $("#productId").append(option);
                             form.render('select','group');
+
+
+
+function additional() {
+	var tr = $("#tabtr"); //tabtr是你要克隆的表格行的id
+	var newtr = tr.clone();//克隆tr行
+	newtr.find(":input").each(function(i) { //循环新克隆的newtr，在里边找到所有的input标签，
+		$(this).val("");//给该标签的value赋值为空
+	});
+	tr.after(newtr); //在id="tabtr"的表格行tr后插入克隆行newtr
+
+//如果有select的话  是克隆会失效  要自己处理
+$(newtr).find("select[name='unit']").val($(tr).find("select[name='unit']").val());
+$(newtr).find("select[name='type']").val($(tr).find("select[name='type']").val());
+
+FORM.render();//更新form
+

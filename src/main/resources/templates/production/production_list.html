@@ -132,7 +132,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                </div>
+                            </div>
                         </div>
                         <div class="layui-card-body">
                             <div id="pager" style="text-align: center">
@@ -193,12 +193,8 @@
           });
       }
 
-
-
       function delAll (argument) {
-
         var data = tableCheck.getData();
-  
         layer.confirm('确认要删除吗？'+data,function(index){
             //捉到所有被选中的，发异步进行删除
             layer.msg('删除成功', {icon: 1});
@@ -206,7 +202,8 @@
         });
       }
     </script>
-    <script>var _hmt = _hmt || []; (function() {
+    <script>
+        var _hmt = _hmt || []; (function() {
         var hm = document.createElement("script");
         hm.src = "https://hm.baidu.com/hm.js?b393d153aeb26b46e9431fabaf0f6190";
         var s = document.getElementsByTagName("script")[0];

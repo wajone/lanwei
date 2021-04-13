@@ -86,7 +86,7 @@
                                       <div class="layui-input-inline">
                                           <select class="flow-default" name="materialId[]" lay-filter="materialId" lay-verify="required" lay-search="">
                                               <option value="">直接选择或搜索选择</option>
-                                              <option th:each="product : ${products.list}" th:value="${product.productId}" th:text="${product.productNo}">直接选择或搜索选择</option>
+                                              <option th:each="material : ${materials.list}" th:value="${material.materialId}" th:text="${material.materialNo}">直接选择或搜索选择</option>
                                           </select>
                                       </div>
                                   </td>
@@ -111,8 +111,9 @@
                           </table>
                       </div>
                       <div class="layui-form-item">
-                          <a id="addProduct" class="layui-btn layui-btn-primary" onclick="addTr()" href="javascript:;">增加一行</a>
-
+                          <a id="addProduct" class="layui-btn layui-btn-primary" onclick="addTr()" href="javascript:;">
+                              <i class="layui-icon">&#xe654;</i>增加行
+                          </a>
                       </div>
                       <div class="layui-form-item">
                           <div class="layui-row" style="color: #666;">
@@ -158,10 +159,12 @@
             //增加一行按钮点击功能
             function addTr() {
                 var tr = $(".materialtr:last");
-                var newtr = tr.clone(true);
-
-                //newtr.find("select").each(function() { document.getElementById($(this).attr("chooseUnit")).selectedIndex = 0; });
+                var newtr = tr.clone();
+                newtr.find(":input").each(function(i) {
+                    $(this).val("");
+                });
                 tr.after(newtr);
+                layui.form.render("select");
                 number();
                 return false;
             }
@@ -207,27 +210,6 @@
                     elem: '#date1'
                 });
 
-                flow.load({
-                    elem: '#productId' //流加载容器
-                    , done: function (page, next) { //执行下一页的回调
-                        var lis = [];
-                        //以jQuery的Ajax请求为例，请求下一页数据（注意：page是从2开始返回）
-
-                        $.get('/product/list?currentPage='+page, function(res){
-
-                            //假设你的列表返回在data集合中
-                            layui.each(res, function(index, item){
-                                lis.push('<option value="' + item.productId +'">'+ item.productNo +'</option>');
-                            });
-
-                            $("#productId").append(lis);
-                            //执行下一页渲染，第二参数为：满足“加载更多”的条件，即后面仍有分页
-                            //pages为Ajax返回的总页数，只有当前页小于总页数的情况下，才会继续出现加载更多
-                            next(lis.join(''), page < 10);
-                        });
-                    }
-                });
-
 
                 //自定义验证规则
                 form.verify({
@@ -264,6 +246,27 @@
                                     $("#productImage").attr("src", res.imageUrl);
                                 }
 
+                            }
+                        },
+                    });
+                });
+                form.on('select(materialId)', function(data){
+                    console.log(data);
+                    $.ajax({
+                        type:'post',
+                        url:'material/selectById',
+                        data:{materialId:data.value},
+                        success:function(res){
+                            console.log(res)
+                            if (res) {
+                                console.log($(data));
+                                $(data.othis).parents("tr").find("input[name='materialName[]']").val(res.materialName);
+                                $(data.othis).parents("tr").find("input[name='materialNo[]']").val(res.materialNo);
+                                $(data.othis).parents("tr").find("input[name='materialSize[]']").val(res.materialSize);
+                                $("#productSize").val(res.productSize);
+                                if (res.imageUrl !== null) {
+                                    $("#productImage").attr("src", res.imageUrl);
+                                }
                             }
                         },
                     });

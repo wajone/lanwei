@@ -6,8 +6,14 @@ import com.sifunit.lanwei.common.SysResult;
 import com.sifunit.lanwei.domain.Material;
 import org.springframework.ui.Model;
 
+import java.util.List;
+
 public interface IMaterialService extends IBaseService<Material> {
     PageInfo<Material> getPage(Page page, Model model);
 
     SysResult delById(Long materialId);
+
+    PageInfo<Material> listMaterials();
+
+    List<Material> list();
 }

@@ -178,6 +178,8 @@ CREATE TABLE `t_bom` (
   `material_id` bigint(20) DEFAULT NULL,
   `product_unit_id` bigint(20) DEFAULT NULL,
   `material_num` bigint(20) DEFAULT NULL,
+  `material_unit_id` bigint(20) DEFAULT NULL,
+  `maker` varchar(50) DEFAULT NULL,
   `comment` varchar(50) DEFAULT NULL,
   `create_time` datetime DEFAULT NULL,
   `update_time` datetime DEFAULT NULL,
@@ -279,9 +281,12 @@ CREATE TABLE `t_material` (
   `create_time` datetime DEFAULT NULL,
   `update_time` datetime DEFAULT NULL,
   PRIMARY KEY (`material_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 /*Data for the table `t_material` */
+
+insert  into `t_material`(`material_id`,`material_no`,`material_name`,`material_cate_id`,`material_cate_name`,`material_desc`,`material_size`,`flag`,`create_time`,`update_time`) values 
+(1,'LWY20210413001A','皮革PU',2,'原材料','','3*5',1,'2021-04-13 11:14:02','2021-04-13 11:14:02');
 
 /*Table structure for table `t_material_cate` */
 
@@ -296,9 +301,14 @@ CREATE TABLE `t_material_cate` (
   `create_time` datetime DEFAULT NULL,
   `update_time` datetime DEFAULT NULL,
   PRIMARY KEY (`material_cate_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 /*Data for the table `t_material_cate` */
+
+insert  into `t_material_cate`(`material_cate_id`,`material_cate_name`,`parent_cate_id`,`material_cate_desc`,`flag`,`create_time`,`update_time`) values 
+(1,'物料分类',0,'',1,'2021-04-13 11:11:00','2021-04-13 11:11:00'),
+(2,'原材料',1,'',1,'2021-04-13 11:11:07','2021-04-13 11:11:07'),
+(3,'辅料',1,NULL,1,'2021-04-13 11:12:54','2021-04-13 11:12:56');
 
 /*Table structure for table `t_procedure` */
 

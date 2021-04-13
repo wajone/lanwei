@@ -16,5 +16,5 @@ public interface IProductService extends IBaseService<Product> {
 
     SysResult delById(Long productId);
 
-    PageInfo<Product> list();
+    PageInfo<Product> listProducts();
 }
