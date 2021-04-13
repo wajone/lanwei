@@ -59,3 +59,7 @@ th.thcheckbox {
 .layui-row p {
     margin-top: 10px;
 }
+
+.layui-form-radio {
+    padding-right: 0px;
+}
