@@ -3,14 +3,9 @@ package com.sifunit.lanwei.controller;
 import com.github.pagehelper.PageInfo;
 import com.sifunit.lanwei.common.Page;
 import com.sifunit.lanwei.common.SysResult;
-import com.sifunit.lanwei.domain.Bom;
-import com.sifunit.lanwei.domain.Material;
-import com.sifunit.lanwei.domain.Product;
-import com.sifunit.lanwei.domain.Unit;
-import com.sifunit.lanwei.service.IBomService;
-import com.sifunit.lanwei.service.IMaterialService;
-import com.sifunit.lanwei.service.IProductService;
-import com.sifunit.lanwei.service.IUnitService;
+import com.sifunit.lanwei.domain.*;
+import com.sifunit.lanwei.service.*;
+import com.sifunit.lanwei.service.impl.ProductionDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,6 +24,10 @@ public class BomController {
     IUnitService unitService;
     @Autowired
     IMaterialService materialService;
+    @Autowired
+    IProcedureService procedureService;
+    @Autowired
+    IProductionService productionService;
 
     @GetMapping("page")
     public String page(Page page, Model model) {
@@ -58,7 +57,11 @@ public class BomController {
         //获取所有产品信息，下一步可以实行分页返回数据，全端用流加载，目前还没找到解决办法，先全部返回
         PageInfo<Product> products = productService.listProducts();
         PageInfo<Material> materials = materialService.listMaterials();
+        PageInfo<Procedure> proces = procedureService.listproces();
+        PageInfo<Production> productions = productionService.listproductions();
         model.addAttribute("units", units);
+        model.addAttribute("productions", productions);
+        model.addAttribute("proces", proces);
         model.addAttribute("products", products);
         model.addAttribute("materials", materials);
         return "bom/bom_add";

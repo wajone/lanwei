@@ -8,17 +8,23 @@
       <arg column="contact_no" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="export_no" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="customer_id" javaType="java.lang.Long" jdbcType="BIGINT" />
-      <arg column="create_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="order_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
       <arg column="advance_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
       <arg column="real_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="is_completed" javaType="java.lang.Boolean" jdbcType="BIT" />
+      <arg column="level" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="maker" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="comment" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="create_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="update_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
     </constructor>
   </resultMap>
   <sql id="Base_Column_List">
-    production_id, production_no, contact_no, export_no, customer_id, create_time, advance_time,
-    real_time
+    production_id, production_no, contact_no, export_no, customer_id, order_time, advance_time, 
+    real_time, is_completed, level, maker, comment, create_time, update_time
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    select
+    select 
     <include refid="Base_Column_List" />
     from t_production
     where production_id = #{productionId,jdbcType=BIGINT}
@@ -28,12 +34,16 @@
     where production_id = #{productionId,jdbcType=BIGINT}
   </delete>
   <insert id="insert" parameterType="com.sifunit.lanwei.domain.Production">
-    insert into t_production (production_id, production_no, contact_no,
-      export_no, customer_id, create_time,
-      advance_time, real_time)
-    values (#{productionId,jdbcType=BIGINT}, #{productionNo,jdbcType=VARCHAR}, #{contactNo,jdbcType=VARCHAR},
-      #{exportNo,jdbcType=VARCHAR}, #{customerId,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP},
-      #{advanceTime,jdbcType=TIMESTAMP}, #{realTime,jdbcType=TIMESTAMP})
+    insert into t_production (production_id, production_no, contact_no, 
+      export_no, customer_id, order_time, 
+      advance_time, real_time, is_completed, 
+      level, maker, comment, 
+      create_time, update_time)
+    values (#{productionId,jdbcType=BIGINT}, #{productionNo,jdbcType=VARCHAR}, #{contactNo,jdbcType=VARCHAR}, 
+      #{exportNo,jdbcType=VARCHAR}, #{customerId,jdbcType=BIGINT}, #{orderTime,jdbcType=TIMESTAMP}, 
+      #{advanceTime,jdbcType=TIMESTAMP}, #{realTime,jdbcType=TIMESTAMP}, #{isCompleted,jdbcType=BIT}, 
+      #{level,jdbcType=INTEGER}, #{maker,jdbcType=VARCHAR}, #{comment,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.sifunit.lanwei.domain.Production">
     insert into t_production
@@ -53,14 +63,32 @@
       <if test="customerId != null">
         customer_id,
       </if>
-      <if test="createTime != null">
-        create_time,
+      <if test="orderTime != null">
+        order_time,
       </if>
       <if test="advanceTime != null">
         advance_time,
       </if>
       <if test="realTime != null">
         real_time,
+      </if>
+      <if test="isCompleted != null">
+        is_completed,
+      </if>
+      <if test="level != null">
+        level,
+      </if>
+      <if test="maker != null">
+        maker,
+      </if>
+      <if test="comment != null">
+        comment,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -79,14 +107,32 @@
       <if test="customerId != null">
         #{customerId,jdbcType=BIGINT},
       </if>
-      <if test="createTime != null">
-        #{createTime,jdbcType=TIMESTAMP},
+      <if test="orderTime != null">
+        #{orderTime,jdbcType=TIMESTAMP},
       </if>
       <if test="advanceTime != null">
         #{advanceTime,jdbcType=TIMESTAMP},
       </if>
       <if test="realTime != null">
         #{realTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isCompleted != null">
+        #{isCompleted,jdbcType=BIT},
+      </if>
+      <if test="level != null">
+        #{level,jdbcType=INTEGER},
+      </if>
+      <if test="maker != null">
+        #{maker,jdbcType=VARCHAR},
+      </if>
+      <if test="comment != null">
+        #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -105,14 +151,32 @@
       <if test="customerId != null">
         customer_id = #{customerId,jdbcType=BIGINT},
       </if>
-      <if test="createTime != null">
-        create_time = #{createTime,jdbcType=TIMESTAMP},
+      <if test="orderTime != null">
+        order_time = #{orderTime,jdbcType=TIMESTAMP},
       </if>
       <if test="advanceTime != null">
         advance_time = #{advanceTime,jdbcType=TIMESTAMP},
       </if>
       <if test="realTime != null">
         real_time = #{realTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isCompleted != null">
+        is_completed = #{isCompleted,jdbcType=BIT},
+      </if>
+      <if test="level != null">
+        level = #{level,jdbcType=INTEGER},
+      </if>
+      <if test="maker != null">
+        maker = #{maker,jdbcType=VARCHAR},
+      </if>
+      <if test="comment != null">
+        comment = #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
       </if>
     </set>
     where production_id = #{productionId,jdbcType=BIGINT}
@@ -123,9 +187,20 @@
       contact_no = #{contactNo,jdbcType=VARCHAR},
       export_no = #{exportNo,jdbcType=VARCHAR},
       customer_id = #{customerId,jdbcType=BIGINT},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
+      order_time = #{orderTime,jdbcType=TIMESTAMP},
       advance_time = #{advanceTime,jdbcType=TIMESTAMP},
-      real_time = #{realTime,jdbcType=TIMESTAMP}
+      real_time = #{realTime,jdbcType=TIMESTAMP},
+      is_completed = #{isCompleted,jdbcType=BIT},
+      level = #{level,jdbcType=INTEGER},
+      maker = #{maker,jdbcType=VARCHAR},
+      comment = #{comment,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
     where production_id = #{productionId,jdbcType=BIGINT}
   </update>
+  <select id="list" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_production
+  </select>
 </mapper>

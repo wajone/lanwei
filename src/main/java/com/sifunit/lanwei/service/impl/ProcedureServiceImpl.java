@@ -36,4 +36,11 @@ public class ProcedureServiceImpl extends BaseServiceImpl<Procedure> implements 
     public SysResult delById(Long id) {
         return null;
     }
+
+    @Override
+    public PageInfo<Procedure> listproces() {
+        List<Procedure> list = procedureMapper.list();
+        PageInfo<Procedure> pageInfo = new PageInfo<>(list);
+        return pageInfo;
+    }
 }

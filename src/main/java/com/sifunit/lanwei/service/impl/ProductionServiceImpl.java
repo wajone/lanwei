@@ -7,7 +7,6 @@ import com.sifunit.lanwei.domain.Production;
 import com.sifunit.lanwei.mapper.IBaseMapper;
 import com.sifunit.lanwei.mapper.ProductionMapper;
 import com.sifunit.lanwei.service.IProductionService;
-import com.sifunit.lanwei.vo.ProductionDetail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
@@ -28,6 +27,13 @@ public class ProductionServiceImpl extends BaseServiceImpl<Production> implement
     @Override
     public PageInfo<Production> getPageInfo(Page page, Model model) {
         PageHelper.startPage(page.getCurrentPage(), page.getPageSize());
+        List<Production> list = productionMapper.list();
+        PageInfo<Production> pageInfo = new PageInfo<>(list);
+        return pageInfo;
+    }
+
+    @Override
+    public PageInfo<Production> listproductions() {
         List<Production> list = productionMapper.list();
         PageInfo<Production> pageInfo = new PageInfo<>(list);
         return pageInfo;

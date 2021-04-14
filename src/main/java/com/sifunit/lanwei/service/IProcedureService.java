@@ -10,4 +10,6 @@ public interface IProcedureService extends IBaseService<Procedure> {
     PageInfo getPage(Page page, Model model);
 
     SysResult delById(Long id);
+
+    PageInfo<Procedure> listproces();
 }

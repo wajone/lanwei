@@ -114,16 +114,19 @@
                               <tr class="producttr">
                                   <td><span class="numberClass"></span></td>
                                   <td  style="width: 120px;">
-                                    <div>
-                                      <input type="text" name="productNo[]" placeholder="" autocomplete="off" class="layui-input searchGoods">
-                                    </div>
+                                      <div>
+                                          <select name="productId[]" lay-filter="materialId" lay-verify="required" lay-search="">
+                                              <option value="">直接选择或搜索选择</option>
+                                              <option th:each="product : ${products.list}" th:value="${product.productId}" th:text="${product.productNo}">直接选择或搜索选择</option>
+                                          </select>
+                                      </div>
                                   </td>
                                   <td  style="width: 70px;">
                                   <div>
                                     <input type="text" name="productSerial[]" placeholder="" autocomplete="off" class="layui-input">
                                   </div>
                                   </td>
-                                  <td><img src="/upload/lwa202103170001e.jpg" alt=""></td>
+                                  <td><img style="width: 85px;height: 85px;" src="images/lanwei.jpg" alt=""></td>
                                   <td style="width: 70px;"><input type="text" name="productColor[]" placeholder="" autocomplete="off" class="layui-input"></td>
                                   <td style="width: 70px;"><input type="text" name="productNum[]" placeholder="" autocomplete="off" class="layui-input"></td>
                                   <td style="width: 70px;">
@@ -260,6 +263,28 @@
                 });
 
                 //监听提交
+
+                form.on('select(productId)', function(data){
+                    if (data.value == ''){
+                        $(data.othis).parents("tr").find("input[name='productName[]']").val('');
+                        $(data.othis).parents("tr").find("input[name='productNo[]']").val('');
+                        $(data.othis).parents("tr").find("input[name='productSize[]']").val('');
+                        return;
+                    }
+                    $.ajax({
+                        type:'post',
+                        url:'product/selectById',
+                        data:{productId:data.value},
+                        success:function(res){
+
+                            if (res) {
+                                $(data.othis).parents("tr").find("input[name='materialName[]']").val(res.materialName);
+                                $(data.othis).parents("tr").find("input[name='materialNo[]']").val(res.materialNo);
+                                $(data.othis).parents("tr").find("input[name='materialSize[]']").val(res.materialSize);
+                            }
+                        },
+                    });
+                });
 
                 form.on('submit(add)', function(data){
                     console.log(data)

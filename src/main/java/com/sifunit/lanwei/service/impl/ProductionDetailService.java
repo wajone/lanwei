@@ -3,6 +3,7 @@ package com.sifunit.lanwei.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.sifunit.lanwei.common.Page;
+import com.sifunit.lanwei.domain.Product;
 import com.sifunit.lanwei.mapper.ProductionDetailMapper;
 import com.sifunit.lanwei.vo.ProductionDetail;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,5 +22,9 @@ public class ProductionDetailService {
         List<ProductionDetail> list = productionDetailMapper.list();
         PageInfo<ProductionDetail> pageInfo = new PageInfo<>(list);
         return pageInfo;
+    }
+
+    public List<Product> selectProductByProductionId(Long producitonId) {
+        return productionDetailMapper.selectProductByProductionId(producitonId);
     }
 }
