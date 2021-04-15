@@ -20,7 +20,7 @@
             <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
     </head>
-    <body>
+    <body style="background: #fff;">
         <div class="layui-fluid">
             <div class="layui-row">
                 <form class="layui-form" id="deptform">
@@ -95,52 +95,76 @@
                       </div>
                     </div>
                   <div style="padding-left: 30px; padding-right: 30px;">
-                      <div class="layui-form-item"  style="border: 1px solid #009688;border-radius: 5px">
-                          <table class="layui-table production_table" lay-skin="line" style="text-align: center;">
-                              <thead class="top-head">
-                              <tr>
-                                  <th>序号</th>
-                                  <th style="width: 120px;">产品编码</th>
-                                  <th>序号</th>
-                                  <th>图片</th>
-                                  <th>颜色</th>
-                                  <th>数量</th>
-                                  <th>单位</th>
-                                  <th>产品工艺描述</th>
-                                  <th>操作</th>
-                              </tr>
-                              </thead>
-                              <tbody>
-                              <tr class="producttr">
-                                  <td><span class="numberClass"></span></td>
-                                  <td  style="width: 120px;">
-                                      <div>
-                                          <select name="productId[]" lay-filter="materialId" lay-verify="required" lay-search="">
-                                              <option value="">直接选择或搜索选择</option>
-                                              <option th:each="product : ${products.list}" th:value="${product.productId}" th:text="${product.productNo}">直接选择或搜索选择</option>
-                                          </select>
-                                      </div>
-                                  </td>
-                                  <td  style="width: 70px;">
-                                  <div>
-                                    <input type="text" name="productSerial[]" placeholder="" autocomplete="off" class="layui-input">
-                                  </div>
-                                  </td>
-                                  <td><img style="width: 85px;height: 85px;" src="images/lanwei.jpg" alt=""></td>
-                                  <td style="width: 70px;"><input type="text" name="productColor[]" placeholder="" autocomplete="off" class="layui-input"></td>
-                                  <td style="width: 70px;"><input type="text" name="productNum[]" placeholder="" autocomplete="off" class="layui-input"></td>
-                                  <td style="width: 70px;">
-                                      <select name="unitId[]" id="">
-                                          <option th:each="unit : ${units.list}" th:value="${unit.unitId}" th:text="${unit.unitName}">单位</option>
-                                      </select>
-                                  </td>
-                                  <td><input type="text" name="productDesc[]" placeholder="" autocomplete="off" class="layui-input"></td>
-                                  <td><a title="删除" disabled onclick="member_del(this,'要删除的id')" href="javascript:;">
-                                      <i class="layui-icon">&#xe640;</i>删除
-                                  </a></td>
-                              </tr>
-                              </tbody>
-                          </table>
+                      <div style="overflow-x: scroll;border-radius: 5px;border: 1px solid #009688;">
+                          <div class="layui-form-item">
+                              <table class="layui-table production_table" lay-skin="line" style="text-align: center;">
+                                  <thead class="top-head">
+                                  <tr>
+                                      <th>序号</th>
+                                      <th>产品编码</th>
+                                      <th>生产序号</th>
+                                      <th>图片</th>
+                                      <th>尺寸</th>
+                                      <th>颜色</th>
+                                      <th>数量</th>
+                                      <th>单位</th>
+                                      <th>产品工艺描述</th>
+                                      <th>操作</th>
+                                  </tr>
+                                  </thead>
+                                  <tbody>
+                                  <tr class="producttr" >
+                                      <td><span class="numberClass"></span></td>
+                                      <td>
+                                          <div class="layui-input-inline">
+                                              <select name="productId[]" lay-filter="productId" lay-verify="required" lay-search="">
+                                                  <option value="">直接选择或搜索选择</option>
+                                                  <option th:each="product : ${products.list}" th:value="${product.productId}" th:text="${product.productNo}">直接选择或搜索选择</option>
+                                              </select>
+                                          </div>
+                                      </td>
+                                      <td>
+                                          <div class="layui-input-inline" style="width: 80px;">
+                                              <input type="text" name="productSerial[]" placeholder="" autocomplete="off" class="layui-input">
+                                          </div>
+                                      </td>
+                                      <td>
+                                          <img id="imageUrl" style="width: 85px;height: 85px;" src="images/lanwei.jpg" alt="">
+                                      </td>
+                                      <td>
+                                          <div class="layui-input-inline" style="width: 80px;">
+                                              <input type="text" name="productSize[]" placeholder="" autocomplete="off" class="layui-input">
+                                          </div>
+                                      </td>
+                                      <td>
+                                          <div class="layui-input-inline" style="width: 80px;">
+                                              <input type="text" name="productColor[]" placeholder="" autocomplete="off" class="layui-input">
+                                          </div>
+                                      </td>
+                                      <td>
+                                          <div class="layui-input-inline" style="width: 80px;">
+                                              <input type="text" name="productNum[]" placeholder="" autocomplete="off" class="layui-input">
+                                          </div>
+                                      </td>
+                                      <td>
+                                          <div class="layui-input-inline" style="width: 80px;">
+                                              <select name="unitId[]" id="">
+                                                  <option th:each="unit : ${units.list}" th:value="${unit.unitId}" th:text="${unit.unitName}">单位</option>
+                                              </select>
+                                          </div>
+                                      </td>
+                                      <td>
+                                          <div class="layui-input-inline">
+                                              <input type="text" name="productionDesc[]" placeholder="" autocomplete="off" class="layui-input">
+                                          </div>
+                                      </td>
+                                      <td><a title="删除" disabled onclick="member_del(this,'要删除的id')" href="javascript:;">
+                                          <i class="layui-icon">&#xe640;</i>删除
+                                      </a></td>
+                                  </tr>
+                                  </tbody>
+                              </table>
+                          </div>
                       </div>
                       <div class="layui-form-item">
                           <a id="addProduct" class="layui-btn layui-btn-primary" onclick="addTr()" href="javascript:;">增加一行</a>
@@ -190,9 +214,13 @@
             //增加一行按钮点击功能
             function addTr() {
                 var tr = $(".producttr:last");
-                var newtr = tr.clone(true);
-
+                var newtr = tr.clone();
+                newtr.find(":input").each(function(i) {
+                    $(this).val("");
+                });
+                newtr.find('img').attr('src','images/lanwei.jpg');
                 tr.after(newtr);
+                layui.form.render("select");
                 number();
                 return false;
             }
@@ -267,8 +295,8 @@
                 form.on('select(productId)', function(data){
                     if (data.value == ''){
                         $(data.othis).parents("tr").find("input[name='productName[]']").val('');
-                        $(data.othis).parents("tr").find("input[name='productNo[]']").val('');
                         $(data.othis).parents("tr").find("input[name='productSize[]']").val('');
+                        $(data.othis).parents("tr").find("img").attr('src','images/lanwei.jpg');
                         return;
                     }
                     $.ajax({
@@ -276,21 +304,21 @@
                         url:'product/selectById',
                         data:{productId:data.value},
                         success:function(res){
-
+                            console.log(res)
                             if (res) {
-                                $(data.othis).parents("tr").find("input[name='materialName[]']").val(res.materialName);
-                                $(data.othis).parents("tr").find("input[name='materialNo[]']").val(res.materialNo);
-                                $(data.othis).parents("tr").find("input[name='materialSize[]']").val(res.materialSize);
+                                $(data.othis).parents("tr").find("input[name='productName[]']").val(res.productName);
+                                $(data.othis).parents("tr").find("input[name='productSize[]']").val(res.productSize);
+                                $(data.othis).parents("tr").find("img").attr('src',res.imageUrl);
                             }
                         },
                     });
                 });
 
                 form.on('submit(add)', function(data){
-                    console.log(data)
+                    console.log(JSON.stringify(data.field))
                     $.ajax({
                         data: '',
-                        url: 'production/productionAdd',
+                        url: 'pro/add',
                         type: 'post',
                         success: function (res) {
                             if (res.result) {

@@ -63,3 +63,7 @@ th.thcheckbox {
 .layui-form-radio {
     padding-right: 0px;
 }
+
+.production_table .layui-input-inline {
+    margin-right: 0px;
+}
