@@ -180,7 +180,7 @@ CREATE TABLE `t_bom` (
   `material_num` bigint(20) DEFAULT NULL,
   `material_unit_id` bigint(20) DEFAULT NULL,
   `maker` varchar(50) DEFAULT NULL,
-  `comment` varchar(50) DEFAULT NULL,
+  `material_comment` varchar(255) DEFAULT NULL,
   `create_time` datetime DEFAULT NULL,
   `update_time` datetime DEFAULT NULL,
   PRIMARY KEY (`bom_id`)
@@ -204,9 +204,12 @@ CREATE TABLE `t_customer` (
   `create_time` datetime DEFAULT NULL,
   `update_time` datetime DEFAULT NULL,
   PRIMARY KEY (`customer_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 /*Data for the table `t_customer` */
+
+insert  into `t_customer`(`customer_id`,`customer_name`,`person_name`,`person_tel`,`area`,`email`,`zip_code`,`customer_desc`,`create_time`,`update_time`) values 
+(3,'CA','CA','CA','CA','CA@163.COM','CA','',NULL,NULL);
 
 /*Table structure for table `t_emp` */
 
@@ -301,14 +304,15 @@ CREATE TABLE `t_material_cate` (
   `create_time` datetime DEFAULT NULL,
   `update_time` datetime DEFAULT NULL,
   PRIMARY KEY (`material_cate_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 /*Data for the table `t_material_cate` */
 
 insert  into `t_material_cate`(`material_cate_id`,`material_cate_name`,`parent_cate_id`,`material_cate_desc`,`flag`,`create_time`,`update_time`) values 
 (1,'物料分类',0,'',1,'2021-04-13 11:11:00','2021-04-13 11:11:00'),
 (2,'原材料',1,'',1,'2021-04-13 11:11:07','2021-04-13 11:11:07'),
-(3,'辅料',1,NULL,1,'2021-04-13 11:12:54','2021-04-13 11:12:56');
+(3,'辅料',1,NULL,1,'2021-04-13 11:12:54','2021-04-13 11:12:56'),
+(10,'asdf',1,'asdfasd',1,'2021-04-14 08:59:32','2021-04-14 08:59:32');
 
 /*Table structure for table `t_procedure` */
 
@@ -403,10 +407,14 @@ CREATE TABLE `t_production` (
   `maker` varchar(100) DEFAULT NULL,
   `comment` varchar(255) DEFAULT NULL,
   `create_time` datetime DEFAULT NULL,
+  `update_time` datetime DEFAULT NULL,
   PRIMARY KEY (`production_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 /*Data for the table `t_production` */
+
+insert  into `t_production`(`production_id`,`production_no`,`contact_no`,`export_no`,`customer_id`,`order_time`,`advance_time`,`real_time`,`is_completed`,`level`,`maker`,`comment`,`create_time`,`update_time`) values 
+(1,'z200201020221',NULL,NULL,NULL,'2021-04-07 13:50:50','2021-04-14 13:50:22','2021-04-30 13:50:24',0,1,'许玉静','测试','2021-04-14 13:50:44','2021-04-14 13:50:54');
 
 /*Table structure for table `t_production_detail` */
 
@@ -423,6 +431,10 @@ CREATE TABLE `t_production_detail` (
 
 /*Data for the table `t_production_detail` */
 
+insert  into `t_production_detail`(`production_id`,`product_id`,`product_serial`,`product_num`,`product_color`,`production_desc`) values 
+(1,1,'3-1',200,'红色','工艺描述'),
+(1,2,'3-2',100,'红色','工艺描述');
+
 /*Table structure for table `t_progress` */
 
 DROP TABLE IF EXISTS `t_progress`;
@@ -433,6 +445,8 @@ CREATE TABLE `t_progress` (
   `proce_id` bigint(20) DEFAULT NULL,
   `completed_num` bigint(20) DEFAULT NULL,
   `goal_num` bigint(20) DEFAULT NULL,
+  `proce_price` float DEFAULT NULL,
+  `proce_comment` varchar(255) DEFAULT NULL,
   `create_time` datetime DEFAULT NULL,
   `finishd_time` datetime DEFAULT NULL,
   KEY `production_id` (`production_id`)
