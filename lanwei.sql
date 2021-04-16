@@ -363,9 +363,9 @@ insert  into `t_product`(`product_id`,`product_no`,`image_url`,`product_name`,`p
 (4,'lwa20210317003ERD','/upload/lwa202103170001e.jpg','毛绒方向盘','L','38内圈',1,'方向盘套',NULL,1,NULL,NULL),
 (5,'lwa20210317004ERD','/upload/lwa202103170001e.jpg','毛绒方向盘','L','38内圈',1,'方向盘套',NULL,1,NULL,NULL),
 (6,'lwa20210317005ERD','/upload/lwa202103170001e.jpg','毛绒方向盘','L','38内圈',1,'方向盘套',NULL,1,NULL,NULL),
-(7,'lwa20210317006ERD','/upload/lwa202103170001e.jpg','毛绒方向盘','L','38内圈',1,'方向盘套',NULL,1,NULL,NULL),
+(7,'lwa20210317006ERD','/upload/lwa202103170001e.jpg','毛绒方向盘','M','38内圈',1,'方向盘套',NULL,1,NULL,NULL),
 (8,'lwa20210317007ERD','/upload/lwa202103170001e.jpg','毛绒方向盘','L','38内圈',1,'方向盘套',NULL,1,NULL,NULL),
-(9,'lwa20210317009ERD','/upload/lwa202103170001e.jpg','毛绒方向盘','L','38内圈',1,'方向盘套',NULL,1,NULL,NULL),
+(9,'lwa20210317009ERD','/upload/lwa202103170001e.jpg','毛绒方向盘','X','38内圈',1,'方向盘套',NULL,1,NULL,NULL),
 (10,'lwa20210317010ERD','/upload/lwa202103170001e.jpg','毛绒方向盘','L','38内圈',1,'方向盘套',NULL,1,NULL,NULL),
 (11,'lwa20210317011ERD','/upload/lwa202103170001e.jpg','毛绒方向盘','L','38内圈',1,'方向盘套',NULL,1,NULL,NULL);
 
