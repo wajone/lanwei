@@ -23,14 +23,14 @@
     <body style="background: #fff;">
         <div class="layui-fluid">
             <div class="layui-row">
-                <form class="layui-form" id="deptform">
+                <form class="layui-form" id="production_form">
                     <h2 style="text-align: center; margin-bottom: 20px; font-weight: bold">生产计划表</h2>
                   <div class="layui-form-item">
-                        <label for="createTime" class="layui-form-label">
+                        <label for="orderTime" class="layui-form-label">
                             <span class="x-red">*</span>下单时间
                         </label>
                         <div class="layui-input-inline">
-                            <input type="text" id="createTime" name="createTime" required="" lay-verify="required"
+                            <input type="text" id="orderTime" name="orderTime" required="" lay-verify="required"
                                    autocomplete="off" class="layui-input">
                         </div>
                       <label for="contactNo" class="layui-form-label">
@@ -50,11 +50,11 @@
                           <input type="text" id="advanceTime" name="advanceTime" required="" lay-verify="required"
                           autocomplete="off" class="layui-input">
                       </div>
-                      <label for="goodNum" class="layui-form-label">
+                      <label for="exportNo" class="layui-form-label">
                           <span class="x-red">*</span>外销编号
                       </label>
                       <div class="layui-input-inline">
-                          <input type="text" id="goodNum" name="goodNum" required="" lay-verify="required"
+                          <input type="text" id="exportNo" name="exportNo" required="" lay-verify="required"
                                  autocomplete="off" class="layui-input">
                       </div>
 
@@ -68,11 +68,11 @@
                           autocomplete="off" class="layui-input">
                       </div>
 
-                      <label for="goodName" class="layui-form-label">
+                      <label for="productionNo" class="layui-form-label">
                           <span class="x-red">*</span>生产单号
                       </label>
                       <div class="layui-input-inline">
-                          <input type="text" id="goodName" name="goodName" required="" lay-verify="required"
+                          <input type="text" id="productionNo" name="productionNo" required="" lay-verify="required"
                                  autocomplete="off" class="layui-input">
                       </div>
                   </div>
@@ -90,8 +90,7 @@
                           备注
                       </label>
                       <div class="layui-input-inline">
-                          <input type="text" id="comment" name="goodName" required="" lay-verify="required"
-                                 autocomplete="off" class="layui-input">
+                          <input type="text" id="comment" name="comment" autocomplete="off" class="layui-input">
                       </div>
                     </div>
                   <div style="padding-left: 30px; padding-right: 30px;">
@@ -117,7 +116,7 @@
                                       <td><span class="numberClass"></span></td>
                                       <td>
                                           <div class="layui-input-inline">
-                                              <select name="productId[]" lay-filter="productId" lay-verify="required" lay-search="">
+                                              <select class="productId" name="productId[]" lay-filter="productId" lay-verify="required" lay-search="">
                                                   <option value="">直接选择或搜索选择</option>
                                                   <option th:each="product : ${products.list}" th:value="${product.productId}" th:text="${product.productNo}">直接选择或搜索选择</option>
                                               </select>
@@ -133,7 +132,7 @@
                                       </td>
                                       <td>
                                           <div class="layui-input-inline" style="width: 80px;">
-                                              <input type="text" name="productSize[]" placeholder="" autocomplete="off" class="layui-input">
+                                              <input type="text" name="productSize[]" placeholder="" autocomplete="off" disabled class="layui-input">
                                           </div>
                                       </td>
                                       <td>
@@ -176,6 +175,7 @@
                                   <div class="grid-demo grid-demo-bg1">
                                       <h3>制单人</h3>
                                       <p>干伟江</p>
+                                      <input type="hidden" name="maker" value="干伟江">
                                   </div>
                               </div>
                               <div class="layui-col-xs6">
@@ -264,7 +264,7 @@
                     elem: '#date1'
                 });
                 laydate.render({
-                    elem: '#createTime'
+                    elem: '#orderTime'
                 });
                 laydate.render({
                     elem: '#advanceTime'
@@ -272,7 +272,6 @@
                 laydate.render({
                     elem: '#realTime'
                 });
-
 
                 //自定义验证规则
                 form.verify({
@@ -291,7 +290,6 @@
                 });
 
                 //监听提交
-
                 form.on('select(productId)', function(data){
                     if (data.value == ''){
                         $(data.othis).parents("tr").find("input[name='productName[]']").val('');
@@ -315,11 +313,40 @@
                 });
 
                 form.on('submit(add)', function(data){
-                    console.log(JSON.stringify(data.field))
+                    var obj = JSON.parse(JSON.stringify(data.field));
+                    console.log(obj)
+                    var production = {};
+                    var products = [];
+
+                    for (var i=0; i<$(".numberClass").length;i++){
+                        var product = {};
+                        product['productId'] = obj['productId['+i+']'];
+                        product['productSerial'] = obj['productSerial['+i+']'];
+                        product['productNum'] = obj['productNum['+i+']'];
+                        product['productColor'] = obj['productColor['+i+']'];
+                        product['productionDesc'] = obj['productionDesc['+i+']'];
+                        console.log(product);
+                        products.push(product);
+                    }
+                    console.log(products);
+                    production.products = products;
+                    production.productionNo = obj['productionNo'];
+                    production.contactNo = obj['contactNo'];
+                    production.exportNo = obj['exportNo'];
+                    production.exportNo = obj['exportNo'];
+                    production.customerId = obj['customerId'];
+                    production.orderTime = obj['orderTime'];
+                    production.advanceTime = obj['advanceTime'];
+                    production.realTime = obj['realTime'];
+                    production.maker = obj['maker'];
+                    production.comment = obj['comment'];
+                    console.log(production)
                     $.ajax({
-                        data: '',
+                        data: JSON.stringify(production),
                         url: 'pro/add',
                         type: 'post',
+                        contentType : 'application/json;charset=utf-8',
+                        dataType: 'json',
                         success: function (res) {
                             if (res.result) {
                                 layer.alert("增加成功", {

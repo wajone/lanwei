@@ -2,7 +2,9 @@ package com.sifunit.lanwei.controller;
 
 import com.github.pagehelper.PageInfo;
 import com.sifunit.lanwei.common.Page;
+import com.sifunit.lanwei.common.SysResult;
 import com.sifunit.lanwei.domain.Customer;
+import com.sifunit.lanwei.domain.MaterialCate;
 import com.sifunit.lanwei.domain.Product;
 import com.sifunit.lanwei.domain.Unit;
 import com.sifunit.lanwei.service.ICustomerService;
@@ -50,6 +52,21 @@ public class ProductionController {
         model.addAttribute("products", products);
         model.addAttribute("units", units);
         return "production/production_add";
+    }
+
+    @RequestMapping("add")
+    @ResponseBody
+    public SysResult add(String str) {
+        System.out.println(str);
+        SysResult sysResult = new SysResult(false);
+        int count = 1;
+        if (count > 0) {
+            sysResult.setResult(true);
+            sysResult.setData("添加成功!");
+        } else {
+            sysResult.setData("添加失败!");
+        }
+        return sysResult;
     }
 
     @RequestMapping("selectProductByProductionId")
