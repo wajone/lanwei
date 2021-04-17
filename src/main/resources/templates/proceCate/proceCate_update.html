@@ -40,7 +40,7 @@
                       </label>
                       <div class="layui-input-inline">
                           <input type="text" id="deptParentName" name="parentCateName" required="" lay-verify="required"
-                          autocomplete="off" class="layui-input" readonly="true" value="总工序">
+                          autocomplete="off" class="layui-input" readonly="true" value="生产工序">
                           <input type="hidden" name="deptParentId" id="proceCateParentId" th:value="${proceCate.parentCateId}">
                           <input type="button" class="layui-btn layui-btn-primary" value="选择上级工序" onclick="selectParent();">
                       </div>
@@ -82,7 +82,7 @@
                 });
                 //异步加载部门列表
                 $.ajax({
-                    url: 'sysDept/list',
+                    url: 'scate/getProceCateTree',
                     success: function (data){
                         console.log(data);
                         layui.use('tree', function () {

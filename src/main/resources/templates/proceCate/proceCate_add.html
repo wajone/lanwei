@@ -40,7 +40,7 @@
                       </label>
                       <div class="layui-input-inline">
                           <input type="text" id="parentCateName" name="parentCateName" required="" lay-verify="required"
-                          autocomplete="off" class="layui-input" readonly="true" value="工序">
+                          autocomplete="off" class="layui-input" readonly="true" value="默认无上级工序">
                           <input type="hidden" name="parentCateId" id="parentCateId" value="1" >
                           <input type="button" class="layui-btn layui-btn-primary" value="选择上级工序" onclick="selectCate();">
                       </div>
@@ -84,13 +84,12 @@
                 $.ajax({
                     url: 'cate/getProceCateTree',
                     success: function (data){
-                        console.log(data);
                         layui.use('tree', function () {
                             var tree = layui.tree;
                             //渲染
                             var inst1 = tree.render({
                                 elem: '#proceCateTree'  //绑定元素
-                                ,data: data.data
+                                ,data: data
                                 ,click: function (obj) {
                                     console.log(obj.data)
                                     $("#parentCateName").val(obj.data.title);

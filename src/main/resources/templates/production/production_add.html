@@ -316,20 +316,20 @@
                     var obj = JSON.parse(JSON.stringify(data.field));
                     console.log(obj)
                     var production = {};
-                    var products = [];
-
+                    var productionContents = [];
+                    var json = {};
                     for (var i=0; i<$(".numberClass").length;i++){
-                        var product = {};
-                        product['productId'] = obj['productId['+i+']'];
-                        product['productSerial'] = obj['productSerial['+i+']'];
-                        product['productNum'] = obj['productNum['+i+']'];
-                        product['productColor'] = obj['productColor['+i+']'];
-                        product['productionDesc'] = obj['productionDesc['+i+']'];
-                        console.log(product);
-                        products.push(product);
+                        var productionContent = {};
+                        productionContent['productId'] = obj['productId['+i+']'];
+                        productionContent['productSerial'] = obj['productSerial['+i+']'];
+                        productionContent['productNum'] = obj['productNum['+i+']'];
+                        productionContent['productColor'] = obj['productColor['+i+']'];
+                        productionContent['productionDesc'] = obj['productionDesc['+i+']'];
+                        console.log(productionContent);
+                        productionContents.push(productionContent);
                     }
-                    console.log(products);
-                    production.products = products;
+                    console.log(productionContents);
+                    json.productionContents = productionContents;
                     production.productionNo = obj['productionNo'];
                     production.contactNo = obj['contactNo'];
                     production.exportNo = obj['exportNo'];
@@ -341,8 +341,9 @@
                     production.maker = obj['maker'];
                     production.comment = obj['comment'];
                     console.log(production)
+                    json.production = production;
                     $.ajax({
-                        data: JSON.stringify(production),
+                        data: JSON.stringify(json),
                         url: 'pro/add',
                         type: 'post',
                         contentType : 'application/json;charset=utf-8',

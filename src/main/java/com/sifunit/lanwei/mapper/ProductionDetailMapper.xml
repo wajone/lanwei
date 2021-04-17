@@ -54,7 +54,7 @@
       a.product_id,a.product_serial,a.product_num,a.product_color,a.production_desc,b.product_name,b.product_no,b.image_url,b.product_size,b.attach_info,
            b.product_cate_id,b.product_cate_name,b.product_desc
     FROM
-      t_production_detail a
+      t_production_content a
     LEFT JOIN
           t_product b
     ON
@@ -104,7 +104,7 @@
         a.product_id,b.product_no,b.image_url, b.product_name, b.product_size, b.attach_info, b.product_cate_id,
         b.product_cate_name, b.product_desc, b.flag, b.create_time, b.update_time
     FROM
-      t_production_detail a
+      t_production_content a
     LEFT JOIN
         t_product b
     ON

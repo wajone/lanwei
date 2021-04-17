@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sifunit.lanwei.mapper.ProductionContentMapper">
+  <resultMap id="BaseResultMap" type="com.sifunit.lanwei.domain.ProductionContent">
+    <constructor>
+      <idArg column="id" javaType="java.lang.Long" jdbcType="BIGINT" />
+      <arg column="production_id" javaType="java.lang.Long" jdbcType="BIGINT" />
+      <arg column="product_id" javaType="java.lang.Long" jdbcType="BIGINT" />
+      <arg column="product_serial" javaType="java.lang.String" jdbcType="CHAR" />
+      <arg column="product_num" javaType="java.lang.Long" jdbcType="BIGINT" />
+      <arg column="product_color" javaType="java.lang.String" jdbcType="CHAR" />
+      <arg column="production_desc" javaType="java.lang.String" jdbcType="VARCHAR" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, production_id, product_id, product_serial, product_num, product_color, production_desc
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_production_content
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from t_production_content
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.sifunit.lanwei.domain.ProductionContent">
+    insert into t_production_content (id, production_id, product_id, 
+      product_serial, product_num, product_color, 
+      production_desc)
+    values (#{id,jdbcType=BIGINT}, #{productionId,jdbcType=BIGINT}, #{productId,jdbcType=BIGINT}, 
+      #{productSerial,jdbcType=CHAR}, #{productNum,jdbcType=BIGINT}, #{productColor,jdbcType=CHAR}, 
+      #{productionDesc,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sifunit.lanwei.domain.ProductionContent">
+    insert into t_production_content
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="productionId != null">
+        production_id,
+      </if>
+      <if test="productId != null">
+        product_id,
+      </if>
+      <if test="productSerial != null">
+        product_serial,
+      </if>
+      <if test="productNum != null">
+        product_num,
+      </if>
+      <if test="productColor != null">
+        product_color,
+      </if>
+      <if test="productionDesc != null">
+        production_desc,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="productionId != null">
+        #{productionId,jdbcType=BIGINT},
+      </if>
+      <if test="productId != null">
+        #{productId,jdbcType=BIGINT},
+      </if>
+      <if test="productSerial != null">
+        #{productSerial,jdbcType=CHAR},
+      </if>
+      <if test="productNum != null">
+        #{productNum,jdbcType=BIGINT},
+      </if>
+      <if test="productColor != null">
+        #{productColor,jdbcType=CHAR},
+      </if>
+      <if test="productionDesc != null">
+        #{productionDesc,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sifunit.lanwei.domain.ProductionContent">
+    update t_production_content
+    <set>
+      <if test="productionId != null">
+        production_id = #{productionId,jdbcType=BIGINT},
+      </if>
+      <if test="productId != null">
+        product_id = #{productId,jdbcType=BIGINT},
+      </if>
+      <if test="productSerial != null">
+        product_serial = #{productSerial,jdbcType=CHAR},
+      </if>
+      <if test="productNum != null">
+        product_num = #{productNum,jdbcType=BIGINT},
+      </if>
+      <if test="productColor != null">
+        product_color = #{productColor,jdbcType=CHAR},
+      </if>
+      <if test="productionDesc != null">
+        production_desc = #{productionDesc,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sifunit.lanwei.domain.ProductionContent">
+    update t_production_content
+    set production_id = #{productionId,jdbcType=BIGINT},
+      product_id = #{productId,jdbcType=BIGINT},
+      product_serial = #{productSerial,jdbcType=CHAR},
+      product_num = #{productNum,jdbcType=BIGINT},
+      product_color = #{productColor,jdbcType=CHAR},
+      production_desc = #{productionDesc,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

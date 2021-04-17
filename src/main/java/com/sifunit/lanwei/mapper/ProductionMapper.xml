@@ -45,7 +45,7 @@
       #{level,jdbcType=INTEGER}, #{maker,jdbcType=VARCHAR}, #{comment,jdbcType=VARCHAR}, 
       #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.sifunit.lanwei.domain.Production">
+  <insert id="insertSelective" keyColumn="production_id" useGeneratedKeys="true" keyProperty="productionId" parameterType="com.sifunit.lanwei.domain.Production">
     insert into t_production
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="productionId != null">
@@ -84,12 +84,8 @@
       <if test="comment != null">
         comment,
       </if>
-      <if test="createTime != null">
         create_time,
-      </if>
-      <if test="updateTime != null">
         update_time,
-      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="productionId != null">
@@ -128,12 +124,7 @@
       <if test="comment != null">
         #{comment,jdbcType=VARCHAR},
       </if>
-      <if test="createTime != null">
-        #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null">
-        #{updateTime,jdbcType=TIMESTAMP},
-      </if>
+        now(),now(),
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.sifunit.lanwei.domain.Production">
