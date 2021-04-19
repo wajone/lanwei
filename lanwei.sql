@@ -36,15 +36,25 @@ DROP TABLE IF EXISTS `proce_cate`;
 CREATE TABLE `proce_cate` (
   `proce_cate_id` bigint(11) NOT NULL AUTO_INCREMENT,
   `proce_cate_name` varchar(128) DEFAULT NULL,
-  `parent_cate_id` bigint(11) DEFAULT '0',
+  `parent_cate_id` bigint(11) DEFAULT '1',
   `proce_cate_desc` varchar(255) DEFAULT NULL,
   `flag` tinyint(1) DEFAULT '1',
   `create_time` datetime DEFAULT NULL,
   `update_time` datetime DEFAULT NULL,
   PRIMARY KEY (`proce_cate_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 /*Data for the table `proce_cate` */
+
+insert  into `proce_cate`(`proce_cate_id`,`proce_cate_name`,`parent_cate_id`,`proce_cate_desc`,`flag`,`create_time`,`update_time`) values 
+(1,'生产工序',0,'生产工序',1,'2021-04-17 16:28:16','2021-04-17 16:28:18'),
+(2,'下料',1,'下料',1,'2021-04-17 16:29:58','2021-04-17 16:29:58'),
+(3,'拼缝',1,'拼缝',1,'2021-04-17 16:30:24','2021-04-17 16:30:24'),
+(4,'高频',1,'高频',1,'2021-04-19 09:03:25','2021-04-19 09:03:25'),
+(5,'套圈',1,'套圈',1,'2021-04-19 09:03:36','2021-04-19 09:03:36'),
+(6,'包圈',1,'包圈',1,'2021-04-19 09:03:44','2021-04-19 09:03:44'),
+(7,'验收',1,'验收',1,'2021-04-19 09:03:54','2021-04-19 09:03:54'),
+(8,'包装',1,'包装',1,'2021-04-19 09:04:01','2021-04-19 09:04:01');
 
 /*Table structure for table `role` */
 
@@ -84,7 +94,7 @@ CREATE TABLE `sys_dept` (
   `create_time` datetime DEFAULT NULL,
   `update_time` datetime DEFAULT NULL,
   PRIMARY KEY (`dept_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `sys_dept` */
 
@@ -121,7 +131,7 @@ CREATE TABLE `sys_org` (
   `CREATE_TIME` datetime DEFAULT NULL,
   `UPDATE_TIME` datetime DEFAULT NULL,
   PRIMARY KEY (`ORG_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `sys_org` */
 
@@ -164,7 +174,7 @@ CREATE TABLE `sys_user` (
   `CREATE_TIEM` datetime DEFAULT NULL,
   `UPDATE_TIME` datetime DEFAULT NULL,
   PRIMARY KEY (`USER_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `sys_user` */
 
@@ -204,12 +214,12 @@ CREATE TABLE `t_customer` (
   `create_time` datetime DEFAULT NULL,
   `update_time` datetime DEFAULT NULL,
   PRIMARY KEY (`customer_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 /*Data for the table `t_customer` */
 
 insert  into `t_customer`(`customer_id`,`customer_name`,`person_name`,`person_tel`,`area`,`email`,`zip_code`,`customer_desc`,`create_time`,`update_time`) values 
-(3,'CA','CA','CA','CA','CA@163.COM','CA','',NULL,NULL);
+(1,'CA','doris','15215823304','美国','doris@163.com','317200','',NULL,NULL);
 
 /*Table structure for table `t_emp` */
 
@@ -226,26 +236,9 @@ CREATE TABLE `t_emp` (
   `hiredate` datetime DEFAULT NULL,
   `update_time` datetime DEFAULT NULL,
   PRIMARY KEY (`emp_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `t_emp` */
-
-/*Table structure for table `t_good_cate` */
-
-DROP TABLE IF EXISTS `t_good_cate`;
-
-CREATE TABLE `t_good_cate` (
-  `good_cate_id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `good_cate_name` varchar(255) DEFAULT NULL,
-  `parent_cate_id` bigint(20) DEFAULT NULL,
-  `good_cate_desc` varchar(255) DEFAULT NULL,
-  `flag` tinyint(1) DEFAULT NULL,
-  `create_time` datetime DEFAULT NULL,
-  `update_time` datetime DEFAULT NULL,
-  PRIMARY KEY (`good_cate_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
-
-/*Data for the table `t_good_cate` */
 
 /*Table structure for table `t_labor` */
 
@@ -284,7 +277,7 @@ CREATE TABLE `t_material` (
   `create_time` datetime DEFAULT NULL,
   `update_time` datetime DEFAULT NULL,
   PRIMARY KEY (`material_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 /*Data for the table `t_material` */
 
@@ -304,15 +297,18 @@ CREATE TABLE `t_material_cate` (
   `create_time` datetime DEFAULT NULL,
   `update_time` datetime DEFAULT NULL,
   PRIMARY KEY (`material_cate_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 /*Data for the table `t_material_cate` */
 
 insert  into `t_material_cate`(`material_cate_id`,`material_cate_name`,`parent_cate_id`,`material_cate_desc`,`flag`,`create_time`,`update_time`) values 
-(1,'物料分类',0,'',1,'2021-04-13 11:11:00','2021-04-13 11:11:00'),
-(2,'原材料',1,'',1,'2021-04-13 11:11:07','2021-04-13 11:11:07'),
-(3,'辅料',1,NULL,1,'2021-04-13 11:12:54','2021-04-13 11:12:56'),
-(10,'asdf',1,'asdfasd',1,'2021-04-14 08:59:32','2021-04-14 08:59:32');
+(1,'物料分类',0,'物料分类',1,'2021-04-19 08:20:51','2021-04-19 08:20:54'),
+(2,'原材料',1,'原材料',1,'2021-04-19 08:21:17','2021-04-19 08:21:17'),
+(3,'辅料',1,'辅料',1,'2021-04-19 08:23:06','2021-04-19 08:23:06'),
+(4,'橡胶圈',1,'橡胶圈',1,'2021-04-19 08:23:13','2021-04-19 08:23:13'),
+(5,'印刷绣花',1,'印刷绣花',1,'2021-04-19 08:23:44','2021-04-19 08:23:44'),
+(6,'包装材料',1,'包装材料非纸箱',1,'2021-04-19 08:24:06','2021-04-19 08:24:06'),
+(7,'纸箱',1,'包装材料纸箱',1,'2021-04-19 08:24:18','2021-04-19 08:24:18');
 
 /*Table structure for table `t_procedure` */
 
@@ -322,14 +318,14 @@ CREATE TABLE `t_procedure` (
   `proce_id` bigint(11) NOT NULL AUTO_INCREMENT,
   `proce_no` varchar(255) DEFAULT NULL,
   `proce_name` varchar(20) DEFAULT NULL,
-  `proce_cate_id` bigint(11) DEFAULT '0',
+  `proce_cate_id` bigint(11) DEFAULT '1',
   `proce_cate_name` varchar(255) DEFAULT NULL,
   `proce_desc` varchar(255) DEFAULT NULL,
   `flag` tinyint(1) DEFAULT '1',
   `create_time` datetime DEFAULT NULL,
   `update_time` datetime DEFAULT NULL,
   PRIMARY KEY (`proce_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `t_procedure` */
 
@@ -352,22 +348,12 @@ CREATE TABLE `t_product` (
   `update_time` datetime DEFAULT NULL,
   PRIMARY KEY (`product_id`),
   UNIQUE KEY `UNIQUE` (`product_no`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 /*Data for the table `t_product` */
 
 insert  into `t_product`(`product_id`,`product_no`,`image_url`,`product_name`,`product_size`,`attach_info`,`product_cate_id`,`product_cate_name`,`product_desc`,`flag`,`create_time`,`update_time`) values 
-(1,'lwa20210412001NBK','/upload/lwa202103170001e.jpg','新款方向盘套','M','内圈37.5',1,'方向盘套','',1,'2021-04-12 12:35:48','2021-04-12 12:35:48'),
-(2,'lwa20210317001ERD','/upload/lwa202103170001e.jpg','毛绒方向盘','L','38内圈',1,'方向盘套','',1,'2021-04-12 13:44:01','2021-04-12 13:44:01'),
-(3,'lwa20210317002ERD','/upload/lwa202103170001e.jpg','毛绒方向盘','L','38内圈',1,'方向盘套',NULL,1,NULL,NULL),
-(4,'lwa20210317003ERD','/upload/lwa202103170001e.jpg','毛绒方向盘','L','38内圈',1,'方向盘套',NULL,1,NULL,NULL),
-(5,'lwa20210317004ERD','/upload/lwa202103170001e.jpg','毛绒方向盘','L','38内圈',1,'方向盘套',NULL,1,NULL,NULL),
-(6,'lwa20210317005ERD','/upload/lwa202103170001e.jpg','毛绒方向盘','L','38内圈',1,'方向盘套',NULL,1,NULL,NULL),
-(7,'lwa20210317006ERD','/upload/lwa202103170001e.jpg','毛绒方向盘','M','38内圈',1,'方向盘套',NULL,1,NULL,NULL),
-(8,'lwa20210317007ERD','/upload/lwa202103170001e.jpg','毛绒方向盘','L','38内圈',1,'方向盘套',NULL,1,NULL,NULL),
-(9,'lwa20210317009ERD','/upload/lwa202103170001e.jpg','毛绒方向盘','X','38内圈',1,'方向盘套',NULL,1,NULL,NULL),
-(10,'lwa20210317010ERD','/upload/lwa202103170001e.jpg','毛绒方向盘','L','38内圈',1,'方向盘套',NULL,1,NULL,NULL),
-(11,'lwa20210317011ERD','/upload/lwa202103170001e.jpg','毛绒方向盘','L','38内圈',1,'方向盘套',NULL,1,NULL,NULL);
+(1,'R-1906016BK/BL','/upload/R-1906016 BKBL.jpg','39443PW','M','38-8.2蓝色PAH冲孔加厚圈',1,'方向盘套','黑/蓝;在蓝色椭圆凝胶下方居中对齐衬一张蓝色镜面PU，上方居中对齐衬一张2*2四角菱形网眼布，四周定位（不能定在蓝色椭圆凝胶上）然后与黑色麂皮绒复合3mm海绵纱布取芯拼接，缝份5mm，并用901#蓝色高强线单压在麂皮绒复合3mm纱布上（拼缝用90#针）。与麂皮绒复合3mm海绵纱布四段拼接，缝份12mm，并用901#蓝色高强线踩双线，线距10mm。所有材料环保(铅<100PP，不含六价铬、汞、镉。)普通折边，内衬5mm普通海绵，包圈线用901#蓝色高强线。具体看工艺单：1906016',1,'2021-04-19 08:01:57','2021-04-19 08:01:57');
 
 /*Table structure for table `t_product_cate` */
 
@@ -382,12 +368,14 @@ CREATE TABLE `t_product_cate` (
   `create_time` datetime DEFAULT NULL,
   `update_time` datetime DEFAULT NULL,
   PRIMARY KEY (`product_cate_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 /*Data for the table `t_product_cate` */
 
 insert  into `t_product_cate`(`product_cate_id`,`product_cate_name`,`parent_cate_id`,`product_cate_desc`,`flag`,`create_time`,`update_time`) values 
-(1,'方向盘套',0,'方向盘套',1,'2021-04-12 12:34:17','2021-04-12 12:34:17');
+(1,'产品分类',0,'产品分类',1,'2021-04-12 12:34:17','2021-04-12 12:34:17'),
+(2,'方向盘套',1,'方向盘套',1,'2021-04-19 08:18:18','2021-04-19 08:18:18'),
+(3,'椅套',1,'椅套',1,'2021-04-19 08:18:38','2021-04-19 08:18:38');
 
 /*Table structure for table `t_production` */
 
@@ -414,26 +402,28 @@ CREATE TABLE `t_production` (
 /*Data for the table `t_production` */
 
 insert  into `t_production`(`production_id`,`production_no`,`contact_no`,`export_no`,`customer_id`,`order_time`,`advance_time`,`real_time`,`is_completed`,`level`,`maker`,`comment`,`create_time`,`update_time`) values 
-(1,'z200201020221',NULL,NULL,NULL,'2021-04-07 13:50:50','2021-04-14 13:50:22','2021-04-30 13:50:24',0,1,'许玉静','测试','2021-04-14 13:50:44','2021-04-14 13:50:54');
+(1,'Z20-12-1859EU','GB-TC-18898','600防泼水标准:ISO811:2018;PVC,提花纱布，海绵要通过Reach和阻燃（ISO3795）',1,'2021-04-19 00:00:00','2021-04-30 00:00:00','2021-04-30 00:00:00',0,2,'干伟江','备注','2021-04-19 15:45:07','2021-04-19 15:45:07');
 
-/*Table structure for table `t_production_detail` */
+/*Table structure for table `t_production_content` */
 
-DROP TABLE IF EXISTS `t_production_detail`;
+DROP TABLE IF EXISTS `t_production_content`;
 
-CREATE TABLE `t_production_detail` (
+CREATE TABLE `t_production_content` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `production_id` bigint(20) DEFAULT NULL,
   `product_id` bigint(20) DEFAULT NULL,
   `product_serial` char(5) DEFAULT NULL,
   `product_num` bigint(20) DEFAULT NULL,
   `product_color` char(6) DEFAULT NULL,
-  `production_desc` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `product_unit_id` bigint(20) DEFAULT NULL,
+  `production_desc` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
-/*Data for the table `t_production_detail` */
+/*Data for the table `t_production_content` */
 
-insert  into `t_production_detail`(`production_id`,`product_id`,`product_serial`,`product_num`,`product_color`,`production_desc`) values 
-(1,1,'3-1',200,'红色','工艺描述'),
-(1,2,'3-2',100,'红色','工艺描述');
+insert  into `t_production_content`(`id`,`production_id`,`product_id`,`product_serial`,`product_num`,`product_color`,`product_unit_id`,`production_desc`) values 
+(1,1,1,'1-1',300,'黑蓝',NULL,'在强防水黑色600D涂PU牛津布上绣花黄色VAN GUARD LOGO   绣花位置： 见工艺单 .强防水黑色600D涂PU牛津布与190g安伦布五线车拼接，缝份10mm，并在牛津布上压线。两片190g安伦布上段对接。两片强防水黑色600D涂PU牛津布直边上缝制2cm毛刺带然后部分拼接，缝份10mm。最后与成品190g安伦布五线车拼接，缝份10mm。');
 
 /*Table structure for table `t_progress` */
 
@@ -502,7 +492,7 @@ CREATE TABLE `t_unit` (
   `create_time` datetime DEFAULT NULL,
   `update_time` datetime DEFAULT NULL,
   PRIMARY KEY (`unit_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 /*Data for the table `t_unit` */
 

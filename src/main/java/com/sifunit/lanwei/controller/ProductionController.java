@@ -12,6 +12,7 @@ import com.sifunit.lanwei.service.impl.ProductionDetailService;
 import com.sifunit.lanwei.vo.ProductionDetail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -87,6 +88,9 @@ public class ProductionController {
                     return sysResult;
                 }
             }
+            sysResult.setResult(true);
+            sysResult.setData("添加生产单成功!");
+
         } else {
             sysResult.setResult(false);
             sysResult.setData("添加生产单失败!");

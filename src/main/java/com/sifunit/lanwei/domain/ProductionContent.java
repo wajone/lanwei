@@ -13,15 +13,18 @@ public class ProductionContent {
 
     private String productColor;
 
+    private Long productUnitId;
+
     private String productionDesc;
 
-    public ProductionContent(Long id, Long productionId, Long productId, String productSerial, Long productNum, String productColor, String productionDesc) {
+    public ProductionContent(Long id, Long productionId, Long productId, String productSerial, Long productNum, String productColor, Long productUnitId, String productionDesc) {
         this.id = id;
         this.productionId = productionId;
         this.productId = productId;
         this.productSerial = productSerial;
         this.productNum = productNum;
         this.productColor = productColor;
+        this.productUnitId = productUnitId;
         this.productionDesc = productionDesc;
     }
 
@@ -75,6 +78,14 @@ public class ProductionContent {
 
     public void setProductColor(String productColor) {
         this.productColor = productColor == null ? null : productColor.trim();
+    }
+
+    public Long getProductUnitId() {
+        return productUnitId;
+    }
+
+    public void setProductUnitId(Long productUnitId) {
+        this.productUnitId = productUnitId;
     }
 
     public String getProductionDesc() {

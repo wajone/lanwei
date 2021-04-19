@@ -24,7 +24,7 @@
         <div class="layui-fluid">
             <div class="layui-row">
                 <form class="layui-form" id="production_form">
-                    <h2 style="text-align: center; margin-bottom: 20px; font-weight: bold">生产计划表</h2>
+                  <h2 style="text-align: center; margin-bottom: 20px; font-weight: bold">生产计划表</h2>
                   <div class="layui-form-item">
                         <label for="orderTime" class="layui-form-label">
                             <span class="x-red">*</span>下单时间
@@ -39,6 +39,14 @@
                       <div class="layui-input-inline">
                           <input type="text" id="contactNo" name="contactNo" required="" lay-verify="required"
                                  autocomplete="off" class="layui-input">
+                      </div>
+
+                      <label for="level" class="layui-form-label">
+                          <span class="x-red">*</span>紧急程度
+                      </label>
+                      <div class="layui-input-inline">
+                          <div id="levelStar" style="margin-top: -5px;"></div>
+                          <input type="hidden" id="level" name="level" autocomplete="off" class="layui-input" value="1">
                       </div>
 
                     </div>
@@ -250,11 +258,22 @@
         </script>
 
         <script>
-            layui.use(['form', 'layedit', 'laydate', 'jquery'], function(){
+            layui.use(['form', 'layedit', 'laydate', 'jquery', 'rate'], function(){
                 var form = layui.form
                     ,layer = layui.layer
                     ,$ = layui.jquery
+                    ,rate = layui.rate
                     ,laydate = layui.laydate;
+
+                rate.render({
+                    elem: '#levelStar'
+                    ,value: 1 //初始值
+                    ,length: 3
+                    ,text: true //开启文本
+                    ,choose: function(value){
+                        $("#level").val(value);
+                    }
+                });
 
                 //日期
                 laydate.render({
@@ -328,7 +347,7 @@
                         console.log(productionContent);
                         productionContents.push(productionContent);
                     }
-                    console.log(productionContents);
+
                     json.productionContents = productionContents;
                     production.productionNo = obj['productionNo'];
                     production.contactNo = obj['contactNo'];
@@ -340,7 +359,7 @@
                     production.realTime = obj['realTime'];
                     production.maker = obj['maker'];
                     production.comment = obj['comment'];
-                    console.log(production)
+                    production.level = obj['level'];
                     json.production = production;
                     $.ajax({
                         data: JSON.stringify(json),
