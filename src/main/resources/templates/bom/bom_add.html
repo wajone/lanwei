@@ -170,8 +170,8 @@
               </div>
                       <div id="procedure" style="display: none">
                           <!--工序内容 -->
-                          <div class="layui-form-item">
-                              <table class="layui-table mytable" lay-skin="line" style="text-align: center;">
+                          <div class="layui-form-item" style="overflow-x: scroll;">
+                              <table class="layui-table production_table" lay-skin="line" style="text-align: center;">
                                   <thead>
                                   <tr>
                                       <th>序号</th>
@@ -199,9 +199,21 @@
                                               <input type="text" name="proceName[]" placeholder="" autocomplete="off" class="layui-input">
                                           </div>
                                       </td>
-                                      <td style="width: 100px;"><input type="text" name="procePrice[]" placeholder="" autocomplete="off" class="layui-input"></td>
-                                      <td style="width: 100px;"><input type="text" name="goalNum[]" placeholder="" autocomplete="off" class="layui-input"></td>
-                                      <td><input type="text" name="comment[]" placeholder="" autocomplete="off" class="layui-input"></td>
+                                      <td>
+                                          <div class="layui-input-inline" style="width: 80px;">
+                                              <input type="text" name="procePrice[]" placeholder="" autocomplete="off" class="layui-input">
+                                          </div>
+                                      </td>
+                                      <td>
+                                          <div class="layui-input-inline" style="width: 80px;">
+                                              <input type="text" name="goalNum[]" placeholder="" autocomplete="off" class="layui-input">
+                                          </div>
+                                      </td>
+                                      <td>
+                                          <div class="layui-input-inline">
+                                              <input type="text" name="comment[]" placeholder="" autocomplete="off" class="layui-input">
+                                          </div>
+                                      </td>
                                       <td><a title="删除" disabled onclick="member_del(this,'要删除的id')" href="javascript:;">
                                           <i class="layui-icon">&#xe640;</i>删除
                                       </a></td>
