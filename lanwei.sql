@@ -402,7 +402,7 @@ CREATE TABLE `t_production` (
 /*Data for the table `t_production` */
 
 insert  into `t_production`(`production_id`,`production_no`,`contact_no`,`export_no`,`customer_id`,`order_time`,`advance_time`,`real_time`,`is_completed`,`level`,`maker`,`comment`,`create_time`,`update_time`) values 
-(1,'Z20-12-1859EU','GB-TC-18898','600防泼水标准:ISO811:2018;PVC,提花纱布，海绵要通过Reach和阻燃（ISO3795）',1,'2021-04-19 00:00:00','2021-04-30 00:00:00','2021-04-30 00:00:00',0,2,'干伟江','备注','2021-04-19 15:45:07','2021-04-19 15:45:07');
+(1,'zzzzz','zzz','zzzzzzzzz',1,'2021-04-20 00:00:00','2021-04-29 00:00:00','2021-04-29 00:00:00',0,2,'干伟江','asdf','2021-04-20 12:27:28','2021-04-20 12:27:28');
 
 /*Table structure for table `t_production_content` */
 
@@ -423,7 +423,7 @@ CREATE TABLE `t_production_content` (
 /*Data for the table `t_production_content` */
 
 insert  into `t_production_content`(`id`,`production_id`,`product_id`,`product_serial`,`product_num`,`product_color`,`product_unit_id`,`production_desc`) values 
-(1,1,1,'1-1',300,'黑蓝',NULL,'在强防水黑色600D涂PU牛津布上绣花黄色VAN GUARD LOGO   绣花位置： 见工艺单 .强防水黑色600D涂PU牛津布与190g安伦布五线车拼接，缝份10mm，并在牛津布上压线。两片190g安伦布上段对接。两片强防水黑色600D涂PU牛津布直边上缝制2cm毛刺带然后部分拼接，缝份10mm。最后与成品190g安伦布五线车拼接，缝份10mm。');
+(1,1,1,'1-1',1111,'asf',1,'123123');
 
 /*Table structure for table `t_progress` */
 
@@ -497,9 +497,9 @@ CREATE TABLE `t_unit` (
 /*Data for the table `t_unit` */
 
 insert  into `t_unit`(`unit_id`,`unit_name`,`unit_desc`,`create_time`,`update_time`) values 
-(5,'个','数量单位','2021-04-12 12:32:22','2021-04-12 12:32:22'),
-(6,'米','长度单位','2021-04-12 12:32:31','2021-04-12 12:32:31'),
-(7,'公斤','重量单位','2021-04-12 12:32:42','2021-04-12 12:32:42');
+(1,'个','数量单位','2021-04-12 12:32:22','2021-04-12 12:32:22'),
+(2,'米','长度单位','2021-04-12 12:32:31','2021-04-12 12:32:31'),
+(3,'公斤','重量单位','2021-04-12 12:32:42','2021-04-12 12:32:42');
 
 /*Table structure for table `user` */
 
