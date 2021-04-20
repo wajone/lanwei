@@ -119,4 +119,9 @@ public class ProductServiceImpl extends BaseServiceImpl<Product> implements IPro
         PageInfo<Product> pageInfo = new PageInfo<>(list);
         return pageInfo;
     }
+
+    @Override
+    public com.sifunit.lanwei.pojo.Product selectById(Long productId) {
+        return productMapper.selectById(productId);
+    }
 }

@@ -17,4 +17,6 @@ public interface IProductService extends IBaseService<Product> {
     SysResult delById(Long productId);
 
     PageInfo<Product> listProducts();
+
+    com.sifunit.lanwei.pojo.Product selectById(Long productId);
 }

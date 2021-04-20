@@ -84,8 +84,7 @@ public class ProductController {
 
     @RequestMapping("selectById")
     @ResponseBody
-    public Product selectById(Long productId) {
-
-        return productService.selectByPrimaryKey(productId);
+    public com.sifunit.lanwei.pojo.Product selectById(Long productId) {
+        return productService.selectById(productId);
     }
 }

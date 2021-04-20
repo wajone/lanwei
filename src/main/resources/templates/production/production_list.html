@@ -58,7 +58,7 @@
                                         <div class="layui-card-header" style="background: #efeef0">
                                             <div style="float: left">生产单号：[[${production.productionNo}]]</div>
                                             <div style="float: right;">
-                                                紧急程度：<div id="level" style="height: 42px;line-height: 42px;margin-top: -25px;"></div>
+                                                紧急程度：<span th:text="${production.level}"></span>星
                                             </div>
                                         </div>
                                         <div class="layui-card-body">

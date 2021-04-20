@@ -11,4 +11,6 @@ public interface ProductMapper extends IBaseMapper<Product> {
     List<Product> list();
 
     int getCountByNo(String productNo);
+
+    com.sifunit.lanwei.pojo.Product selectById(Long productId);
 }

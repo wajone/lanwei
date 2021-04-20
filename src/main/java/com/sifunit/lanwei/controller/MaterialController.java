@@ -5,8 +5,10 @@ import com.sifunit.lanwei.common.Page;
 import com.sifunit.lanwei.common.SysResult;
 import com.sifunit.lanwei.domain.Material;
 import com.sifunit.lanwei.domain.Stock;
+import com.sifunit.lanwei.domain.Unit;
 import com.sifunit.lanwei.service.IMaterialService;
 import com.sifunit.lanwei.service.IStockService;
+import com.sifunit.lanwei.service.IUnitService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,6 +24,8 @@ public class MaterialController {
 
     @Autowired
     IMaterialService materialService;
+    @Autowired
+    IUnitService unitService;
 
     @GetMapping("page")
     public String page(Page page, Model model) {
@@ -45,7 +49,9 @@ public class MaterialController {
     }
 
     @GetMapping("toAdd")
-    public String toAdd() {
+    public String toAdd(Model model) {
+        PageInfo<Unit> units = unitService.listUnits();
+        model.addAttribute("units", units);
         return "material/material_add";
     }
 

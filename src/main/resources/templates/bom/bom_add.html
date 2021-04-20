@@ -21,10 +21,14 @@
         <![endif]-->
     </head>
     <body style="background: #fff;color: #666;">
+        <div class="x-nav" style="text-align: center;">
+            <div style="display:inline-block; margin: 0 auto 20px; font-weight: 600;font-size: 18px;">BOM&工艺路线</div>
+            <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" onclick="location.reload()" title="刷新">
+                <i class="layui-icon layui-icon-refresh" style="line-height:30px"></i></a>
+        </div>
         <div class="layui-fluid">
             <div class="layui-row">
                 <form class="layui-form" id="bomform">
-                    <h2 style="text-align: center; margin-bottom: 20px; font-weight: bold">BOM&工艺路线</h2>
                     <div style="position: absolute;right: 200px;top: 55px;"><img src="images/lanwei.jpg" alt="" id="productImage" style="width: 110px;height: 110px;"></div>
                   <div class="layui-form-item">
                         <label class="layui-form-label">
@@ -66,9 +70,8 @@
                           <span class="x-red">*</span>单位
                       </label>
                       <div class="layui-input-inline">
-                          <select name="productUnitId" id="">
-                              <option th:each="unit : ${units.list}" th:value="${unit.unitId}" th:text="${unit.unitName}">单位</option>
-                          </select>
+                          <input type="text" id="productUnitName" placeholder="请输入" name="productUnitName" required="" lay-verify="required"
+                                 autocomplete="off" class="layui-input" disabled>
                       </div>
                     </div>
 
@@ -76,7 +79,7 @@
                       <div>
                           <h3 style="margin-bottom: 10px">物料清单</h3>
                       </div>
-                      <div class="layui-form-item"  style="border: 1px solid #009688;border-radius: 5px;">
+                      <div class="layui-form-item"  style="border: 1px solid #009688;border-radius: 5px; overflow-x: scroll">
                           <table class="layui-table production_table" lay-skin="line" style="text-align: center;">
                               <thead class="top-head">
                               <tr>
@@ -102,20 +105,38 @@
                                           </select>
                                       </div>
                                   </td>
-                                  <td  style="width: 100px;">
-                                      <div>
-                                          <input type="text" name="materialName[]" placeholder="" autocomplete="off" class="layui-input">
+                                  <td>
+                                      <div  class="layui-input-inline">
+                                          <input type="text" name="materialName[]" placeholder="" autocomplete="off" class="layui-input" disabled>
                                       </div>
                                   </td>
-                                  <td style="width: 100px;"><input type="text" name="materialSize[]" placeholder="" autocomplete="off" class="layui-input"></td>
-                                  <td style="width: 100px;"><input type="text" name="materialNum[]" placeholder="" autocomplete="off" class="layui-input"></td>
-                                  <td style="width: 100px;">
-                                      <select name="materialUnitId[]">
-                                          <option th:each="unit : ${units.list}" th:value="${unit.unitId}" th:text="${unit.unitName}">单位</option>
-                                      </select>
+                                  <td>
+                                      <div class="layui-input-inline" style="width: 80px;">
+                                          <input type="text" name="materialSize[]" placeholder="" autocomplete="off" class="layui-input" disabled>
+                                      </div>
                                   </td>
-                                  <td style="width: 100px;"><input type="text" name="stockNum[]" placeholder="" autocomplete="off" class="layui-input"></td>
-                                  <td><input type="text" name="materialComment[]" placeholder="" autocomplete="off" class="layui-input"></td>
+                                  <td>
+                                      <div class="layui-input-inline" style="width: 80px;">
+                                          <input type="text" name="materialNum[]" placeholder="" autocomplete="off" class="layui-input">
+                                      </div>
+                                  </td>
+                                  <td>
+                                      <div class="layui-input-inline" style="width: 80px;">
+                                          <select name="materialUnitId[]">
+                                              <option th:each="unit : ${units.list}" th:value="${unit.unitId}" th:text="${unit.unitName}">单位</option>
+                                          </select>
+                                      </div>
+                                  </td>
+                                  <td>
+                                      <div class="layui-input-inline" style="width: 80px;">
+                                          <input type="text" name="stockNum[]" placeholder="" autocomplete="off" class="layui-input">
+                                      </div>
+                                  </td>
+                                  <td>
+                                      <div class="layui-input-inline">
+                                          <input type="text" name="materialComment[]" placeholder="" autocomplete="off" class="layui-input">
+                                      </div>
+                                  </td>
                                   <td><a title="删除" disabled onclick="member_del(this,'要删除的id')" href="javascript:;">
                                       <i class="layui-icon">&#xe640;</i>删除
                                   </a></td>
@@ -165,7 +186,7 @@
                                   <tbody>
                                   <tr class="procetr">
                                       <td><span class="proceNumber">1</span></td>
-                                      <td  style="width: 120px;">
+                                      <td>
                                           <div class="layui-input-inline">
                                               <select class="flow-default" name="proceId[]" lay-filter="proceId" lay-verify="required" lay-search="">
                                                   <option value="">直接选择或搜索选择</option>
@@ -173,8 +194,8 @@
                                               </select>
                                           </div>
                                       </td>
-                                      <td  style="width: 120px;">
-                                          <div>
+                                      <td>
+                                          <div  class="layui-input-inline">
                                               <input type="text" name="proceName[]" placeholder="" autocomplete="off" class="layui-input">
                                           </div>
                                       </td>
@@ -335,6 +356,10 @@
                     console.log(data)
                     if (data.value == ''){
                         $("#productId").html("");
+                        $("#productName").val('');
+                        $("#productSize").val('');
+                        $("#productUnitName").val('');
+                        $("#productImage").attr('src', 'images/lanwei.jpg');
                         layui.form.render('select');
                         return;
                     }
@@ -363,6 +388,7 @@
                     if (data.value == ''){
                         $("#productName").val('');
                         $("#productSize").val('');
+                        $("#productUnitName").val('');
                         $("#productImage").attr('src', 'images/lanwei.jpg');
                         return;
                     }
@@ -372,8 +398,11 @@
                         data:{productId:data.value},
                         success:function(res){
                             if (res) {
+                                console.log(res);
                                 $("#productName").val(res.productName);
                                 $("#productSize").val(res.productSize);
+                                $("#productUnitName").val(res.productUnitName);
+                                console.log(res.productUnitName);
                                 if (res.imageUrl !== null) {
                                     $("#productImage").attr("src", res.imageUrl);
                                 }

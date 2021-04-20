@@ -20,11 +20,15 @@
             <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
     </head>
-    <body style="background: #fff;">
+    <body style="background: #fff;color: #666;">
+        <div class="x-nav" style="text-align: center;">
+            <div style="display:inline-block; margin: 0 auto 20px; font-weight: 600;font-size: 18px;color: #666;">生产计划表</div>
+            <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" onclick="location.reload()" title="刷新">
+                <i class="layui-icon layui-icon-refresh" style="line-height:30px"></i></a>
+        </div>
         <div class="layui-fluid">
             <div class="layui-row">
                 <form class="layui-form" id="production_form">
-                  <h2 style="text-align: center; margin-bottom: 20px; font-weight: bold">生产计划表</h2>
                   <div class="layui-form-item">
                         <label for="orderTime" class="layui-form-label">
                             <span class="x-red">*</span>下单时间
@@ -155,7 +159,7 @@
                                       </td>
                                       <td>
                                           <div class="layui-input-inline" style="width: 80px;">
-                                              <select name="unitId[]" id="">
+                                              <select name="productUnitId[]" id="">
                                                   <option th:each="unit : ${units.list}" th:value="${unit.unitId}" th:text="${unit.unitName}">单位</option>
                                               </select>
                                           </div>
@@ -343,6 +347,7 @@
                         productionContent['productSerial'] = obj['productSerial['+i+']'];
                         productionContent['productNum'] = obj['productNum['+i+']'];
                         productionContent['productColor'] = obj['productColor['+i+']'];
+                        productionContent['productUnitId'] = obj['productUnitId['+i+']'];
                         productionContent['productionDesc'] = obj['productionDesc['+i+']'];
                         console.log(productionContent);
                         productionContents.push(productionContent);

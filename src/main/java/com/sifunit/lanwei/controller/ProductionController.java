@@ -6,13 +6,16 @@ import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageInfo;
 import com.sifunit.lanwei.common.Page;
 import com.sifunit.lanwei.common.SysResult;
-import com.sifunit.lanwei.domain.*;
+import com.sifunit.lanwei.domain.Customer;
+import com.sifunit.lanwei.domain.Production;
+import com.sifunit.lanwei.domain.ProductionContent;
+import com.sifunit.lanwei.domain.Unit;
+import com.sifunit.lanwei.domain.Product;
 import com.sifunit.lanwei.service.*;
 import com.sifunit.lanwei.service.impl.ProductionDetailService;
 import com.sifunit.lanwei.vo.ProductionDetail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -42,7 +45,6 @@ public class ProductionController {
     @GetMapping("page")
     public String list(Page page, Model model) {
         PageInfo<ProductionDetail> pageInfo = productionDetailService.getPageInfo(page, model);
-        System.out.println(pageInfo.getList());
         model.addAttribute("pageInfo", pageInfo);
         return "production/production_list";
     }
@@ -52,7 +54,6 @@ public class ProductionController {
         PageInfo<Customer> customers = customerService.listCustomers();
         PageInfo<Unit> units = unitService.listUnits();
         PageInfo<Product> products = productService.listProducts();
-
         model.addAttribute("customers", customers);
         model.addAttribute("products", products);
         model.addAttribute("units", units);
@@ -63,7 +64,6 @@ public class ProductionController {
     @ResponseBody
     public SysResult add(@RequestBody String  json) {
         SysResult sysResult = new SysResult();
-        System.out.println(json);
         JSONObject jsonObject = JSON.parseObject(json);
         Production production = jsonObject.getObject("production", Production.class);
         List<ProductionContent> productionContents = new LinkedList<>();
@@ -71,7 +71,6 @@ public class ProductionController {
         for (int i = 0 ; i < jsonArray.size();i++){
             // 取出当前的节点并且赋值给 jsonObject
             JSONObject jsobj = jsonArray.getJSONObject(i);
-            System.out.println(jsobj.toJSONString());
             ProductionContent productionContent = jsobj.toJavaObject(ProductionContent.class);
             productionContents.add(productionContent);
         }
@@ -101,8 +100,7 @@ public class ProductionController {
 
     @RequestMapping("selectProductByProductionId")
     @ResponseBody
-    public List<Product> selectById(Long productionId){
-        System.out.println(productionId);
+    public List<Product> selectProductByProductionId(Long productionId){
         List<Product> products = productionDetailService.selectProductByProductionId(productionId);
         for (Product product : products) {
             System.out.println(product.getProductId());

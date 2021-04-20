@@ -177,4 +177,38 @@
   <select id="getCountByNo" resultType="Integer">
     select count(*) from t_product where product_no = #{productNo} and flag = 1
   </select>
+
+  <resultMap id="productMap" type="com.sifunit.lanwei.pojo.Product">
+    <result column="product_id" property="productId" />
+    <result column="product_no" property="productNo" />
+    <result column="image_url" property="imageUrl" />
+    <result column="product_name" property="productName" />
+    <result column="product_size" property="productSize" />
+    <result column="attach_info" property="attachInfo" />
+    <result column="product_cate_id" property="productCateId" />
+    <result column="product_cate_name" property="productCateName" />
+    <result column="product_desc" property="productDesc" />
+    <result column="unit_name" property="productUnitName" />
+    <result column="flag" property="flag" />
+    <result column="create_time" property="createTime" />
+    <result column="update_time" property="updateTime" />
+  </resultMap>
+  <select id="selectById" resultMap="productMap">
+    SELECT
+      a.product_id,b.product_no,b.image_url, b.product_name, b.product_size, b.attach_info, b.product_cate_id,
+      b.product_cate_name, b.product_desc, b.flag, b.create_time, b.update_time,c.unit_name
+    FROM
+      t_production_content a
+    LEFT JOIN
+      t_product b
+    ON
+        a.product_id = b.product_id
+    LEFT JOIN
+        t_unit c
+    ON
+        c.unit_id = a.product_unit_id
+    WHERE
+      a.production_id = #{productionId}
+
+  </select>
 </mapper>
