@@ -20,6 +20,10 @@ public class Material {
 
     private String materialCateName;
 
+    private Long materialUnitId;
+
+    private String materialUnitName;
+
     private String materialDesc;
 
     private String materialSize;

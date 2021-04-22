@@ -29,4 +29,9 @@ public class StockServiceImpl extends BaseServiceImpl<Stock> implements IStockSe
         PageInfo<Stock> pageInfo = new PageInfo<>(list);
         return pageInfo;
     }
+
+    @Override
+    public Long getStockNumByNo(String materialNo) {
+        return stockMapper.getStockNumByNo(materialNo);
+    }
 }

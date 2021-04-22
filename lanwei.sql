@@ -267,22 +267,25 @@ DROP TABLE IF EXISTS `t_material`;
 
 CREATE TABLE `t_material` (
   `material_id` bigint(11) NOT NULL AUTO_INCREMENT,
-  `material_no` varchar(100) DEFAULT NULL,
-  `material_name` varchar(128) DEFAULT NULL,
+  `material_no` varchar(50) DEFAULT NULL,
+  `material_name` varchar(100) DEFAULT NULL,
   `material_cate_id` bigint(11) DEFAULT NULL,
   `material_cate_name` varchar(255) DEFAULT NULL,
+  `material_unit_id` bigint(20) DEFAULT NULL,
+  `material_unit_name` varchar(100) DEFAULT NULL,
   `material_desc` varchar(255) DEFAULT NULL,
   `material_size` char(10) DEFAULT NULL,
   `flag` tinyint(1) DEFAULT '1',
   `create_time` datetime DEFAULT NULL,
   `update_time` datetime DEFAULT NULL,
-  PRIMARY KEY (`material_id`)
+  PRIMARY KEY (`material_id`),
+  UNIQUE KEY `UNIQUE` (`material_no`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 /*Data for the table `t_material` */
 
-insert  into `t_material`(`material_id`,`material_no`,`material_name`,`material_cate_id`,`material_cate_name`,`material_desc`,`material_size`,`flag`,`create_time`,`update_time`) values 
-(1,'LWY20210413001A','皮革PU',2,'原材料','','3*5',1,'2021-04-13 11:14:02','2021-04-13 11:14:02');
+insert  into `t_material`(`material_id`,`material_no`,`material_name`,`material_cate_id`,`material_cate_name`,`material_unit_id`,`material_unit_name`,`material_desc`,`material_size`,`flag`,`create_time`,`update_time`) values 
+(1,'adsfa','sasdf',5,'印刷绣花',1,'个','asdf','asdf',1,'2021-04-21 20:30:27','2021-04-21 20:30:27');
 
 /*Table structure for table `t_material_cate` */
 
@@ -477,9 +480,50 @@ CREATE TABLE `t_stock` (
   `create_time` datetime DEFAULT NULL,
   `update_time` datetime DEFAULT NULL,
   PRIMARY KEY (`stock_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 /*Data for the table `t_stock` */
+
+insert  into `t_stock`(`stock_id`,`material_no`,`material_name`,`material_cate_id`,`material_cate_name`,`stock_num`,`unit_id`,`unit_name`,`create_time`,`update_time`) values 
+(1,'adsfa',NULL,NULL,NULL,100,NULL,NULL,NULL,NULL);
+
+/*Table structure for table `t_supplier` */
+
+DROP TABLE IF EXISTS `t_supplier`;
+
+CREATE TABLE `t_supplier` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `supplier_no` varchar(50) DEFAULT NULL,
+  `supplier_name` varchar(100) DEFAULT NULL,
+  `supplier_cate_id` bigint(20) DEFAULT NULL,
+  `supplier_cate_name` varchar(100) DEFAULT NULL,
+  `bank_name` varchar(100) DEFAULT NULL,
+  `bank_no` varchar(20) DEFAULT NULL,
+  `supplier_desc` varchar(255) DEFAULT NULL,
+  `create_time` datetime DEFAULT NULL,
+  `update_time` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+/*Data for the table `t_supplier` */
+
+/*Table structure for table `t_supplier_cate` */
+
+DROP TABLE IF EXISTS `t_supplier_cate`;
+
+CREATE TABLE `t_supplier_cate` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `supplier_cate_no` varchar(50) DEFAULT NULL,
+  `supplier_cate_name` varchar(100) DEFAULT NULL,
+  `parent_cate_id` bigint(20) DEFAULT NULL,
+  `parent_cate_name` varchar(100) DEFAULT NULL,
+  `supplier_cate_desc` varchar(255) DEFAULT NULL,
+  `create_time` datetime DEFAULT NULL,
+  `update_time` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+/*Data for the table `t_supplier_cate` */
 
 /*Table structure for table `t_unit` */
 

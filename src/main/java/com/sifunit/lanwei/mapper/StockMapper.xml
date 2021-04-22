@@ -157,4 +157,9 @@
     <include refid="Base_Column_List" />
     from t_stock
   </select>
+  <select id="getStockNumByNo" resultType="java.lang.Long">
+    select stock_num
+    from t_stock
+    where material_no = #{materialNo}
+  </select>
 </mapper>

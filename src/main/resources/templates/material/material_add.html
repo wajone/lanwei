@@ -51,10 +51,11 @@
                             <span class="x-red">*</span>计量单位
                         </label>
                         <div class="layui-input-inline">
-                            <select name="materialUnitId">
+                            <select name="materialUnitId" lay-filter="unit">
+                                <option value="0" checked>选择计量单位</option>
                                 <option th:each="unit : ${units.list}" th:value="${unit.unitId}" th:text="${unit.unitName}">单位</option>
                             </select>
-                            <input type="hidden" value="">
+                            <input type="hidden" id="materialUnitName" name="materialUnitName" value="无">
                         </div>
                         <div class="layui-form-mid layui-word-aux">
                             <span class="x-red">*</span>请选择计量单位
@@ -112,7 +113,7 @@
             //点击事件
             function selectCate() {
                 //弹窗
-                layer.open({
+                var index = layer.open({
                     title: '物料分类',
                     type: 1,
                     content: $('#treeContainer'),
@@ -131,10 +132,9 @@
                                 elem: '#cateTree'  //绑定元素
                                 ,data: data.data
                                 ,click: function (obj) {
-                                    console.log(obj.data)
                                     $("#materialCateName").val(obj.data.title);
-                                    console.log(obj);
                                     $("#materialCateId").val(obj.data.id);
+                                    layer.close(index);
                                 }
                             });
 
@@ -164,6 +164,15 @@
                             return '两次密码不一致';
                         }
                     }
+                });
+
+                form.on('select(unit)', function(data){
+                    //这里做自己想做的事情
+                    console.log(data.elem); //得到select原始DOM对象
+                    console.log(data.value); //得到被选中的值
+                    console.log(data.othis); //得到美化后的DOM对象
+                    $("#materialUnitName").val($(data.elem).find("option:selected").text());
+                    //最后再渲柒一次
                 });
 
                 //监听提交

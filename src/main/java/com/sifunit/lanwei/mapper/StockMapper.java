@@ -8,4 +8,6 @@ import java.util.List;
 @Mapper
 public interface StockMapper extends IBaseMapper<Stock> {
     List<Stock> list();
+
+    Long getStockNumByNo(String materialNo);
 }

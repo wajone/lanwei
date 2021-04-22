@@ -122,14 +122,12 @@
                                   </td>
                                   <td>
                                       <div class="layui-input-inline" style="width: 80px;">
-                                          <select name="materialUnitId[]">
-                                              <option th:each="unit : ${units.list}" th:value="${unit.unitId}" th:text="${unit.unitName}">单位</option>
-                                          </select>
+                                          <input type="text" name="materialUnitName[]" placeholder="" autocomplete="off" class="layui-input" disabled>
                                       </div>
                                   </td>
                                   <td>
                                       <div class="layui-input-inline" style="width: 80px;">
-                                          <input type="text" name="stockNum[]" placeholder="" autocomplete="off" class="layui-input">
+                                          <input type="text" name="stockNum[]" placeholder="" autocomplete="off" class="layui-input" disabled>
                                       </div>
                                   </td>
                                   <td>
@@ -171,7 +169,7 @@
                       <div id="procedure" style="display: none">
                           <!--工序内容 -->
                           <div class="layui-form-item" style="overflow-x: scroll;">
-                              <table class="layui-table production_table1" lay-skin="line" style="text-align: center;">
+                              <table class="layui-table production_table" lay-skin="line" style="text-align: center;">
                                   <thead>
                                   <tr>
                                       <th>序号</th>
@@ -414,7 +412,6 @@
                                 $("#productName").val(res.productName);
                                 $("#productSize").val(res.productSize);
                                 $("#productUnitName").val(res.productUnitName);
-                                console.log(res.productUnitName);
                                 if (res.imageUrl !== null) {
                                     $("#productImage").attr("src", res.imageUrl);
                                 }
@@ -428,6 +425,8 @@
                         $(data.othis).parents("tr").find("input[name='materialName[]']").val('');
                         $(data.othis).parents("tr").find("input[name='materialNo[]']").val('');
                         $(data.othis).parents("tr").find("input[name='materialSize[]']").val('');
+                        $(data.othis).parents("tr").find("input[name='materialUnitName[]']").val('');
+                        $(data.othis).parents("tr").find("input[name='stockNum[]']").val('');
                         return;
                     }
                     $.ajax({
@@ -435,11 +434,13 @@
                         url:'material/selectById',
                         data:{materialId:data.value},
                         success:function(res){
-
+                            console.log(res);
                             if (res) {
-                                $(data.othis).parents("tr").find("input[name='materialName[]']").val(res.materialName);
-                                $(data.othis).parents("tr").find("input[name='materialNo[]']").val(res.materialNo);
-                                $(data.othis).parents("tr").find("input[name='materialSize[]']").val(res.materialSize);
+                                $(data.othis).parents("tr").find("input[name='materialName[]']").val(res.material.materialName);
+                                $(data.othis).parents("tr").find("input[name='materialNo[]']").val(res.material.materialNo);
+                                $(data.othis).parents("tr").find("input[name='materialSize[]']").val(res.material.materialSize);
+                                $(data.othis).parents("tr").find("input[name='materialUnitName[]']").val(res.material.materialUnitName);
+                                $(data.othis).parents("tr").find("input[name='stockNum[]']").val(res.stockNum);
                             }
                         },
                     });

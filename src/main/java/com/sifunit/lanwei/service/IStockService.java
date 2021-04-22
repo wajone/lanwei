@@ -7,4 +7,6 @@ import org.springframework.ui.Model;
 
 public interface IStockService extends IBaseService<Stock> {
     PageInfo<Stock> getPage(Page page, Model model);
+
+    Long getStockNumByNo(String materialNo);
 }

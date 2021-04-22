@@ -60,6 +60,7 @@
                             <th>物料编码</th>
                             <th>物料名称</th>
                             <th>所属分类</th>
+                            <th>计量单位</th>
                             <th>尺寸信息</th>
                             <th>物料描述</th>
                             <th>创建时间</th>
@@ -74,6 +75,7 @@
                             <td th:text="${material.materialNo}"></td>
                             <td th:text="${material.materialName}"></td>
                             <td th:text="${material.materialCateName}"></td>
+                            <td th:text="${material.materialUnitName}"></td>
                             <td th:text="${material.materialSize}"></td>
                             <td th:text="${material.materialDesc}"></td>
                             <td th:text="${#dates.format(material.createTime,'yyyy-MM-dd HH:mm')}">createTime</td>

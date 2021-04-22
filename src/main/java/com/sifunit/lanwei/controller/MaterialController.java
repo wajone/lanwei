@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("material")
@@ -26,6 +28,8 @@ public class MaterialController {
     IMaterialService materialService;
     @Autowired
     IUnitService unitService;
+    @Autowired
+    IStockService stockService;
 
     @GetMapping("page")
     public String page(Page page, Model model) {
@@ -92,7 +96,12 @@ public class MaterialController {
 
     @RequestMapping("selectById")
     @ResponseBody
-    public Material selectById(Long materialId) {
-        return materialService.selectByPrimaryKey(materialId);
+    public Map<String, Object> selectById(Long materialId) {
+        Map<String, Object> map = new HashMap<>();
+        Material material =  materialService.selectByPrimaryKey(materialId);
+        Long stockNum = stockService.getStockNumByNo(material.getMaterialNo());
+        map.put("material", material);
+        map.put("stockNum", stockNum);
+        return map;
     }
 }
