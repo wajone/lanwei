@@ -21,9 +21,12 @@ USE `oa_2021`;
 DROP TABLE IF EXISTS `perm`;
 
 CREATE TABLE `perm` (
-  `perm_id` int(32) NOT NULL COMMENT '权限主键',
+  `perm_id` int(32) NOT NULL AUTO_INCREMENT COMMENT '权限主键',
   `perm_url` varchar(255) COLLATE utf8_bin DEFAULT NULL COMMENT '权限url',
+  `status` tinyint(4) DEFAULT NULL,
   `perm_description` varchar(255) COLLATE utf8_bin DEFAULT NULL COMMENT '权限描述',
+  `create_time` datetime DEFAULT NULL,
+  `update_time` datetime DEFAULT NULL,
   PRIMARY KEY (`perm_id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin ROW_FORMAT=DYNAMIC;
 
@@ -61,21 +64,30 @@ insert  into `proce_cate`(`proce_cate_id`,`proce_cate_name`,`parent_cate_id`,`pr
 DROP TABLE IF EXISTS `role`;
 
 CREATE TABLE `role` (
-  `role_id` int(32) NOT NULL COMMENT '角色主键',
+  `role_id` int(32) NOT NULL AUTO_INCREMENT COMMENT '角色主键',
   `role_name` varchar(255) COLLATE utf8_bin DEFAULT NULL COMMENT '角色名',
+  `status` tinyint(4) DEFAULT NULL,
   `role_description` varchar(255) COLLATE utf8_bin DEFAULT NULL COMMENT '角色描述',
+  `create_time` datetime DEFAULT NULL,
+  `update_time` datetime DEFAULT NULL,
   PRIMARY KEY (`role_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_bin ROW_FORMAT=DYNAMIC;
 
 /*Data for the table `role` */
+
+insert  into `role`(`role_id`,`role_name`,`status`,`role_description`,`create_time`,`update_time`) values 
+(1,'管理员',NULL,'至高无上',NULL,NULL);
 
 /*Table structure for table `role_perm` */
 
 DROP TABLE IF EXISTS `role_perm`;
 
 CREATE TABLE `role_perm` (
-  `role_id` int(32) NOT NULL COMMENT '角色主键',
-  `perm_id` int(32) DEFAULT NULL COMMENT '权限主键'
+  `r_p_id` int(11) NOT NULL AUTO_INCREMENT,
+  `role_id` int(32) DEFAULT NULL COMMENT '角色主键',
+  `perm_id` int(32) DEFAULT NULL COMMENT '权限主键',
+  `create_time` datetime DEFAULT NULL,
+  PRIMARY KEY (`r_p_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin ROW_FORMAT=DYNAMIC;
 
 /*Data for the table `role_perm` */
@@ -280,12 +292,9 @@ CREATE TABLE `t_material` (
   `update_time` datetime DEFAULT NULL,
   PRIMARY KEY (`material_id`),
   UNIQUE KEY `UNIQUE` (`material_no`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `t_material` */
-
-insert  into `t_material`(`material_id`,`material_no`,`material_name`,`material_cate_id`,`material_cate_name`,`material_unit_id`,`material_unit_name`,`material_desc`,`material_size`,`flag`,`create_time`,`update_time`) values 
-(1,'adsfa','sasdf',5,'印刷绣花',1,'个','asdf','asdf',1,'2021-04-21 20:30:27','2021-04-21 20:30:27');
 
 /*Table structure for table `t_material_cate` */
 
@@ -356,7 +365,7 @@ CREATE TABLE `t_product` (
 /*Data for the table `t_product` */
 
 insert  into `t_product`(`product_id`,`product_no`,`image_url`,`product_name`,`product_size`,`attach_info`,`product_cate_id`,`product_cate_name`,`product_desc`,`flag`,`create_time`,`update_time`) values 
-(1,'R-1906016BK/BL','/upload/R-1906016 BKBL.jpg','39443PW','M','38-8.2蓝色PAH冲孔加厚圈',1,'方向盘套','黑/蓝;在蓝色椭圆凝胶下方居中对齐衬一张蓝色镜面PU，上方居中对齐衬一张2*2四角菱形网眼布，四周定位（不能定在蓝色椭圆凝胶上）然后与黑色麂皮绒复合3mm海绵纱布取芯拼接，缝份5mm，并用901#蓝色高强线单压在麂皮绒复合3mm纱布上（拼缝用90#针）。与麂皮绒复合3mm海绵纱布四段拼接，缝份12mm，并用901#蓝色高强线踩双线，线距10mm。所有材料环保(铅<100PP，不含六价铬、汞、镉。)普通折边，内衬5mm普通海绵，包圈线用901#蓝色高强线。具体看工艺单：1906016',1,'2021-04-19 08:01:57','2021-04-19 08:01:57');
+(1,'R-1906016BK/BL','/upload/R-1906016 BKBL.jpg','39443PW','M','38-8.2蓝色PAH冲孔加厚圈',1,'方向盘套','黑/蓝;具体看工艺单：1906016黑/蓝;具体看工艺单：1906016黑/蓝;具体看工艺单：1906016黑/蓝;具体看工艺单：1906016黑/蓝;具体看工艺单：1906016黑/蓝;具体看工艺单：1906016黑/蓝;具体看工艺单：1906016黑/蓝;具体看工艺单：1906016黑/蓝;具体看工艺单：1906016黑/蓝;具体看工艺单：1906016黑/蓝;具体看工艺单：1906016黑/蓝;具体看工艺单：1906016',1,'2021-04-19 08:01:57','2021-04-19 08:01:57');
 
 /*Table structure for table `t_product_cate` */
 
@@ -550,16 +559,19 @@ insert  into `t_unit`(`unit_id`,`unit_name`,`unit_desc`,`create_time`,`update_ti
 DROP TABLE IF EXISTS `user`;
 
 CREATE TABLE `user` (
-  `user_id` int(32) NOT NULL COMMENT '用户主键',
+  `user_id` int(32) NOT NULL AUTO_INCREMENT COMMENT '用户主键',
   `username` varchar(255) COLLATE utf8_bin DEFAULT NULL COMMENT '用户名',
   `password` varchar(255) COLLATE utf8_bin DEFAULT NULL COMMENT '密码（存储加密后的密码）',
+  `status` tinyint(4) DEFAULT NULL,
+  `create_time` datetime DEFAULT NULL,
+  `update_time` datetime DEFAULT NULL,
   PRIMARY KEY (`user_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_bin ROW_FORMAT=DYNAMIC;
 
 /*Data for the table `user` */
 
-insert  into `user`(`user_id`,`username`,`password`) values 
-(0,'root','weijiang');
+insert  into `user`(`user_id`,`username`,`password`,`status`,`create_time`,`update_time`) values 
+(1,'root','weijiang',NULL,NULL,NULL);
 
 /*Table structure for table `user_role` */
 
@@ -571,6 +583,9 @@ CREATE TABLE `user_role` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin ROW_FORMAT=DYNAMIC;
 
 /*Data for the table `user_role` */
+
+insert  into `user_role`(`user_id`,`role_id`) values 
+(1,1);
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

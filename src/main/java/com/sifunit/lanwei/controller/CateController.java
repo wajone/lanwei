@@ -27,9 +27,9 @@ public class CateController {
 
     @RequestMapping("getProductCateTree")
     @ResponseBody
-    public Layui getProductCateTree() {
+    public List<ProductCateTree> getProductCateTree() {
         List<ProductCateTree> list = cateService.getProductCateTree();
-        return Layui.data(list.size(), list);
+        return list;
     }
 
     @RequestMapping("getMaterialCateTree")

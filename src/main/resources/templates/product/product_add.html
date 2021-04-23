@@ -73,9 +73,9 @@
                         </div>
                     </div>
                     <div class="layui-form-item">
-                        <label class="layui-form-label">产品尺寸</label>
+                        <label class="layui-form-label"><span class="x-red">*</span>产品尺寸</label>
                         <div class="layui-input-inline">
-                            <select id="productSize" name="productSize">
+                            <select id="productSize" name="productSize" lay-verify="required">
                                 <option value="N">选择产品尺寸</option>
                                 <option value="S">S</option>
                                 <option value="M">M</option>
@@ -117,7 +117,7 @@
         <script>
             function selectCate() {
                 //弹窗
-                layer.open({
+                var index = layer.open({
                     title: '产品分类',
                     type: 1,
                     content: $('#productCate'),
@@ -134,11 +134,11 @@
                             //渲染
                             var inst1 = tree.render({
                                 elem: '#productCateTree'  //绑定元素
-                                ,data: data.data
+                                ,data: data
                                 ,click: function (obj) {
                                     $("#productCateName").val(obj.data.title);
-                                    console.log(obj);
                                     $("#productCateId").val(obj.data.id);
+                                    layer.close(index);
                                 }
                             });
                         })

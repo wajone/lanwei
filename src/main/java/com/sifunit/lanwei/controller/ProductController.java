@@ -27,7 +27,7 @@ public class ProductController {
     //添加产品
     @RequestMapping("add")
     @ResponseBody
-    public SysResult goodsAdd(@RequestParam(value = "productImages", required = false) MultipartFile[] files,
+    public SysResult add(@RequestParam(value = "productImages", required = false) MultipartFile[] files,
                               @RequestParam("productName") String productName,
                               @RequestParam("productNo") String productNo,
                               @RequestParam("productSize") String productSize,

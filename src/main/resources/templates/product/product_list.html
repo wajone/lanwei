@@ -50,7 +50,7 @@
                     <button class="layui-btn layui-btn-danger" onclick="delAll(this)"><i class="layui-icon"></i>批量删除</button>
                     <button class="layui-btn" onclick="xadmin.open('添加产品','product/toAdd',650,450)"><i class="layui-icon"></i>添加产品</button>
                 </div>
-                <div class="layui-card-body">
+                <div class="layui-card-body" >
                     <table class="layui-table mytable">
                         <thead>
                         <tr>
@@ -79,7 +79,9 @@
                             <td th:text="${product.productCateName}"></td>
                             <td th:text="${product.productSize}"></td>
                             <td th:text="${product.attachInfo}"></td>
-                            <td th:text="${product.productDesc}"></td>
+                            <td>
+                                <div onclick="layer.alert($(this).text());" style="width:120px;overflow:hidden; white-space:nowrap; text-overflow:ellipsis;" th:text="${product.productDesc}"></div>
+                            </td>
                             <td th:text="${#dates.format(product.createTime,'yyyy-MM-dd HH:mm')}">createTime</td>
                             <td th:text="${#dates.format(product.updateTime,'yyyy-MM-dd HH:mm')}">updateTime</td>
                             <td>
