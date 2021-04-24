@@ -115,7 +115,7 @@
     //点击事件
     function selectCate() {
         //弹窗
-        layer.open({
+        var index = layer.open({
             title: '工序分类',
             type: 1,
             content: $('#proceCate'),
@@ -132,12 +132,13 @@
                     //渲染
                     var inst1 = tree.render({
                         elem: '#proceCateTree'  //绑定元素
-                        ,data: data.data
+                        ,data: data
                         ,click: function (obj) {
                             console.log(obj.data)
                             $("#proceCateName").val(obj.data.title);
                             console.log(obj);
                             $("#proceCateId").val(obj.data.id);
+                            layer.close(index);
                         }
                     });
                 })

@@ -89,7 +89,7 @@
                                   <th><span class="x-red">*</span>物料规格</th>
                                   <th><span class="x-red">*</span>数量</th>
                                   <th><span class="x-red">*</span>单位</th>
-                                  <th><span class="x-red">*</span>库存量</th>
+                                  <th>库存量</th>
                                   <th>备注</th>
                                   <th>操作</th>
                               </tr>
@@ -160,7 +160,7 @@
                                       <span class="x-red">*</span>组装工价
                                   </label>
                                   <div class="layui-input-inline">
-                                      <input type="text" id="productPrice" placeholder="0.00" name="productPrice" required="" lay-verify="required"
+                                      <input type="text" id="productPrice" placeholder="0.00" name="productPrice"
                                              autocomplete="off" class="layui-input">
                                   </div>
                               </div>
@@ -325,6 +325,7 @@
                     ,laydate = layui.laydate
                     ,flow = layui.flow
                     ,element = layui.element;
+                var hasProce = false;
 
                 //日期
                 laydate.render({
@@ -355,9 +356,11 @@
                     if(data.value == 1 ) {
                         $("#procedure").css('display','block');
                         $("#priceDive").css('display','none');
+                        hasProce = true;
                     } else {
                         $("#procedure").css('display','none');
                         $("#priceDive").css('display','block');
+                        hasProce = false;
                     }
 
                 })
@@ -448,7 +451,37 @@
 
                 //监听提交
                 form.on('submit(add)', function(data){
-                    console.log(data)
+                    var obj = JSON.parse(JSON.stringify(data.field));
+                    console.log(obj);
+                    var proces = [];
+                    var materials = [];
+                    var json = {};
+                    for (var i=0; i<$(".numberClass").length;i++){
+                        var material = {};
+                        material.productId = obj['productId'];
+                        material.materialId = obj['materialId['+i+']'];
+                        material.materialNum = obj['materialNum['+i+']'];
+                        material.maker = obj['maker['+i+']'];
+                        material.materialComment = obj['materialComment['+i+']'];
+                        materials.push(material);
+                    }
+                    json.materials = materials;
+                    if (hasProce) {
+                        var proce = {};
+                        for (var i=0; i<$(".proceNumber").length;i++){
+                            var proce = {};
+                            proce.productionId = obj['productionId'];
+                            proce.productId = obj['productId'];
+                            proce.proceId = obj['proceId['+i+']'];
+                            proce.completeNum = obj['completeNum['+i+']'];
+                            proce.goalNum = obj['goalNum['+i+']'];
+                            proce.procePrice = obj['procePrice['+i+']'];
+                            proce.proceComment = obj['proceComment['+i+']'];
+                            proces.push(proce);
+                        }
+                    }
+                    json.proces = proces;
+                    console.log(json);
                     $.ajax({
                         data: 'bomform',
                         url: 'bom/add',
