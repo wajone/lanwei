@@ -6,8 +6,11 @@ import com.sifunit.lanwei.common.SysResult;
 import com.sifunit.lanwei.domain.Bom;
 import org.springframework.ui.Model;
 
-public interface IBomService extends IBaseService<Bom> {
-    PageInfo<Bom> getPage(Page page, Model model);
+import java.util.List;
 
-    SysResult delById(Long laborId);
+public interface IBomService extends IBaseService<Bom> {
+
+    int insertBoms(List<Bom> boms);
+
+    PageInfo<Bom> getPageInfo(Page page, Model model);
 }

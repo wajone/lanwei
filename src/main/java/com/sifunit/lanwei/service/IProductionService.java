@@ -10,4 +10,5 @@ public interface IProductionService extends IBaseService<Production> {
     PageInfo<Production> getPageInfo(Page page, Model model);
 
     PageInfo<Production> listproductions();
+
 }

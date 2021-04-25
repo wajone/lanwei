@@ -198,9 +198,7 @@ CREATE TABLE `t_bom` (
   `bom_id` bigint(20) NOT NULL AUTO_INCREMENT,
   `product_id` bigint(20) DEFAULT NULL,
   `material_id` bigint(20) DEFAULT NULL,
-  `product_unit_id` bigint(20) DEFAULT NULL,
   `material_num` bigint(20) DEFAULT NULL,
-  `material_unit_id` bigint(20) DEFAULT NULL,
   `maker` varchar(50) DEFAULT NULL,
   `material_comment` varchar(255) DEFAULT NULL,
   `create_time` datetime DEFAULT NULL,
@@ -292,9 +290,12 @@ CREATE TABLE `t_material` (
   `update_time` datetime DEFAULT NULL,
   PRIMARY KEY (`material_id`),
   UNIQUE KEY `UNIQUE` (`material_no`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 /*Data for the table `t_material` */
+
+insert  into `t_material`(`material_id`,`material_no`,`material_name`,`material_cate_id`,`material_cate_name`,`material_unit_id`,`material_unit_name`,`material_desc`,`material_size`,`flag`,`create_time`,`update_time`) values 
+(1,'wl20001aa','asdfasdf',2,'原材料',2,'米','asdf','asdfsdf',1,'2021-04-25 15:49:23','2021-04-25 15:49:23');
 
 /*Table structure for table `t_material_cate` */
 
@@ -337,9 +338,12 @@ CREATE TABLE `t_procedure` (
   `create_time` datetime DEFAULT NULL,
   `update_time` datetime DEFAULT NULL,
   PRIMARY KEY (`proce_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 /*Data for the table `t_procedure` */
+
+insert  into `t_procedure`(`proce_id`,`proce_no`,`proce_name`,`proce_cate_id`,`proce_cate_name`,`proce_desc`,`flag`,`create_time`,`update_time`) values 
+(1,'GX20210425001','asdf',2,'下料','asdfsadf',1,'2021-04-25 15:49:42','2021-04-25 15:49:42');
 
 /*Table structure for table `t_product` */
 
@@ -442,6 +446,7 @@ insert  into `t_production_content`(`id`,`production_id`,`product_id`,`product_s
 DROP TABLE IF EXISTS `t_progress`;
 
 CREATE TABLE `t_progress` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `production_id` bigint(20) DEFAULT NULL,
   `product_id` bigint(20) DEFAULT NULL,
   `proce_id` bigint(20) DEFAULT NULL,
@@ -451,6 +456,7 @@ CREATE TABLE `t_progress` (
   `proce_comment` varchar(255) DEFAULT NULL,
   `create_time` datetime DEFAULT NULL,
   `finishd_time` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
   KEY `production_id` (`production_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

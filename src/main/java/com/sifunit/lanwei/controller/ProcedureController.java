@@ -3,6 +3,7 @@ package com.sifunit.lanwei.controller;
 import com.github.pagehelper.PageInfo;
 import com.sifunit.lanwei.common.Page;
 import com.sifunit.lanwei.common.SysResult;
+import com.sifunit.lanwei.domain.Material;
 import com.sifunit.lanwei.domain.ProceCate;
 import com.sifunit.lanwei.domain.Procedure;
 import com.sifunit.lanwei.service.IProcedureService;
@@ -12,6 +13,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 @RequestMapping("proce")
@@ -49,5 +53,12 @@ public class ProcedureController {
     public SysResult delById(Long id) {
         SysResult sysResult = procedureService.delById(id);
         return sysResult;
+    }
+
+    @RequestMapping("selectById")
+    @ResponseBody
+    public Procedure selectById(Long proceId) {
+        Procedure procedure =  procedureService.selectByPrimaryKey(proceId);
+        return procedure;
     }
 }

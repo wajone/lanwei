@@ -209,7 +209,7 @@
                                       </td>
                                       <td>
                                           <div class="layui-input-inline">
-                                              <input type="text" name="comment[]" placeholder="" autocomplete="off" class="layui-input">
+                                              <input type="text" name="proceComment[]" placeholder="" autocomplete="off" class="layui-input">
                                           </div>
                                       </td>
                                       <td><a title="删除" disabled onclick="member_del(this,'要删除的id')" href="javascript:;">
@@ -231,7 +231,7 @@
                                   <div class="grid-demo grid-demo-bg1">
                                       <h3>制单人</h3>
                                       <p>干伟江</p>
-                                      <input type="hidden" name="maker" value="干伟江">
+                                      <input type="hidden" id="maker" name="maker" value="干伟江">
                                   </div>
                               </div>
                               <div class="layui-col-xs6">
@@ -449,23 +449,41 @@
                     });
                 });
 
+                form.on('select(proceId)', function(data){
+                    if (data.value == ''){
+                        $(data.othis).parents("tr").find("input[name='proceName[]']").val('');
+                        return;
+                    }
+                    $.ajax({
+                        type:'post',
+                        url:'proce/selectById',
+                        data:{proceId:data.value},
+                        success:function(res){
+                            console.log(res);
+                            if (res) {
+                                $(data.othis).parents("tr").find("input[name='proceName[]']").val(res.proceName);
+                            }
+                        },
+                    });
+                });
                 //监听提交
                 form.on('submit(add)', function(data){
                     var obj = JSON.parse(JSON.stringify(data.field));
                     console.log(obj);
                     var proces = [];
-                    var materials = [];
-                    var json = {};
+                    var boms = [];
+                    var bomjson = {};
                     for (var i=0; i<$(".numberClass").length;i++){
-                        var material = {};
-                        material.productId = obj['productId'];
-                        material.materialId = obj['materialId['+i+']'];
-                        material.materialNum = obj['materialNum['+i+']'];
-                        material.maker = obj['maker['+i+']'];
-                        material.materialComment = obj['materialComment['+i+']'];
-                        materials.push(material);
+                        var bom = {};
+                        bom.productId = obj['productId'];
+                        bom.materialId = obj['materialId['+i+']'];
+                        bom.materialNum = obj['materialNum['+i+']'];
+                        bom.maker = obj['maker'];
+                        bom.materialComment = obj['materialComment['+i+']'];
+                        boms.push(material);
                     }
-                    json.materials = materials;
+                    bomjson.boms = boms;
+                    bomjson.hasProce = hasProce;
                     if (hasProce) {
                         var proce = {};
                         for (var i=0; i<$(".proceNumber").length;i++){
@@ -473,19 +491,24 @@
                             proce.productionId = obj['productionId'];
                             proce.productId = obj['productId'];
                             proce.proceId = obj['proceId['+i+']'];
-                            proce.completeNum = obj['completeNum['+i+']'];
                             proce.goalNum = obj['goalNum['+i+']'];
                             proce.procePrice = obj['procePrice['+i+']'];
                             proce.proceComment = obj['proceComment['+i+']'];
                             proces.push(proce);
                         }
+                        bomjson.proces = proces;
+                    } else {
+                        var productPrice = obj.productPrice;
+                        bomjson.productPrice = productPrice;
                     }
-                    json.proces = proces;
-                    console.log(json);
+
+                    console.log(bomjson);
                     $.ajax({
-                        data: 'bomform',
+                        data: JSON.stringify(bomjson),
                         url: 'bom/add',
                         type: 'post',
+                        contentType : 'application/json;charset=utf-8',
+                        dataType: 'json',
                         success: function (res) {
                             if (res.result) {
                                 layer.alert("增加成功", {

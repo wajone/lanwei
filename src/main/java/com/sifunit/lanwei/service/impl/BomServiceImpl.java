@@ -5,7 +5,7 @@ import com.github.pagehelper.PageInfo;
 import com.sifunit.lanwei.common.Page;
 import com.sifunit.lanwei.common.SysResult;
 import com.sifunit.lanwei.domain.Bom;
-import com.sifunit.lanwei.domain.Labor;
+import com.sifunit.lanwei.domain.Customer;
 import com.sifunit.lanwei.mapper.BomMapper;
 import com.sifunit.lanwei.mapper.IBaseMapper;
 import com.sifunit.lanwei.service.IBomService;
@@ -28,15 +28,20 @@ public class BomServiceImpl extends BaseServiceImpl<Bom> implements IBomService 
     }
 
     @Override
-    public PageInfo<Bom> getPage(Page page, Model model) {
+    public int insertBoms(List<Bom> boms) {
+        for (Bom bom : boms) {
+            if (bomMapper.insertSelective(bom) < 0) {
+                return -1;
+            }
+        }
+        return 1;
+    }
+
+    @Override
+    public PageInfo<Bom> getPageInfo(Page page, Model model) {
         PageHelper.startPage(page.getCurrentPage(), page.getPageSize());
         List<Bom> list = bomMapper.list();
         PageInfo<Bom> pageInfo = new PageInfo<>(list);
         return pageInfo;
-    }
-
-    @Override
-    public SysResult delById(Long laborId) {
-        return null;
     }
 }

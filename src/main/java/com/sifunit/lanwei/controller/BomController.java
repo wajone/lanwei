@@ -1,23 +1,31 @@
 package com.sifunit.lanwei.controller;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageInfo;
 import com.sifunit.lanwei.common.Page;
 import com.sifunit.lanwei.common.SysResult;
 import com.sifunit.lanwei.domain.*;
 import com.sifunit.lanwei.service.*;
-import com.sifunit.lanwei.service.impl.ProductionDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.LinkedList;
+import java.util.List;
 
 @Controller
 @RequestMapping("bom")
 public class BomController {
     @Autowired
     IBomService bomService;
+    @Autowired
+    IProgressService progressService;
     @Autowired
     IProductService productService;
     @Autowired
@@ -30,24 +38,45 @@ public class BomController {
     IProductionService productionService;
 
     @GetMapping("page")
-    public String page(Page page, Model model) {
-        PageInfo<Bom> pageInfo = bomService.getPage(page, model);
+    public String list(Page page, Model model) {
+        PageInfo<Bom> pageInfo = bomService.getPageInfo(page, model);
         model.addAttribute("pageInfo", pageInfo);
         return "bom/bom_list";
     }
 
+
     @RequestMapping("add")
     @ResponseBody
-    public SysResult add(Bom bom) {
+    public SysResult add(@RequestBody String  bomjson) {
         SysResult sysResult = new SysResult();
-        int count = bomService.insertSelective(bom);
-        if (count > 0) {
+        JSONObject jsonObject = JSON.parseObject(bomjson);
+        List<Bom> boms = new LinkedList<>();
+        JSONArray bomArray =  jsonObject.getJSONArray("boms");
+        for (int i = 0 ; i < bomArray.size();i++){
+            // 取出当前的节点并且赋值给 jsonObject
+            JSONObject jsobj = bomArray.getJSONObject(i);
+            Bom bom = jsobj.toJavaObject(Bom.class);
+            boms.add(bom);
+        }
+        System.out.println(boms);
+        List<Progress> progress = new LinkedList<>();
+        JSONArray progressArray =  jsonObject.getJSONArray("proces");
+        for (int i = 0 ; i < progressArray.size();i++){
+            // 取出当前的节点并且赋值给 jsonObject
+            JSONObject jsobj = progressArray.getJSONObject(i);
+            Progress pro = jsobj.toJavaObject(Progress.class);
+            progress.add(pro);
+        }
+        int bcount = bomService.insertBoms(boms);
+        int pcount = progressService.insertProress(progress);
+        if (bcount > 0 && pcount > 0) {
             sysResult.setResult(true);
             sysResult.setData("添加成功!");
         } else {
             sysResult.setResult(false);
             sysResult.setData("添加失败!");
         }
+
         return sysResult;
     }
 
@@ -86,13 +115,6 @@ public class BomController {
             sysResult.setResult(false);
             sysResult.setData("修改失败!");
         }
-        return sysResult;
-    }
-
-    @GetMapping("delById")
-    @ResponseBody
-    public SysResult delById(Long laborId) {
-        SysResult sysResult = bomService.delById(laborId);
         return sysResult;
     }
 
