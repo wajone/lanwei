@@ -323,7 +323,6 @@
                     ,layer = layui.layer
                     ,$ = layui.jquery
                     ,laydate = layui.laydate
-                    ,flow = layui.flow
                     ,element = layui.element;
                 var hasProce = false;
 
@@ -480,7 +479,7 @@
                         bom.materialNum = obj['materialNum['+i+']'];
                         bom.maker = obj['maker'];
                         bom.materialComment = obj['materialComment['+i+']'];
-                        boms.push(material);
+                        boms.push(bom);
                     }
                     bomjson.boms = boms;
                     bomjson.hasProce = hasProce;
