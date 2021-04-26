@@ -422,6 +422,7 @@
                         },
                     });
                 });
+                var materials = [];
                 form.on('select(materialId)', function(data){
                     if (data.value == ''){
                         $(data.othis).parents("tr").find("input[name='materialName[]']").val('');
@@ -431,6 +432,11 @@
                         $(data.othis).parents("tr").find("input[name='stockNum[]']").val('');
                         return;
                     }
+                    if (materials.indexOf(data.value) > -1) {
+                        layer.msg("已经存在该物料,不要重复选择!");
+                        return;
+                    }
+                    materials.push(data.value);
                     $.ajax({
                         type:'post',
                         url:'material/selectById',
@@ -448,11 +454,17 @@
                     });
                 });
 
+                var proces = [];
                 form.on('select(proceId)', function(data){
                     if (data.value == ''){
                         $(data.othis).parents("tr").find("input[name='proceName[]']").val('');
                         return;
                     }
+                    if (proces.indexOf(data.value) > -1) {
+                        layer.msg("已经存在该工序,不要重复选择!");
+                        return;
+                    }
+                    proces.push(data.value);
                     $.ajax({
                         type:'post',
                         url:'proce/selectById',

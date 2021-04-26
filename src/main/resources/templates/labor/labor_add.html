@@ -14,39 +14,66 @@
         <script type="text/javascript" src="js/xadmin.js"></script>
         <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
         <!--[if lt IE 9]>
-            <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
-            <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+        <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+        <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
     </head>
     <body>
         <div class="layui-fluid">
             <div class="layui-row">
-                <form class="layui-form" id="unitform">
+                <form class="layui-form" id="laborform">
                   <div class="layui-form-item">
-                      <label for="unitName" class="layui-form-label">
+                      <label for="productionNo" class="layui-form-label">
                           <span class="x-red">*</span>生产单号
                       </label>
                       <div class="layui-input-inline">
-                          <input type="text" id="unitName" name="unitName" required="" lay-verify="required"
+                          <input type="text" id="productionNo" name="productionNo" required="" lay-verify="required"
                           autocomplete="off" class="layui-input">
-                          <button type="button" class="layui-btn">搜索</button>
+                          <button type="button" class="layui-btn" onclick="searchProduction();">搜索</button>
                       </div>
                       <div class="layui-form-mid layui-word-aux">
                           <span class="x-red">*</span>请输入生产单号来检索
                       </div>
                   </div>
                   <div class="layui-form-item">
-                      <label for="unitDesc" class="layui-form-label">
+                      <label for="productId" class="layui-form-label">
                           <span class="x-red">*</span>选择产品
                       </label>
                       <div class="layui-input-inline">
-                          <input type="text" id="unitDesc" name="unitDesc" required="" lay-verify="required"
-                          autocomplete="off" class="layui-input">
+                          <select class="" id="productId" name="productId" lay-filter="productId" lay-verify="required">
+
+                          </select>
                       </div>
                       <div class="layui-form-mid layui-word-aux">
-                          <span class="x-red">*</span>请输入单位描述
+                          <span class="x-red">*</span>请选择产品
                       </div>
                   </div>
+                    <div class="layui-form-item">
+                        <label for="proceId" class="layui-form-label">
+                            <span class="x-red">*</span>选择工序
+                        </label>
+                        <div class="layui-input-inline">
+                            <select class="" id="proceId" name="productId" lay-filter="proceId" lay-verify="required">
+
+                            </select>
+                        </div>
+                        <div class="layui-form-mid layui-word-aux">
+                            <span class="x-red">*</span>请选择工序
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="empId" class="layui-form-label">
+                            <span class="x-red">*</span>选择员工
+                        </label>
+                        <div class="layui-input-inline">
+                            <select class="" id="empId" name="productId" lay-filter="empId" lay-verify="required">
+
+                            </select>
+                        </div>
+                        <div class="layui-form-mid layui-word-aux">
+                            <span class="x-red">*</span>请选择员工
+                        </div>
+                    </div>
                   <div class="layui-form-item">
                       <label class="layui-form-label">
                       </label>
@@ -57,13 +84,44 @@
               </form>
             </div>
         </div>
+        <script src="js/jquery.min.js"></script>
         <script>
+            function searchProduction() {
+                var productionNo = $("#productionNo").val();
+                if (productionNo == null || productionNo == undefined || productionNo == '') {
+                    $("#productId").html("");
+                    layui.form.render('select');
+                    layer.msg("你似乎好像没有输入生产单号！");
+                    return;
+                }
+                $.ajax({
+                    url: 'pro/selectProductByProductionNo',
+                    data: 'productionNo='+productionNo,
+                    success: function (res){
+                        console.log(res);
+                        if (res.length > 0) {
+                            var option = '<option value="">选择产品</option>';;
+                            for(var i=0;i<res.length;i++){
+                                //循环获取返回值，并组装成html代码
+                                option +="<option value='"+res[i].productId+"'>"+res[i].productNo+"</option>";
+                            }
+                        }else{
+                            var option = '<option value="">没有产品</option>';
+                            layer.msg('没有对应的产品！输入正确的生产单号！')
+                        }
+                        $("#productId").html(option);
+                        layui.form.render('select');
+                    },
+                })
+            }
 
+        </script>
+
+        <script>
             layui.use(['form', 'layedit', 'jquery'], function(){
                 var form = layui.form
                     ,layer = layui.layer
-                    ,$ = layui.jquery
-
+                    ,$ = layui.jquery;
 
                 //自定义验证规则
                 form.verify({
@@ -83,10 +141,9 @@
 
                 //监听提交
                 form.on('submit(add)', function(data){
-
                     $.ajax({
-                        data: $("#unitform").serialize(),
-                        url: 'unit/add',
+                        data: $("#laborform").serialize(),
+                        url: 'labor/add',
                         type: 'POST',
                         success: function (res) {
                             if (res.result) {
@@ -104,24 +161,24 @@
                                 },function () {
                                     //关闭当前frame
                                     //xadmin.close();
-
                                 })
                             }
                         }
                     })
-
                     return false;
                 });
 
             });
 
         </script>
-        <script>var _hmt = _hmt || []; (function() {
-                var hm = document.createElement("script");
-                hm.src = "https://hm.baidu.com/hm.js?b393d153aeb26b46e9431fabaf0f6190";
-                var s = document.getElementsByTagName("script")[0];
-                s.parentNode.insertBefore(hm, s);
-            })();</script>
+        <script>
+            var _hmt = _hmt || []; (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?b393d153aeb26b46e9431fabaf0f6190";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+            })();
+        </script>
 
     </body>
     <div id="productCate" style="display: none; padding: 15px;">

@@ -13,4 +13,6 @@ public interface ProductionDetailMapper extends IBaseMapper<Production> {
     List<ProductionDetail> list();
 
     List<Product> selectProductByProductionId(Long productionId);
+
+    List<Product> selectProductByProductionNo(String productionNo);
 }

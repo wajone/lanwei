@@ -27,4 +27,8 @@ public class ProductionDetailService {
     public List<Product> selectProductByProductionId(Long producitonId) {
         return productionDetailMapper.selectProductByProductionId(producitonId);
     }
+
+    public List<Product> selectProductByProductionNo(String productionNo) {
+        return productionDetailMapper.selectProductByProductionNo(productionNo);
+    }
 }

@@ -99,6 +99,7 @@
     <result column="create_time" property="createTime" />
     <result column="update_time" property="updateTime" />
   </resultMap>
+
   <select id="selectProductByProductionId" resultMap="productMap">
     SELECT
         a.product_id,b.product_no,b.image_url, b.product_name, b.product_size, b.attach_info, b.product_cate_id,
@@ -111,6 +112,23 @@
         a.product_id = b.product_id
     WHERE
         a.production_id = #{productionId}
+  </select>
 
+  <select id="selectProductByProductionNo" resultMap="productMap">
+    SELECT
+      a.product_id,b.product_no,b.image_url, b.product_name, b.product_size, b.attach_info, b.product_cate_id,
+      b.product_cate_name, b.product_desc, b.flag, b.create_time, b.update_time
+    FROM
+      t_production_content a
+        LEFT JOIN
+      t_product b
+      ON
+        a.product_id = b.product_id
+    LEFT JOIN
+          t_production c
+    ON
+        c.production_id = a.production_id
+    WHERE
+      c.production_no = #{productionNo}
   </select>
 </mapper>

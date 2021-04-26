@@ -102,9 +102,13 @@ public class ProductionController {
     @ResponseBody
     public List<Product> selectProductByProductionId(Long productionId){
         List<Product> products = productionDetailService.selectProductByProductionId(productionId);
-        for (Product product : products) {
-            System.out.println(product.getProductId());
-        }
+        return products;
+    }
+
+    @RequestMapping("selectProductByProductionNo")
+    @ResponseBody
+    public List<Product> selectProductByProductionNo(String productionNo){
+        List<Product> products = productionDetailService.selectProductByProductionNo(productionNo);
         return products;
     }
 }
